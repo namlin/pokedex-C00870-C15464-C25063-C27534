@@ -29,7 +29,50 @@
   </header>
 
   <main>
-  
+    <button type="button" command="show-modal" commandfor="team-pokemon-dialog">
+      Equipo Pokémon
+    </button>
+
+    <dialog id="team-pokemon-dialog">
+      <h2>Equipo Pokémon</h2>
+      <p>Este es tu equipo Pokémon.</p>
+
+      <section id="team-pokemon">
+        <ul class="pokemon-team__list">
+          <li class="pokemon-team__slot">
+            <img class="pokemon-team__image" src="assets/venusaur.png" alt="Venusaur" width="96" height="96">
+            <span># 001</span>
+            <button type="button">Quitar</button>
+          </li>
+          <li class="pokemon-team__slot">
+            <img class="pokemon-team__image" src="assets/charizard.png" alt="Charizard" width="96" height="96">
+            <span># 002</span>
+            <button type="button">Quitar</button>
+          </li>
+          <li class="pokemon-team__slot">
+            <img class="pokemon-team__image" src="assets/blastoise.png" alt="Blastoise" width="96" height="96">
+            <span># 003</span>
+            <button type="button">Quitar</button>
+          </li>
+          <li class="pokemon-team__slot">
+            <img class="pokemon-team__image" src="assets/pikachu.png" alt="Pikachu" width="96" height="96">
+            <span># 004</span>
+            <button type="button">Quitar</button>
+          </li>
+          <li class="pokemon-team__slot">
+            <img class="pokemon-team__image" src="assets/charmander.png" alt="Charmander" width="96" height="96">
+            <span># 005</span>
+            <button type="button">Quitar</button>
+          </li>
+          <li class="pokemon-team__slot pokemon-team__slot--empty">Espacio libre</li>
+        </ul>
+      </section>
+
+      <button type="button" command="show-modal" commandfor="add-pokemon-capture-dialog">
+        Agregar desde capturados
+      </button>
+      <button type="button" command="close" commandfor="team-pokemon-dialog">Cerrar</button>
+    </dialog>
   </main>
     
 
