@@ -79,7 +79,46 @@
       <button type="button" command="close" commandfor="team-pokemon-dialog">Cerrar</button>
     </dialog>
   
-    
+    <button type="button" command="show-modal" commandfor="open-favorite-pokemon">
+      Favoritos
+    </button>
+
+    <dialog id="open-favorite-pokemon">
+      <h2>Pokémones Favoritos</h3>
+      <p>4 Pokémones marcados como Favoritos</p>
+        <table class="favs-table">
+          <tbody>
+            <tr>
+              <td><img class=pokemon-card__image src="assets/favorite-icon.svg" alt="Favorite" width=30 height=30></img></td>
+              <td><img class=pokemon-card__image src="assets/blastoise.png" alt="Blastoise" width=30 height=30></img></td>
+              <td>"#1. Blastoise"</td>
+              <td><button type="button">Quitar de Favoritos</button></td>
+              <td><button type="button">Ver Detalle</button></td>
+            </tr>
+
+            <tr>
+              <td><img class=pokemon-card__image src="assets/favorite-icon.svg" alt="Favorite" width=30 height=30></img></td>
+              <td><img class=pokemon-card__image src="assets/bulbasaur.png" alt="Bulbasaur" width=30 height=30></img></td>
+              <td>"#2. Bulbasaur"</td>
+              <td><button type="button">Quitar de Favoritos</button></td>
+              <td><button type="button">Ver Detalle</button></td>
+            </tr>
+
+            <tr>
+              <td><img class=pokemon-card__image src="assets/favorite-icon.svg" alt="Favorite" width=30 height=30></img></td>
+              <td><img class=pokemon-card__image src="assets/charizard.png" alt="Charizard" width=30 height=30></img></td>
+              <td>"#3. Charizard"</td>
+              <td><button type="button">Quitar de Favoritos</button></td>
+              <td><button type="button">Ver Detalle</button></td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      <button type="button" command="close" commandfor="open-favorite-pokemon">Cerrar</button>
+
+    </dialog>
+
     <button type="button" command="show-modal" commandfor="open-stats">
       Estadísticas
     </button>
@@ -203,8 +242,6 @@
 
         <button type="button" command="close" commandfor="open-stats">Cerrar</button>
     </dialog>
-
-    
 
   </main>
     
