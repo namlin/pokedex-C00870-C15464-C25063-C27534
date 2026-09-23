@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <header>
+  <header>
     <p>
       <a class="logo" href="./">
         <img src="assets/logo-pokedex.svg" alt="Pokédex" width="156" height="40">
@@ -27,6 +27,41 @@
       </ul>
     </nav>
   </header>
+
+  <section class="trainer-profile">
+    <article class="trainer-card">
+
+      <figure class="trainer-avatar">
+        <img src="assets/entrenador.png" alt="Fotografía del entrenador Red" width="200" height="200" />
+      </figure>
+
+      <header class="trainer-header">
+        <h1>#0001 Red</h1>
+        <button type="button" class="btn-edit">
+          ✏️ Editar perfil
+        </button>
+      </header>
+
+      <dl class="trainer-details">
+        <dt>Edad:</dt>
+        <dd>11 años</dd>
+
+        <dt>Ciudad origen:</dt>
+        <dd>Pueblo Paleta</dd>
+
+        <dt>Altura:</dt>
+        <dd>1.50m</dd>
+      </dl>
+
+      <p class="trainer-bio">
+        <strong>Bio:</strong> Entrenador interesado especialmente en pokémon de tipo fuego y eléctrico. Le gusta
+        entrenar
+        y participar en combates Pokémon.
+      </p>
+
+    </article>
+  </section>
+
 
   <main>
     <button type="button" command="show-modal" commandfor="team-pokemon-dialog">
@@ -78,35 +113,41 @@
       </button>
       <button type="button" command="close" commandfor="team-pokemon-dialog">Cerrar</button>
     </dialog>
-  
+
     <button type="button" command="show-modal" commandfor="open-favorite-pokemon">
       Favoritos
     </button>
 
     <dialog id="open-favorite-pokemon">
       <h2>Pokémones Favoritos</h3>
-      <p>4 Pokémones marcados como Favoritos</p>
+        <p>4 Pokémones marcados como Favoritos</p>
         <table class="favs-table">
           <tbody>
             <tr>
-              <td><img class=pokemon-card__image src="assets/favorite-icon.svg" alt="Favorite" width=30 height=30></img></td>
-              <td><img class=pokemon-card__image src="assets/blastoise.png" alt="Blastoise" width=30 height=30></img></td>
+              <td><img class=pokemon-card__image src="assets/favorite-icon.svg" alt="Favorite" width=30 height=30></img>
+              </td>
+              <td><img class=pokemon-card__image src="assets/blastoise.png" alt="Blastoise" width=30 height=30></img>
+              </td>
               <td>"#1. Blastoise"</td>
               <td><button type="button">Quitar de Favoritos</button></td>
               <td><button type="button">Ver Detalle</button></td>
             </tr>
 
             <tr>
-              <td><img class=pokemon-card__image src="assets/favorite-icon.svg" alt="Favorite" width=30 height=30></img></td>
-              <td><img class=pokemon-card__image src="assets/bulbasaur.png" alt="Bulbasaur" width=30 height=30></img></td>
+              <td><img class=pokemon-card__image src="assets/favorite-icon.svg" alt="Favorite" width=30 height=30></img>
+              </td>
+              <td><img class=pokemon-card__image src="assets/bulbasaur.png" alt="Bulbasaur" width=30 height=30></img>
+              </td>
               <td>"#2. Bulbasaur"</td>
               <td><button type="button">Quitar de Favoritos</button></td>
               <td><button type="button">Ver Detalle</button></td>
             </tr>
 
             <tr>
-              <td><img class=pokemon-card__image src="assets/favorite-icon.svg" alt="Favorite" width=30 height=30></img></td>
-              <td><img class=pokemon-card__image src="assets/charizard.png" alt="Charizard" width=30 height=30></img></td>
+              <td><img class=pokemon-card__image src="assets/favorite-icon.svg" alt="Favorite" width=30 height=30></img>
+              </td>
+              <td><img class=pokemon-card__image src="assets/charizard.png" alt="Charizard" width=30 height=30></img>
+              </td>
               <td>"#3. Charizard"</td>
               <td><button type="button">Quitar de Favoritos</button></td>
               <td><button type="button">Ver Detalle</button></td>
@@ -115,7 +156,7 @@
           </tbody>
         </table>
 
-      <button type="button" command="close" commandfor="open-favorite-pokemon">Cerrar</button>
+        <button type="button" command="close" commandfor="open-favorite-pokemon">Cerrar</button>
 
     </dialog>
 
@@ -125,126 +166,192 @@
 
     <dialog id="open-stats">
       <table class="stats-table">
-          <thead>
-            <tr>
-              <th abbr="Pkm">Pokemon</th>
-              <th abbr="PS">Puntos de Salud</th>
-              <th abbr="ATQ">Ataque</th>
-              <th abbr="DEF">Defensa</th>
-              <th abbr="AT. ESP.">Ataque Especial</th>
-              <th abbr="DEF. ESP.">Defensa Especial</th>
-              <th abbr="VEL">Velocidad</th>
-              <th abbr="Total">Total</th>
-            </tr>
-          </thead>
+        <thead>
+          <tr>
+            <th abbr="Pkm">Pokemon</th>
+            <th abbr="PS">Puntos de Salud</th>
+            <th abbr="ATQ">Ataque</th>
+            <th abbr="DEF">Defensa</th>
+            <th abbr="AT. ESP.">Ataque Especial</th>
+            <th abbr="DEF. ESP.">Defensa Especial</th>
+            <th abbr="VEL">Velocidad</th>
+            <th abbr="Total">Total</th>
+          </tr>
+        </thead>
 
-          <tbody>
-            <tr>
-              <td>
-                <img class="pokemon-card__image" src="assets/squirtle.png" alt="Squirtle" width="30" height="30">
-                Squirtle
-              </td>
-              <td>44</td>
-              <td>48</td>
-              <td>65</td>
-              <td>50</td>
-              <td>64</td>
-              <td>43</td>
-              <td>314</td>
-            </tr>
-            
-            <tr>
-              <td>
-                <img class="pokemon-card__image" src="assets/pikachu.png" alt="Pikachu" width="30" height="30">
-                Pikachu
-              </td>
-              <td>35</td>
-              <td>55</td>
-              <td>40</td>
-              <td>50</td>
-              <td>50</td>
-              <td>90</td>
-              <td>320</td>
-            </tr>
+        <tbody>
+          <tr>
+            <td>
+              <img class="pokemon-card__image" src="assets/squirtle.png" alt="Squirtle" width="30" height="30">
+              Squirtle
+            </td>
+            <td>44</td>
+            <td>48</td>
+            <td>65</td>
+            <td>50</td>
+            <td>64</td>
+            <td>43</td>
+            <td>314</td>
+          </tr>
 
-            <tr>
-              <td>
-                <img class="pokemon-card__image" src="assets/charizard.png" alt="Charizard" width="30" height="30">
-                Charizard
-              </td>
-              <td>78</td>
-              <td>84</td>
-              <td>78</td>
-              <td>109</td>
-              <td>85</td>
-              <td>100</td>
-              <td>534</td>
-            </tr>
+          <tr>
+            <td>
+              <img class="pokemon-card__image" src="assets/pikachu.png" alt="Pikachu" width="30" height="30">
+              Pikachu
+            </td>
+            <td>35</td>
+            <td>55</td>
+            <td>40</td>
+            <td>50</td>
+            <td>50</td>
+            <td>90</td>
+            <td>320</td>
+          </tr>
 
-            <tr>
+          <tr>
+            <td>
+              <img class="pokemon-card__image" src="assets/charizard.png" alt="Charizard" width="30" height="30">
+              Charizard
+            </td>
+            <td>78</td>
+            <td>84</td>
+            <td>78</td>
+            <td>109</td>
+            <td>85</td>
+            <td>100</td>
+            <td>534</td>
+          </tr>
 
-              <td>
-                <img class="pokemon-card__image" src="assets/venusaur.png" alt="Venusaur" width="30" height="30"> 
-                Venusaur
-              </td>
-              <td>80</td>
-              <td>82</td>
-              <td>83</td>
-              <td>100</td>
-              <td>100</td>
-              <td>90</td>
-              <td>525</td>
-            </tr>
+          <tr>
 
-            <tr>
-              <td>
-                <img class="pokemon-card__image" src="assets/charmeleon.png" alt="Charmeleon" width="30" height="30">
-                Charmeleon
-              </td>
-              <td>58</td>
-              <td>64</td>
-              <td>58</td>
-              <td>80</td>
-              <td>65</td>
-              <td>80</td>
-              <td>405</td>
-            </tr>
+            <td>
+              <img class="pokemon-card__image" src="assets/venusaur.png" alt="Venusaur" width="30" height="30">
+              Venusaur
+            </td>
+            <td>80</td>
+            <td>82</td>
+            <td>83</td>
+            <td>100</td>
+            <td>100</td>
+            <td>90</td>
+            <td>525</td>
+          </tr>
 
-            <tr>
-              <td>
-                <img class="pokemon-card__image" src="assets/wartortle.png" alt="Wartortle" width="30" height="30">
-                Wartortle
-              </td>
-              <td>59</td>
-              <td>63</td>
-              <td>60</td>
-              <td>65</td>
-              <td>80</td>
-              <td>58</td>
-              <td>405</td>
-            </tr>
-          </tbody>
+          <tr>
+            <td>
+              <img class="pokemon-card__image" src="assets/charmeleon.png" alt="Charmeleon" width="30" height="30">
+              Charmeleon
+            </td>
+            <td>58</td>
+            <td>64</td>
+            <td>58</td>
+            <td>80</td>
+            <td>65</td>
+            <td>80</td>
+            <td>405</td>
+          </tr>
 
-          <tfoot>
-            <tr class="stats-table__total">
-              <td>Promedio</td>
-              <td>59</td>
-              <td>66</td>
-              <td>64</td>
-              <td>76</td>
-              <td>74</td>
-              <td>77</td>
-              <td>417</td>
-            </tr>
-          </tfoot>
+          <tr>
+            <td>
+              <img class="pokemon-card__image" src="assets/wartortle.png" alt="Wartortle" width="30" height="30">
+              Wartortle
+            </td>
+            <td>59</td>
+            <td>63</td>
+            <td>60</td>
+            <td>65</td>
+            <td>80</td>
+            <td>58</td>
+            <td>405</td>
+          </tr>
+        </tbody>
 
-        </table>
+        <tfoot>
+          <tr class="stats-table__total">
+            <td>Promedio</td>
+            <td>59</td>
+            <td>66</td>
+            <td>64</td>
+            <td>76</td>
+            <td>74</td>
+            <td>77</td>
+            <td>417</td>
+          </tr>
+        </tfoot>
 
-        <button type="button" command="close" commandfor="open-stats">Cerrar</button>
+      </table>
+
+      <button type="button" command="close" commandfor="open-stats">Cerrar</button>
+    </dialog>
+
+    <button type="button" command="show-modal" commandfor="add-pokemon-capture-dialog">
+      Pokémon capturados
+    </button>
+
+    <dialog id="add-pokemon-capture-dialog">
+      <h2>Pokémon capturados</h2>
+      <button type="button" command="close" commandfor="add-pokemon-capture-dialog">Cerrar</button>
+
+      <p>Seleccioná los que querés en tu equipo o marcalos como favoritos</p>
+
+
+      <form role="search">
+        <label for="search-pokemon">Buscar por nombre</label>
+        <input type="search" id="search-pokemon" placeholder="Buscar por nombre">
+
+        <label for="filter-type">Tipo</label>
+        <select id="filter-type">
+          <option value="">Todos los tipos</option>
+          <option value="fuego">Fuego</option>
+          <option value="agua">Agua</option>
+          <option value="planta">Planta</option>
+        </select>
+
+        <button type="submit">Buscar</button>
+      </form>
+
+
+      <section id="captured-pokemon">
+        <ul class="pokemon-captured__list">
+          <li class="pokemon-captured__slot">
+            <label>
+              <input type="checkbox" name="selected-pokemon" value="001">
+              <img class="pokemon-captured__image" src="assets/bulbasaur.png" alt="Bulbasaur" width="96" height="96">
+              <span class="pokemon-captured__number">#001</span>
+              <span class="pokemon-captured__name">Bulbasaur</span>
+            </label>
+          </li>
+
+          <li class="pokemon-captured__slot">
+            <label>
+              <input type="checkbox" name="selected-pokemon" value="002">
+              <img class="pokemon-captured__image" src="assets/ivysaur.png" alt="Ivysaur" width="96" height="96">
+              <span class="pokemon-captured__number">#002</span>
+              <span class="pokemon-captured__name">Ivysaur</span>
+            </label>
+          </li>
+
+          <li class="pokemon-captured__slot">
+            <label>
+              <input type="checkbox" name="selected-pokemon" value="003">
+              <img class="pokemon-captured__image" src="assets/venusaur.png" alt="Venusaur" width="96" height="96">
+              <span class="pokemon-captured__number">#003</span>
+              <span class="pokemon-captured__name">Venusaur</span>
+            </label>
+          </li>
+        </ul>
+        <p>Mostrando 3 de 24 capturados</p>
+      </section>
+
+      <footer>
+        <p><strong>3 de 6 seleccionados</strong></p>
+        <button type="button">Marcar favorito</button>
+        <button type="button">Agregar al equipo</button>
+      </footer>
     </dialog>
 
   </main>
-    
+
 
   <footer>
     <p><small>Proyecto académico del curso Desarrollo de Aplicaciones Web
