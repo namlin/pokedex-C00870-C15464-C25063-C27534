@@ -9,8 +9,7 @@
 | Geiner Montoya Barrientos | C25063 |
 
 ## Perfil de entrenador
-Este es un ejemplo de la dirección URI que debería de apreciarse a la hora de ver el perfil de entrenador
-http://puertoXXX/perfil-entrenador.html
+- https://namlin.github.io/pokedex-C00870-C15464-C25063-C27534/
 
 ## Puntos extras
-Diálogo de Pokémon capturados (wireframe 07)
+- Diálogo de Pokémon capturados (wireframe 07)
