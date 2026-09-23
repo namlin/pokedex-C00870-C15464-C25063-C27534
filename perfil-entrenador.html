@@ -29,7 +29,183 @@
   </header>
 
   <main>
+    <button type="button" command="show-modal" commandfor="team-pokemon-dialog">
+      Equipo Pokémon
+    </button>
+
+    <dialog id="team-pokemon-dialog">
+      <h2>Equipo Pokémon</h2>
+      <p>Este es tu equipo Pokémon.</p>
+
+      <section id="team-pokemon">
+        <ul class="pokemon-team__list">
+          <li class="pokemon-team__slot">
+            <img class="pokemon-team__image" src="assets/venusaur.png" alt="Venusaur" width="96" height="96">
+            <span class="pokemon-team__number"># 001</span>
+            <span class="pokemon-team__name">Venusaur</span>
+            <button type="button">Quitar</button>
+          </li>
+          <li class="pokemon-team__slot">
+            <img class="pokemon-team__image" src="assets/charizard.png" alt="Charizard" width="96" height="96">
+            <span class="pokemon-team__number"># 002</span>
+            <span class="pokemon-team__name">Charizard</span>
+            <button type="button">Quitar</button>
+          </li>
+          <li class="pokemon-team__slot">
+            <img class="pokemon-team__image" src="assets/blastoise.png" alt="Blastoise" width="96" height="96">
+            <span class="pokemon-team__number"># 003</span>
+            <span class="pokemon-team__name">Blastoise</span>
+            <button type="button">Quitar</button>
+          </li>
+          <li class="pokemon-team__slot">
+            <img class="pokemon-team__image" src="assets/pikachu.png" alt="Pikachu" width="96" height="96">
+            <span class="pokemon-team__number"># 004</span>
+            <span class="pokemon-team__name">Pikachu</span>
+            <button type="button">Quitar</button>
+          </li>
+          <li class="pokemon-team__slot">
+            <img class="pokemon-team__image" src="assets/charmander.png" alt="Charmander" width="96" height="96">
+            <span class="pokemon-team__number"># 005</span>
+            <span class="pokemon-team__name">Charmander</span>
+            <button type="button">Quitar</button>
+          </li>
+          <li class="pokemon-team__slot pokemon-team__slot--empty">Espacio libre</li>
+        </ul>
+      </section>
+
+      <button type="button" command="show-modal" commandfor="add-pokemon-capture-dialog">
+        Agregar desde capturados
+      </button>
+      <button type="button" command="close" commandfor="team-pokemon-dialog">Cerrar</button>
+    </dialog>
   
+    
+    <button type="button" command="show-modal" commandfor="open-stats">
+      Estadísticas
+    </button>
+
+    <dialog id="open-stats">
+      <table class="stats-table">
+          <thead>
+            <tr>
+              <th abbr="Pkm">Pokemon</th>
+              <th abbr="PS">Puntos de Salud</th>
+              <th abbr="ATQ">Ataque</th>
+              <th abbr="DEF">Defensa</th>
+              <th abbr="AT. ESP.">Ataque Especial</th>
+              <th abbr="DEF. ESP.">Defensa Especial</th>
+              <th abbr="VEL">Velocidad</th>
+              <th abbr="Total">Total</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>
+                <img class="pokemon-card__image" src="assets/squirtle.png" alt="Squirtle" width="30" height="30">
+                Squirtle
+              </td>
+              <td>44</td>
+              <td>48</td>
+              <td>65</td>
+              <td>50</td>
+              <td>64</td>
+              <td>43</td>
+              <td>314</td>
+            </tr>
+            
+            <tr>
+              <td>
+                <img class="pokemon-card__image" src="assets/pikachu.png" alt="Pikachu" width="30" height="30">
+                Pikachu
+              </td>
+              <td>35</td>
+              <td>55</td>
+              <td>40</td>
+              <td>50</td>
+              <td>50</td>
+              <td>90</td>
+              <td>320</td>
+            </tr>
+
+            <tr>
+              <td>
+                <img class="pokemon-card__image" src="assets/charizard.png" alt="Charizard" width="30" height="30">
+                Charizard
+              </td>
+              <td>78</td>
+              <td>84</td>
+              <td>78</td>
+              <td>109</td>
+              <td>85</td>
+              <td>100</td>
+              <td>534</td>
+            </tr>
+
+            <tr>
+
+              <td>
+                <img class="pokemon-card__image" src="assets/venusaur.png" alt="Venusaur" width="30" height="30"> 
+                Venusaur
+              </td>
+              <td>80</td>
+              <td>82</td>
+              <td>83</td>
+              <td>100</td>
+              <td>100</td>
+              <td>90</td>
+              <td>525</td>
+            </tr>
+
+            <tr>
+              <td>
+                <img class="pokemon-card__image" src="assets/charmeleon.png" alt="Charmeleon" width="30" height="30">
+                Charmeleon
+              </td>
+              <td>58</td>
+              <td>64</td>
+              <td>58</td>
+              <td>80</td>
+              <td>65</td>
+              <td>80</td>
+              <td>405</td>
+            </tr>
+
+            <tr>
+              <td>
+                <img class="pokemon-card__image" src="assets/wartortle.png" alt="Wartortle" width="30" height="30">
+                Wartortle
+              </td>
+              <td>59</td>
+              <td>63</td>
+              <td>60</td>
+              <td>65</td>
+              <td>80</td>
+              <td>58</td>
+              <td>405</td>
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr class="stats-table__total">
+              <td>Promedio</td>
+              <td>59</td>
+              <td>66</td>
+              <td>64</td>
+              <td>76</td>
+              <td>74</td>
+              <td>77</td>
+              <td>417</td>
+            </tr>
+          </tfoot>
+
+        </table>
+
+        <button type="button" command="close" commandfor="open-stats">Cerrar</button>
+    </dialog>
+
+    
+
   </main>
     
 
