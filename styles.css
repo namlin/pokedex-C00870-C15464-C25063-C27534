@@ -75,6 +75,10 @@ a {
   gap: 1rem;
   list-style: none;
   padding-left: 0;
+
+  @media(min-width: 800px) {
+    flex-direction: row;
+  }
 }
 
 /* Las cuatro capas de la caja, en orden de adentro hacia afuera: contenido,
@@ -99,6 +103,10 @@ a {
   border-radius: var(--radio);
   padding: 1rem;
   margin-bottom: 1rem;
+
+  @media(width >= 800px) {
+    background: var(--blue);
+  }
 }
 
 /* El color se hereda dentro de la tarjeta, pero el enlace no lo toma */
@@ -132,6 +140,17 @@ a {
   padding-left: 0;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.pokemon-card__image {
+  display: block;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1; /* Mantener la proporción cuadrada aunque falte la imagen */
+  object-fit: contain; /* La imagen se escala para entrar en la caja sin deformarse */
+}
 
 /* --------------------------------------------------------------------------
    4. Tabla de estadísticas
