@@ -70,6 +70,9 @@ a {
 /* La viñeta y la sangría son dos cosas distintas que pone el navegador.
    Quitar una no quita la otra. */
 .pokemon-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   list-style: none;
   padding-left: 0;
 }
@@ -85,6 +88,11 @@ a {
    verticales adyacentes no se suman, se fusionan y gana el mayor. A eso se le
    llama colapso de márgenes, y es a propósito. */
 .pokemon-card {
+  position: relative; /* El padre solo crea el marco de referencia*/
+  flex: 1 1 12rem; /* parte de 12 rem, y crezca y se encoja */
+  /* flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto; */
   background: var(--blanco);
   color: var(--navy);
   border: var(--borde) solid var(--amarillo-borde);
@@ -98,8 +106,18 @@ a {
   color: var(--navy);
 }
 
+/* El número se hereda dentro de la tarjeta, pero el enlace no lo toma */
 .pokemon-card__number {
   color: #60646A;
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 1; /* El número va por encima de la imagen */
+  background: var(--amarillo);
+  border: var(--borde) solid var(--navy);
+  border-radius: var(--radio-pastilla);
+  padding: 0.25rem 0.5rem;
+  font-weight: bold;
   font-size: 0.85rem;
 }
 
@@ -149,7 +167,30 @@ a {
 /* Sin clase: header y footer ya se identifican por su propia etiqueta. Esa es
   la ventaja de haber usado HTML semántico en vez de div para todo. */
 header {
+  background: var(--navy);
   padding: 1rem 1.5rem;
+
+  .header-contenedor {
+    max-width: 64rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  & > p {
+    margin: 0;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 /* Acá se ve la diferencia entre relleno y margen, porque hay fondo: el navy
