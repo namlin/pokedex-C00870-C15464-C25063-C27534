@@ -2,8 +2,13 @@
    Pokédex — CI-0137
    Hoja de estilos del sitio
 
-   Los colores y las medidas salen de tokens.css, que se enlaza antes que
-   este archivo.
+   Estado: al día con la clase 6 (Grid). Incluye todo lo enseñado en las
+   clases 3, 4, 5 y 6. Los colores salen de tokens.css, que se enlaza antes
+   que este archivo.
+
+   Pensado para explicarse SIN escribirse en vivo: cada bloque trae el
+   comentario que hace falta para leerlo en voz alta y que se entienda solo,
+   con el porqué y no solo el qué.
    ========================================================================== */
 
 
@@ -11,55 +16,63 @@
    1. Base
    -------------------------------------------------------------------------- */
 
-/* El asterisco son todos los elementos; los dos pseudo-elementos se agregan
-   aparte porque el asterisco no los alcanza.
+/* El selector universal (*) alcanza a todos los elementos. Los dos
+   pseudo-elementos se agregan aparte porque * no llega a ellos.
 
-   border-box hace que width incluya el relleno y el borde, en vez de medir
-   solo el contenido. Sin esto, una caja de width: 300px con padding: 20px y
-   border: 2px mide 344 en pantalla. */
+   box-sizing: border-box hace que width incluya el relleno y el borde,
+   en lugar de medir solo el contenido. Es la primera línea de casi
+   cualquier hoja de estilos moderna. */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* Estas tres propiedades se heredan: declaradas una vez en body bajan solas
-   a toda la página. Regla para acordarse: lo que tiene que ver con el texto
-   se hereda; lo que tiene que ver con la caja no. */
+/* Estas propiedades se heredan: declarándolas una vez en body bajan solas
+   a todos los elementos de la página. */
 body {
   font-family: Verdana, Geneva, sans-serif;
   background: var(--azul);
-  color: var(--blanco);
+  color: var(--blanco); /* claro, porque cae sobre el azul */
 }
 
-/* Los enlaces no toman el color de body: un valor heredado pierde contra
-   cualquier regla que apunte directamente al elemento, y la hoja del
-   navegador tiene una para "a". Hay que decírselo aparte. */
+/* Los enlaces NO tomaron el color de body, y eso no es un error nuestro:
+   la hoja del navegador tiene una regla que apunta directamente a "a", y
+   un valor heredado siempre pierde contra una regla que apunta al elemento.
+   Por eso hay que decírselo explícitamente. */
 a {
   color: var(--blanco);
 }
 
+/* Todas las imágenes del sitio: nunca más anchas que su contenedor.
+   max-width (no width) para no agrandar una imagen chica.
+   height: auto para que, al achicarse el ancho, el alto la siga sin
+   deformarla — el HTML ya trae width/height fijos para reservar el
+   espacio antes de que la imagen cargue; esta regla es la que decide su
+   tamaño final en pantalla. Las dos cosas hacen falta y no se pisan. */
+img {
+  max-width: 100%;
+  height: auto;
+}
 
 /* --------------------------------------------------------------------------
    2. Logo
    -------------------------------------------------------------------------- */
 
-/* La pastilla amarilla no está dentro de la imagen: la dibuja el CSS acá.
+/* La pastilla amarilla del diseño no está dentro de la imagen: la dibuja el
+   CSS acá. El SVG solo trae la pokébola y el nombre, en transparente.
 
-   display: inline-block es necesario porque un enlace es un elemento de
-   línea, y a esos el relleno vertical no les agranda la caja: el amarillo se
-   derramaría sobre las líneas de arriba y abajo. inline-block se comporta
-   como caja sin dejar de acomodarse en la línea.
-
-   line-height: 0 saca el hueco que deja la línea base del texto debajo de la
-   imagen. Sin eso la pastilla se ve descentrada. */
+   display: inline-block es necesario porque un enlace es un elemento en
+   línea, y a los elementos en línea el relleno vertical no les agranda la
+   caja. Con inline-block se comporta como caja sin dejar de acomodarse en
+   la línea. */
 .logo {
   display: inline-block;
   background: var(--amarillo);
   border: var(--borde) solid var(--navy);
   border-radius: var(--radio-pastilla);
   padding: 0.35rem 1.1rem;
-  line-height: 0;
+  line-height: 0;  /* saca el espacio extra que deja la línea de texto */
 }
 
 
@@ -68,95 +81,221 @@ a {
    -------------------------------------------------------------------------- */
 
 /* La viñeta y la sangría son dos cosas distintas que pone el navegador.
-   Quitar una no quita la otra. */
+   Quitar una no quita la otra. 
+
+   display: grid en vez de flex — clase 6. Con flex + flex-wrap la última
+   fila incompleta quedaba MÁS ANCHA que las de arriba, porque flexbox
+   reparte el espacio sobrante fila por fila, sin enterarse de cuántas
+   columnas hay en las filas de arriba. Grid piensa en las dos dimensiones
+   a la vez, así que una columna mide lo mismo en todas las filas porque
+   es, literalmente, la misma columna.
+
+   repeat(auto-fit, minmax(14rem, 1fr)) reemplaza tanto el flex-wrap como
+   el flex: 1 1 12rem de la tarjeta: el navegador calcula solo cuántas
+   columnas de al menos 14rem entran en el ancho disponible, sin un solo
+   @media. auto-fit (no auto-fill) para que, si hay pocas tarjetas, las
+   que sí existen se estiren y ocupen el espacio en vez de dejarlo vacío.
+
+   El mínimo subió de 12rem a 14rem (y main ganó un max-width más abajo,
+   sección 6): con 12rem y sin límite de ancho, una pantalla de escritorio
+   ancha terminaba metiendo seis o más tarjetas por fila, más apretadas de
+   lo que se ve en el wireframe. */
 .pokemon-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
   gap: 1rem;
   list-style: none;
   padding-left: 0;
-
-  @media(min-width: 800px) {
-    flex-direction: row;
-  }
 }
 
-/* Las cuatro capas de la caja, en orden de adentro hacia afuera: contenido,
-   relleno, borde y margen.
+/* Dentro de las tarjetas el fondo es claro, así que el texto vuelve a ser
+   oscuro. Como color se hereda, con declararlo acá alcanza para todo lo de
+   adentro... menos para los enlaces, por lo mismo de arriba.
 
-   El relleno está adentro y se pinta con el fondo; el margen está afuera y
-   siempre es transparente. Por eso el relleno separa el texto del borde, y el
-   margen separa una tarjeta de la siguiente.
+   Ya no lleva flex: 1 1 12rem (clase 4) — ahora que .pokemon-list es un
+   grid, el ancho de cada tarjeta lo decide la columna que le tocó, no la
+   tarjeta misma.
 
-   Ojo: entre dos tarjetas no hay 2rem de separación sino 1rem. Los márgenes
-   verticales adyacentes no se suman, se fusionan y gana el mayor. A eso se le
-   llama colapso de márgenes, y es a propósito. */
+   container-type: inline-size (clase 5) convierte a la tarjeta en un
+   contenedor consultable: las reglas de @container más abajo preguntan
+   por SU ancho, no por el de la ventana. Funciona bien siendo además un
+   ítem de un grid con auto-fit/minmax porque el mínimo de la pista es un
+   valor fijo (14rem) y no una palabra clave intrínseca como auto —
+   cuando el mínimo de una pista depende del contenido Y el contenido
+   depende de una consulta de contenedor, ahí sí hay un problema circular
+   que evitar envolviendo el contenido aparte. Acá no aplica, pero vale
+   tenerlo presente si algún día cambian el minmax(). */
 .pokemon-card {
-  position: relative; /* El padre solo crea el marco de referencia*/
-  flex: 1 1 12rem; /* parte de 12 rem, y crezca y se encoja */
-  /* flex-grow: 0;
-  flex-shrink: 1;
-  flex-basis: auto; */
-  background: var(--blanco);
+  position: relative; /* marco de referencia para la insignia */
+  container-type: inline-size;
+  text-align: center;    /* centra la pastilla del número, el nombre, y
+                             cualquier línea que se agregue después de la
+                             imagen — así se ve como el wireframe */ 
   color: var(--navy);
+  background: var(--blanco);
   border: var(--borde) solid var(--amarillo-borde);
   border-radius: var(--radio);
-  padding: 1rem;
-  margin-bottom: 1rem;
-
-  @media(width >= 800px) {
-    background: var(--blue);
-  }
+  padding: 1rem;  /* adentro: separa el contenido del borde */
 }
 
-/* El color se hereda dentro de la tarjeta, pero el enlace no lo toma */
+/* Sprite: siempre cuadrado y centrado en la tarjeta, pase lo que pase con
+   la proporción real del archivo.
+   display: block quita el hueco de línea base que dejan las imágenes por
+   default (son de línea, y una línea de texto reserva espacio para letras
+   con cola, como la "g"). margin: 0 auto la centra horizontalmente, ya que
+   display: block la vuelve una caja de ancho propio dentro de la tarjeta.
+   aspect-ratio + object-fit: contain evitan que se recorte o se deforme,
+   sea cual sea el tamaño real del PNG. */
+.pokemon-card__image {
+  display: block;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}
+
+/* Sale del flujo y se ubica respecto de la tarjeta, no de la página.
+   Los valores negativos la sacan un poco por fuera del borde. */
+.pokemon-card__insignia {
+  position: absolute;
+  top: -10px;
+  right: -8px;
+  z-index: 2;
+  background: var(--rojo);
+  color: var(--blanco);
+  font-size: 0.72rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radio-pastilla);
+}
+
+/* Vuelve a ser una pastilla — como .logo, .contador y
+   .pokemon-card__insignia — en vez del texto gris plano en el que había
+   quedado. display: inline-block para que el fondo y el borde abracen
+   justo el ancho del texto ("#001"), no todo el ancho de la tarjeta.
+   El salto de línea antes del nombre no lo pone esta regla: lo pone
+   display: block en .pokemon-card__name, justo abajo — así no hace
+   falta tocar el HTML para que cada uno quede en su propia línea. */
+.pokemon-card__number {
+  display: inline-block;
+  background: var(--amarillo);
+  color: var(--navy);
+  border: 2px solid var(--navy);
+  border-radius: var(--radio-pastilla);
+  padding: 0.15rem 0.6rem;
+  font-size: 0.78rem;
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+}
+
+.pokemon-card__name {
+  display: block; /* empieza en su propia línea, debajo de la pastilla */
+  font-weight: bold;
+}
+
 .pokemon-card a {
   color: var(--navy);
 }
 
-/* El número se hereda dentro de la tarjeta, pero el enlace no lo toma */
-.pokemon-card__number {
-  color: #60646A;
-  position: absolute;
-  top: 0.6rem;
-  right: 0.6rem;
-  z-index: 1; /* El número va por encima de la imagen */
-  background: var(--amarillo);
-  border: var(--borde) solid var(--navy);
-  border-radius: var(--radio-pastilla);
-  padding: 0.25rem 0.5rem;
-  font-weight: bold;
-  font-size: 0.85rem;
-}
-
-.pokemon-card__name {
-  font-weight: bold;
-}
-
 /* La paginación ya lleva el número en el texto del enlace: el marcador del
-   <ol> lo estaba repitiendo. */
+   <ol> lo repetiría. (La disposición en fila está en la sección 4.) */
 .paginacion {
   list-style: none;
   padding-left: 0;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
+/* --------------------------------------------------------------------------
+   4. Disposición con Flexbox
+   -------------------------------------------------------------------------- */
+
+/* Encabezado: logo a un extremo, acciones al otro — en pantallas anchas.
+   Sin clase, porque header ya se identifica por su etiqueta.
+
+   Base móvil (clase 5, mobile-first): apilado y centrado. Sin esta base,
+   el logo y el bloque de acciones (contador + menú) intentan compartir
+   una sola fila en un celular angosto y no entran. */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+}   
+
+/* Desde tablet: vuelve a ser una fila, logo y acciones en cada extremo. */
+@media (width >= 40rem) {
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
 }
 
-.pokemon-card__image {
-  display: block;
-  margin: 0 auto;
-  aspect-ratio: 1 / 1; /* Mantener la proporción cuadrada aunque falte la imagen */
-  object-fit: contain; /* La imagen se escala para entrar en la caja sin deformarse */
+header p { margin: 0; }   /* el margen lo pone la hoja del navegador */
+
+/* El div de agrupación: contador y menú juntos */
+.header__acciones {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.contador {
+  background: var(--amarillo);
+  color: var(--navy);
+  font-size: 0.85rem;
+  padding: 0.3rem 0.9rem;
+  border-radius: var(--radio-pastilla);
+  white-space: nowrap;
+}
+
+/* Menú en línea */
+header nav ul {
+  display: flex;
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Carrusel: una columna centrada.
+   Con flex-direction: column, align-items centra en horizontal. */
+.carrusel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Paginación: una fila centrada */
+.paginacion {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Buscador: los campos en línea, que se acomoden si no caben */
+.buscador fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* El campo de nombre se queda con el espacio sobrante */
+.buscador input[type="search"] {
+  flex: 1 1 12rem;
 }
 
 /* --------------------------------------------------------------------------
-   4. Tabla de estadísticas
+   5. Tabla de estadísticas
    -------------------------------------------------------------------------- */
 
-/* Por defecto cada celda tiene su propio borde y hay separación entre ellas,
+/* Por defecto cada celda tiene su propio borde y hay separación entre celdas,
    así que donde dos celdas se tocan aparecen dos líneas. collapse las fusiona
    en una sola. */
 .stats-table {
@@ -180,41 +319,38 @@ img {
 
 
 /* --------------------------------------------------------------------------
-   5. Encabezado y pie
+   6. Encabezado y pie — layout general de la página
    -------------------------------------------------------------------------- */
 
-/* Sin clase: header y footer ya se identifican por su propia etiqueta. Esa es
-  la ventaja de haber usado HTML semántico en vez de div para todo. */
-header {
-  background: var(--navy);
-  padding: 1rem 1.5rem;
+/* Ancho máximo del contenido, centrado con margin: 0 auto. Sin esto,
+   auto-fit (sección 3) sigue agregando columnas mientras haya espacio: en
+   un monitor bien ancho la rejilla terminaba con seis, siete tarjetas por
+   fila, mucho más apretado que el wireframe. Con un tope, a partir de
+   cierto ancho lo que crece es el margen a los costados, no la cantidad
+   de columnas. */
+main {
+  max-width: 75rem;
+  margin: 0 auto;
+}
 
-  .header-contenedor {
-    max-width: 64rem;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  & > p {
-    margin: 0;
-  }
-
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-    margin: 0;
-    padding: 0;
+/* En pantallas grandes le damos además algo más de aire adentro
+   (clase 5, mobile-first: nada en la base, se agrega arriba de cierto
+   ancho). */
+@media (width >= 64rem) {
+  main {
+    padding: 2rem;
   }
 }
 
-/* Acá se ve la diferencia entre relleno y margen, porque hay fondo: el navy
-   llega hasta donde termina el relleno y se corta ahí; el margen queda
-   afuera, transparente. */
+/* Título principal: en vez de tres @media distintos para tres tamaños de
+   letra, una sola línea continua (clase 5). Se lee: nunca menos de
+   1.5rem, idealmente 4% del ancho de la ventana, nunca más de 2.5rem.
+   clamp() se adapta a CUALQUIER ancho, no solo a los que probamos —
+   por eso, cuando alcanza, es preferible a una consulta de medios. */
+h1 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+}
+
 footer {
   background: var(--navy);
   color: var(--blanco);
@@ -222,24 +358,18 @@ footer {
   margin-top: 2rem;
 }
 
-/* El pie tiene fondo oscuro y adentro hay enlaces: necesitan su propio color.
-   Cada vez que le cambies el fondo a una caja, revisá el texto de adentro. */
+/* El pie tiene fondo oscuro, así que sus enlaces necesitan su propio color. */
 footer a {
   color: var(--amarillo);
 }
 
 
 /* --------------------------------------------------------------------------
-   6. Estados
+   7. Estados
    -------------------------------------------------------------------------- */
 
-/* Una pseudo-clase selecciona un elemento que ya existe cuando está en cierto
-   estado, y lleva UN dos puntos. Un pseudo-elemento crea una caja nueva que
-   no está en el HTML, y lleva DOS.
-
-   :hover es el mouse encima. :focus-within es el foco del teclado en algo de
-   adentro, y hace falta porque quien navega con teclado no tiene puntero: sin
-   esta regla, esa persona nunca sabe dónde está parada. */
+/* :hover es el mouse encima. :focus-within es el foco del teclado en algo
+   de adentro — hace falta porque quien navega con teclado no tiene puntero. */
 .pokemon-card:hover,
 .pokemon-card:focus-within {
   border-color: var(--navy);
@@ -251,21 +381,101 @@ footer a {
 }
 
 /* El anillo de foco nunca se quita sin poner algo en su lugar: es lo único
-   que le indica a una persona con teclado dónde está. */
+   que le indica a una persona con teclado dónde está parada. */
 a:focus-visible {
   outline: 3px solid var(--amarillo);
   outline-offset: 2px;
 }
 
-/* Un pseudo-elemento: esta flecha no está en el HTML, la inventó el CSS.
-   content es obligatorio; sin él no se dibuja nada, aunque le pongas color.
+/* --------------------------------------------------------------------------
+   8. Consultas de contenedor (clase 5)
 
-   Sirve para decoración, nunca para información que haga falta entender: los
-   lectores de pantalla a veces leen el content y a veces no, según el
-   navegador. Acá la flecha solo refuerza algo que el texto ya dice.
+   Distinta pregunta que una consulta de medios: en vez de "¿cuánto mide
+   LA VENTANA?", pregunta "¿cuánto mide ESTE elemento?". Hace falta porque
+   la misma tarjeta de Pokémon podría vivir algún día en una rejilla ancha
+   Y en una barra lateral angosta — una consulta de medios no distingue
+   esos dos casos, porque las dos veces la ventana mide lo mismo.
+   -------------------------------------------------------------------------- */
 
-   El selector entre corchetes busca por atributo: los enlaces que abren en
-   pestaña nueva. */
-a[target="_blank"]::after {
-  content: " ↗";
+/* El nombre crece un poco cuando la tarjeta (no la ventana) tiene 20rem o
+   más de ancho disponible. inline-size en vez de width porque el
+   contenedor se marcó con container-type: inline-size — misma unidad,
+   mismo idioma. */
+@container (inline-size >= 20rem) {
+  .pokemon-card__name {
+    font-size: 1.2rem;
+  }
+}
+
+/* Alternativa más continua, para cuando el paso brusco de la regla de
+   arriba no convence: cqi es "1% del ancho del contenedor", el primo de
+   vw pero relativo al componente en vez de a la ventana. Combinado con
+   clamp(), el nombre crece sin escalones. No las usen las dos juntas
+   sobre el mismo elemento —son dos formas distintas de resolver lo mismo,
+   se muestra acá solo como referencia:
+
+   .pokemon-card__name {
+     font-size: clamp(1rem, 5cqi, 1.5rem);
+   }
+*/
+
+/* --------------------------------------------------------------------------
+   9. Disposición con Grid (clase 6)
+
+   Flexbox sigue siendo lo correcto para todo lo que es una sola fila o una
+   sola columna (ver secciones 4 y 6: header, menú, carrusel, paginación,
+   buscador). Grid entra donde de verdad hay dos dimensiones que tienen
+   que alinearse entre sí — la lista de Pokémon (sección 3) y lo que sigue
+   acá abajo.
+   -------------------------------------------------------------------------- */
+
+/* Pie de página en tres columnas iguales, solo cuando sobra ancho.
+   repeat(3, 1fr) reparte el ancho disponible en tres partes iguales.
+   gap en vez de márgenes: dentro de un contenedor grid (o flex) los
+   márgenes de los hijos directos NO colapsan entre sí, a diferencia del
+   flujo normal — así que gap es la forma prolija de espaciar sin
+   sorpresas de doble margen. */
+@media (width >= 40rem) {
+  footer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0 2rem;
+  }
+
+    footer p {
+    margin: 0;
+  }
+}
+
+/* Resumen de la ficha de un Pokémon: imagen a un lado, texto al otro,
+   solo en pantallas anchas. Ver el HTML — el envoltorio
+   .ficha-pokemon__resumen es nuevo de la clase 6, agrupa figure +
+   #detalles + #habilidades.
+
+   Base móvil: nada especial. Un div es de bloque, así que las tres
+   piezas se apilan solas en el orden en que están en el HTML — igual
+   que se ven hoy. */
+.ficha-pokemon__resumen {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Desde tablet: dos columnas, con un mapa dibujado en grid-template-areas.
+   Cada nombre repetido en la misma columna funde esas celdas en una sola
+   área — "imagen" ocupa las dos filas de la primera columna. Los 300px
+   de esa columna no son un número inventado: son el width="300" real de
+   squirtle-grande.png en el HTML; la columna le da a la imagen exactamente
+   el espacio que ya necesita. */
+@media (width >= 40rem) {
+  .ficha-pokemon__resumen {
+    grid-template-columns: 300px 1fr;
+    grid-template-areas:
+      "imagen  detalles"
+      "imagen  habilidades";
+  }
+
+  .ficha-pokemon__imagen      { grid-area: imagen; }
+  .ficha-pokemon__detalles    { grid-area: detalles; }
+  .ficha-pokemon__habilidades { grid-area: habilidades; }
 }

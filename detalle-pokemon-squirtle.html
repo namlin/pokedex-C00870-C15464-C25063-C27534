@@ -25,14 +25,21 @@
       </a>
     </p>
 
-    <nav>
-      <ul>
-        <li><a href="./" accesskey="p">Pokédex</a></li>
-        <li><a href="perfil-entrenador.html">Perfil de entrenador</a></li>
-        <li><a href="acerca-de.html">Acerca de</a></li>
-        <li><a href="configuracion.html">Configuración</a></li>
-      </ul>
-    </nav>
+    <!-- Este div no significa nada: existe solo para agrupar el contador
+        y el menú como un bloque de disposición, y que los dos vayan
+        juntos a la derecha. -->
+    <div class="header__acciones">
+        <p class="contador">10 Pokémon</p>
+
+      <nav>
+        <ul>
+          <li><a href="./" accesskey="p">Pokédex</a></li>
+          <li><a href="perfil-entrenador.html">Perfil de entrenador</a></li>
+          <li><a href="acerca-de.html">Acerca de</a></li>
+          <li><a href="configuracion.html">Configuración</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <main>
@@ -49,33 +56,28 @@
         <li class="carrusel__item">
           <a href="detalle-pokemon-charmeleon.html">
             <img src="assets/pokeball-inactiva.svg" alt="Ir a #005 Charmeleon" width="32" height="32">
-            #005
           </a>
         </li>
 
         <li class="carrusel__item">
           <a href="detalle-pokemon-charizard.html">
             <img src="assets/pokeball-inactiva.svg" alt="Ir a #006 Charizard" width="32" height="32">
-            #006
           </a>
         </li>
 
         <li class="carrusel__item carrusel__item--activo">
           <img src="assets/pokeball.svg" alt="Estás viendo #007 Squirtle" width="40" height="40">
-          #007
         </li>
 
         <li class="carrusel__item">
           <a href="detalle-pokemon-wartortle.html">
             <img src="assets/pokeball-inactiva.svg" alt="Ir a #008 Wartortle" width="32" height="32">
-            #008
           </a>
         </li>
 
         <li class="carrusel__item">
           <a href="detalle-pokemon-blastoise.html">
             <img src="assets/pokeball-inactiva.svg" alt="Ir a #009 Blastoise" width="32" height="32">
-            #009
           </a>
         </li>
       </ul>
@@ -86,58 +88,75 @@
     <article id="ficha-pokemon">
       <h1><span>#007</span> Squirtle</h1>
 
+      <nav id="indice-ficha">
+        <ul>
+          <li><a href="#detalles">Detalles</a></li>
+          <li><a href="#habilidades">Habilidades</a></li>
+          <li><a href="#estadisticas">Estadísticas</a></li>
+          <li><a href="#mas-informacion">Más información</a></li>
+        </ul>
+      </nav>
+
       <p>Squirtle fue el 7<sup>mo</sup> Pokémon registrado en esta Pokédex, el
         <time datetime="2026-09-01">1 de setiembre de 2026</time>. Su caparazón no
         solo lo protege: también <strong>reduce la resistencia del agua</strong>,
         lo que le permite nadar a gran velocidad.
       </p>
 
-      <figure>
-        <img src="assets/squirtle-grande.png" alt="Squirtle, un Pokémon de tipo Agua con caparazón de tortuga"
-          width="300" height="300">
-        <figcaption>Squirtle, el Pokémon Tortuguita</figcaption>
-      </figure>
+      <!--
+        Envoltorio de layout (clase 6): agrupa la imagen y las dos secciones
+        cortas para poder ponerlas en dos columnas con Grid cuando hay
+        espacio. Sin significado propio, como .header__acciones — por eso
+        es un <div>, no un <section>. El <hr> que antes separaba Detalles de
+        Habilidades ya no hace falta: la separación la da el propio layout
+        en columnas.
+      -->
+        <div class="ficha-pokemon__resumen">
+          <figure class="ficha-pokemon__imagen">
+            <img src="assets/squirtle-grande.png" alt="Squirtle, un Pokémon de tipo Agua con caparazón de tortuga"
+              width="300" height="300">
+            <figcaption>Squirtle, el Pokémon Tortuguita</figcaption>
+          </figure>
 
-      <section id="detalles">
-        <h2>Detalles</h2>
+          <section id="detalles" class="ficha-pokemon__detalles">
+            <h2>Detalles</h2>
 
-        <dl>
-          <dt>Peso</dt>
-          <dd>9.0 kg</dd>
+            <dl>
+              <dt>Peso</dt>
+              <dd>9.0 kg</dd>
 
-          <dt>Tamaño</dt>
-          <dd>0.5 m</dd>
+              <dt>Tamaño</dt>
+              <dd>0.5 m</dd>
 
-          <dt>Tipo</dt>
-          <dd>Agua</dd>
-        </dl>
+              <dt>Tipo</dt>
+              <dd>Agua</dd>
+            </dl>
 
-        <h3>Cadena evolutiva</h3>
-        <ol>
-          <li>Squirtle</li>
-          <li>Wartortle</li>
-          <li>Blastoise</li>
-        </ol>
-      </section>
+            <h3>Cadena evolutiva</h3>
+            <ol>
+              <li>Squirtle</li>
+              <li>Wartortle</li>
+              <li>Blastoise</li>
+            </ol>
+          </section>
+          <section id="habilidades" class="ficha-pokemon__habilidades">
+            <h2>Habilidades</h2>
 
-      <hr>
+            <dl>
+              <dt>Torrente</dt>
+              <dd>Potencia sus movimientos de tipo Agua cuando le queda poca salud.</dd>
 
-      <section id="habilidades">
-        <h2>Habilidades</h2>
-
-        <dl>
-          <dt>Torrente</dt>
-          <dd>Potencia sus movimientos de tipo Agua cuando le queda poca salud.</dd>
-
-          <dt>Cura Lluvia <em>(oculta)</em></dt>
-          <dd>Recupera salud en cada turno mientras esté lloviendo en el combate.</dd>
-        </dl>
-      </section>
+              <dt>Cura Lluvia <em>(oculta)</em></dt>
+              <dd>Recupera salud en cada turno mientras esté lloviendo en el combate.</dd>
+            </dl>
+          </section>
+        </div>   
 
       <section id="estadisticas">
         <h2>Estadísticas</h2>
 
         <table class="stats-table">
+          <caption>Estadísticas base de Squirtle</caption>
           <thead>
             <tr>
               <th abbr="PS">Puntos de Salud</th>
@@ -166,6 +185,26 @@
             </tr>
           </tfoot>
         </table>
+      </section>
+
+      <section id="mas-informacion">
+        <h2>Más información</h2>
+
+        <h3>¿Cómo se leen estas estadísticas?</h3>
+        <p>Cada número de la tabla es un valor base, en una escala que en la
+          práctica va de 5 a 255. Squirtle destaca en Defensa (65) y Defensa
+          Especial (64), y flojea en Velocidad (43): es un Pokémon que aguanta
+          golpes pero ataca de último.</p>
+
+        <h3>¿Qué es una habilidad oculta?</h3>
+        <p>Es una habilidad que el Pokémon puede tener en lugar de la habitual,
+          pero que no aparece por métodos normales de captura. En la ficha la
+          marcamos con la palabra <em>oculta</em> entre paréntesis.</p>
+
+        <h3>¿De dónde salieron estos datos?</h3>
+        <p>Las ilustraciones vienen del repositorio público de PokeAPI y los
+          datos de Pokémon Database. Los enlaces completos están en el pie de
+          esta página.</p>
       </section>
 
       <p><a href="https://bulbapedia.bulbagarden.net/wiki/Squirtle_(Pok%C3%A9mon)" target="_blank" rel="noopener">Ver
