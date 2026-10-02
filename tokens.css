@@ -1,10 +1,13 @@
 /* ==========================================================================
    Pokédex — CI-0137
-   Paleta del diseño
+   Paleta y tokens del diseño
 
    Los colores están extraídos directamente del mockup.
    Se declaran una sola vez acá y se usan con var(--nombre) en todo el sitio.
    Cambiar un color del sitio entero = cambiar una línea de este archivo.
+
+   Versión "moderna": se mantienen TODOS los tokens originales y se agregan
+   los de tipografía, sombras, movimiento y superficies (secciones al final).
    ========================================================================== */
 
 :root {
@@ -12,6 +15,7 @@
   /* --- Chrome del aparato ------------------------------------------------ */
   --azul:           #2967C5;  /* fondo de la pantalla */
   --azul-borde:     #245BB2;  /* borde del marco, un poco más oscuro */
+  --azul-claro:     #4A86E0;  /* brillo suave del fondo (solo decorativo) */
   --navy:           #142C52;  /* barra inferior y textos sobre amarillo */
 
   --amarillo:       #FAD162;  /* pastillas y encabezados de panel */
@@ -55,6 +59,45 @@
   --radio:          10px;     /* esquinas de tarjetas y paneles */
   --radio-pastilla: 999px;    /* esquinas de las pastillas: siempre redondas */
   --borde:          3px;      /* grosor del borde de tarjetas */
+
+  /* ======================================================================
+     NUEVO — capa moderna
+     ====================================================================== */
+
+  /* --- Colores extra ----------------------------------------------------- */
+  --verde:          #2E8B57;  /* fondo del ícono de Estadísticas (solo
+                                 gráfico, no lleva texto encima) */
+  --tinta-suave:    #41557A;  /* texto secundario sobre blanco: 7.5:1 */
+  --linea:          #E3EAF3;  /* separadores finos dentro de tarjetas */
+
+  /* --- Tipografía -------------------------------------------------------
+     Fredoka (redondeada, amable) para títulos y números; Figtree (limpia,
+     muy legible) para el texto corrido. Se cargan desde Google Fonts en el
+     <head>; si no llegan, cae a la siguiente de la lista sin romper nada. */
+  --fuente-titulo: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+  --fuente-texto:  "Figtree", system-ui, "Segoe UI", sans-serif;
+
+  /* --- Radios más generosos ---------------------------------------------- */
+  --radio-lg:       24px;
+  --radio-xl:       30px;
+
+  /* --- Sombras: siempre en capas (una cercana + una lejana y difusa) ----- */
+  --sombra-1:  0 1px 2px rgba(20, 44, 82, .12),
+               0 8px 16px -8px rgba(20, 44, 82, .45);
+  --sombra-2:  0 2px 4px rgba(20, 44, 82, .10),
+               0 18px 34px -14px rgba(20, 44, 82, .55);
+  --sombra-3:  0 4px 8px rgba(10, 24, 48, .15),
+               0 34px 70px -20px rgba(10, 24, 48, .75);
+  --brillo:    inset 0 2px 0 rgba(255, 255, 255, .7);   /* filo de luz arriba */
+
+  /* --- Movimiento -------------------------------------------------------- */
+  --ease:      cubic-bezier(.2, .8, .2, 1);   /* arranca rápido, frena suave */
+  --dur:       220ms;
+
+  /* --- La zona del sprite (las "rayitas"), reutilizable ------------------ */
+  --sprite-zona:
+    radial-gradient(circle at 50% 58%, var(--sprite-fondo) 0, var(--sprite-fondo) 34%, transparent 72%),
+    repeating-linear-gradient(-45deg, var(--sprite-raya) 0 5px, #EBF3FA 5px 10px);
 }
 
 /* --------------------------------------------------------------------------
@@ -68,6 +111,8 @@
      blanco sobre azul ............  5.5:1
      crema sobre azul .............  4.8:1
      blanco sobre rojo ............  4.7:1
+     tinta-suave sobre blanco .....  7.5:1
+     amarillo sobre navy ..........  9.4:1   (enlaces del pie)
 
    El amarillo sobre azul da 3.7:1: sirve para bordes y para texto grande,
    pero no para texto normal. Por eso el amarillo se usa como fondo con texto
