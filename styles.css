@@ -1026,6 +1026,19 @@ footer a {
 
 
 /* Modal equipo Pokémon */
+.team-pokemon-dialog {
+  width: min(36rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  color: var(--navy);
+  background: var(--sprite-fondo);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-3);
+}
+
 
 
 /* Modal favoritos */
