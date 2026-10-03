@@ -1085,7 +1085,6 @@ footer a {
   width: 2rem;
   min-height: 2rem;
   padding: 0;
-  background: var(--blanco);
   border-color: var(--pista);
 }
 
@@ -1099,13 +1098,92 @@ footer a {
   font-size: .85rem;
 }
 
-.pokemon-team__list {
+.team-pokemon-dialog .pokemon-team__list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   list-style: none;
   gap: .875rem;
   margin: 0;
   padding: 0;
+}
+
+.team-pokemon-dialog .pokemon-team__slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .25rem;
+  padding: .5rem;
+}
+
+.team-pokemon-dialog .pokemon-team__image {
+  display: block;
+  width: 6rem;
+  height: 6rem;
+  margin: 0;
+  object-fit: contain;
+}
+
+.team-pokemon-dialog .pokemon-card__number {
+  position: absolute;
+  top: .75rem;
+  left: .75rem;
+  margin: 0;
+  padding: .2rem .4rem;
+  font-size: .75rem;
+}
+
+.team-pokemon-dialog .pokemon-team__name {
+  font-size: 1.125rem;
+}
+
+.team-pokemon-dialog .pokemon-team__types {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .25rem;
+}
+
+.team-pokemon-dialog .tipo {
+  padding: .3rem .5rem;
+  font-size: .75rem;
+  line-height: 1.5;
+}
+
+.team-pokemon-dialog .pokemon-team__slot--empty {
+  justify-content: center;
+  gap: .75rem;
+  border-radius: var(--radio-lg);
+  color: var(--azul-borde);
+  background: var(--blanco);
+  border: 2px dashed var(--pista);
+  box-shadow: var(--brillo);
+}
+
+.team-pokemon-dialog .pokemon-team__empty-text {
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+.team-pokemon-dialog .pokemon-team__slot--empty::before {
+  content: "";
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--sprite-fondo);
+  border-radius: var(--radio-pastilla);
+  box-shadow: var(--sombra-1);
+}
+
+.team-dialog__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: .5rem;
+  margin: 0;
+  padding: .75rem 1.25rem;
+  background: var(--blanco);
+  border-top: 1px solid var(--linea);
+  box-shadow: none;
 }
 
 /* Modal favoritos */
