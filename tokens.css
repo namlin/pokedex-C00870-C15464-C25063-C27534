@@ -69,6 +69,7 @@
                                  gráfico, no lleva texto encima) */
   --tinta-suave:    #41557A;  /* texto secundario sobre blanco: 7.5:1 */
   --linea:          #E3EAF3;  /* separadores finos dentro de tarjetas */
+  --backdrop-modal: rgba(20, 44, 82, .65);  /* fondo semitransparente de modales */
 
   /* --- Tipografía -------------------------------------------------------
      Fredoka (redondeada, amable) para títulos y números; Figtree (limpia,

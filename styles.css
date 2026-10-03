@@ -1039,7 +1039,74 @@ footer a {
   box-shadow: var(--sombra-3);
 }
 
+.team-pokemon-dialog::backdrop {
+  background: var(--backdrop-modal);
+}
 
+.team-dialog__header {
+  position: static;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  text-align: left;
+  background: var(--sprite-fondo);
+  border-bottom: 1px solid var(--linea);
+  box-shadow: none;
+}
+
+.team-dialog__title {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.team-dialog__title::before {
+  content: "";
+  flex: 0 0 2rem;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--azul);
+  background-image: var(--icono-equipo);
+  background-position: center;
+  background-size: 1.4rem;
+  background-repeat: no-repeat;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-1);
+}
+
+.team-dialog__close_up {
+  flex: 0 0 auto;
+  width: 2rem;
+  min-height: 2rem;
+  padding: 0;
+  background: var(--blanco);
+  border-color: var(--pista);
+}
+
+.team-dialog__content {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.team-pokemon__summary {
+  margin: 0 0 .75rem;
+  color: var(--tinta-suave);
+  font-size: .85rem;
+}
+
+.pokemon-team__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  gap: .875rem;
+  margin: 0;
+  padding: 0;
+}
 
 /* Modal favoritos */
 
