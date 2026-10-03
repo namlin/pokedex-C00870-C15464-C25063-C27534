@@ -1086,9 +1086,13 @@ footer a {
   min-height: 2rem;
   padding: 0;
   border-color: var(--pista);
+  background-image: var(--icono-cerrar);
+  background-position: center;
+  background-size: .875rem;
+  background-repeat: no-repeat;
 }
 
-.team-dialog__content {
+.team-pokemon__content {
   padding: 1rem 1.25rem 1.25rem;
 }
 
@@ -1169,6 +1173,10 @@ footer a {
   width: 3rem;
   height: 3rem;
   background-color: var(--sprite-fondo);
+  background-image: var(--icono-agregar-azul);
+  background-position: center;
+  background-size: 1.25rem;
+  background-repeat: no-repeat;
   border-radius: var(--radio-pastilla);
   box-shadow: var(--sombra-1);
 }
@@ -1184,6 +1192,30 @@ footer a {
   background: var(--blanco);
   border-top: 1px solid var(--linea);
   box-shadow: none;
+}
+
+.team-dialog__add::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}
+
+.team-dialog__add::before {
+  mask-image: var(--icono-agregar-blanco);
+}
+
+.team-pokemon-dialog .pokemon-team__remove::before {
+  content: "";
+  width: .75rem;
+  height: 2px;
+  flex-shrink: 0;
+  background-color: currentColor;
+  flex: 1;
 }
 
 /* Modal favoritos */
