@@ -69,6 +69,7 @@
                                  gráfico, no lleva texto encima) */
   --tinta-suave:    #41557A;  /* texto secundario sobre blanco: 7.5:1 */
   --linea:          #E3EAF3;  /* separadores finos dentro de tarjetas */
+  --backdrop-modal: rgba(20, 44, 82, .65);  /* fondo semitransparente de modales */
 
   /* --- Tipografía -------------------------------------------------------
      Fredoka (redondeada, amable) para títulos y números; Figtree (limpia,
@@ -98,6 +99,12 @@
   --sprite-zona:
     radial-gradient(circle at 50% 58%, var(--sprite-fondo) 0, var(--sprite-fondo) 34%, transparent 72%),
     repeating-linear-gradient(-45deg, var(--sprite-raya) 0 5px, #EBF3FA 5px 10px);
+
+  /* --- Links ------------------------------------------------------------- */
+  --icono-equipo: url("assets/pokebolas.svg");
+  --icono-cerrar: url("assets/cerrar.svg");
+  --icono-agregar-blanco: url("assets/mas-blanco.svg");
+  --icono-agregar-azul: url("assets/mas-azul.svg");
 }
 
 /* --------------------------------------------------------------------------

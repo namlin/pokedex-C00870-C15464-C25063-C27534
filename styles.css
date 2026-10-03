@@ -1025,8 +1025,233 @@ footer a {
 /* Perfil del entrenador */
 
 
-/* Modal equipo Pokémon */
+/* --- Modal equipo Pokémon ------------------------------------------------ */
+.team-pokemon-dialog {
+  width: min(36rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  color: var(--navy);
+  background: var(--sprite-fondo);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-3);
+}
 
+/* Sombra de fondo que cubre toda la ventana cuando se abre el dialog. */
+.team-pokemon-dialog::backdrop {
+  background: var(--backdrop-modal);
+}
+
+/* ---- 1. Encabezado del modal  --------------------------------- */
+.team-dialog__header {
+  position: static;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  text-align: left;
+  background: var(--sprite-fondo);
+  border-bottom: 1px solid var(--linea);
+  box-shadow: none;
+}
+
+.team-dialog__title {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+/* Se agrega el ícono de equipo a la izquierda del título. */
+.team-dialog__title::before {
+  content: "";
+  flex: 0 0 2rem;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--azul);
+  background-image: var(--icono-equipo);
+  background-position: center;
+  background-size: 1.4rem;
+  background-repeat: no-repeat;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-1);
+}
+
+/* Botón de cerrar superior */
+.team-dialog__close_up {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  min-height: 2rem;
+  padding: 0;
+  border-color: var(--pista);
+  border-radius: var(--radio-pastilla);
+}
+
+/* Se agrega la X dentro del botón */
+.team-dialog__close_up::before {
+  content: "";
+  width: .875rem;
+  height: .875rem;
+  flex-shrink: 0;
+  background-image: var(--icono-cerrar);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* ---- 2. Contenido del modal  --------------------------------- */
+.team-pokemon__content {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.team-pokemon__summary {
+  margin: 0 0 .75rem;
+  color: var(--tinta-suave);
+  font-size: .85rem;
+}
+
+/* Lista de slots del equipo: 3 columnas, con gap entre ellos. */
+.team-pokemon-dialog .pokemon-team__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  gap: .875rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Cada slot del equipo es un flex vertical, centrado y con gap entre imagen,
+   número, nombre y tipos. */
+.team-pokemon-dialog .pokemon-team__slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .25rem;
+  padding: .5rem;
+}
+
+.team-pokemon-dialog .pokemon-team__image {
+  display: block;
+  width: 6rem;
+  height: 6rem;
+  margin: 0;
+  object-fit: contain;
+}
+
+/* El número del Pokémon se superpone a la imagen, en la esquina superior
+   izquierda. */
+.team-pokemon-dialog .pokemon-card__number {
+  position: absolute;
+  top: .75rem;
+  left: .75rem;
+  margin: 0;
+  padding: .2rem .4rem;
+  font-size: .75rem;
+}
+
+.team-pokemon-dialog .pokemon-team__name {
+  font-size: 1.125rem;
+}
+
+/* Los tipos del Pokémon se muestran en una fila centrada, con gap entre ellos.
+   Cada tipo es una pastilla de color herededa. */
+.team-pokemon-dialog .pokemon-team__types {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .25rem;
+}
+
+
+/* Se modifican valores del estilo de las pastillas de tipo heredadas
+  para adaptarlas al contexto del modal. */
+.team-pokemon-dialog .tipo {
+  padding: .3rem .5rem;
+  font-size: .75rem;
+  line-height: 1.5;
+}
+
+/* Al botón de eliminar Pokémon del equipo se le agrega una raya junto al texto. */
+.team-pokemon-dialog .pokemon-team__remove::before {
+  content: "";
+  width: .75rem;
+  height: 2px;
+  flex-shrink: 0;
+  background-color: currentColor;
+  flex: 1;
+}
+
+/* Slot vacío del equipo */
+.team-pokemon-dialog .pokemon-team__slot--empty {
+  justify-content: center;
+  gap: .75rem;
+  border-radius: var(--radio-lg);
+  color: var(--azul-borde);
+  background: var(--blanco);
+  border: 2px dashed var(--pista);
+  box-shadow: var(--brillo);
+}
+
+/* Texto que indica que el slot está vacío y se puede agregar un Pokémon */
+.team-pokemon-dialog .pokemon-team__empty-text {
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+/* Icono de agregar Pokémon en el slot vacío */
+.team-pokemon-dialog .pokemon-team__slot--empty::before {
+  content: "";
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--sprite-fondo);
+  background-image: var(--icono-agregar-azul);
+  background-position: center;
+  background-size: 1.25rem;
+  background-repeat: no-repeat;
+  border-radius: var(--radio-pastilla);
+  box-shadow: var(--sombra-1);
+}
+
+/* ---- 3. Pie del modal  --------------------------------- */
+/* Contiene los botones de agregar Pokémon y cerrar.
+  Se alinean a la derecha y se modifica el color heredado. */
+.team-dialog__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: .5rem;
+  margin: 0;
+  padding: .75rem 1.25rem;
+  background: var(--blanco);
+  border-top: 1px solid var(--linea);
+  box-shadow: none;
+}
+
+/* Espacio para el ícono de agregar Pokémon al equipo */
+.team-dialog__add::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask-position: center; /* Se usa mask en vez de background-image para que el color del ícono sea
+                            el mismo que el del texto del botón (currentColor). */
+  mask-size: contain;    /* Se ajusta el tamaño del ícono al tamaño del contenedor. */
+  mask-repeat: no-repeat; /* Se evita que el ícono se repita. */
+}
+
+/* Se agrega el ícono de agregar Pokémon al botón de agregar. */
+.team-dialog__add::before {
+  mask-image: var(--icono-agregar-blanco);
+}
 
 /* Modal favoritos */
 
