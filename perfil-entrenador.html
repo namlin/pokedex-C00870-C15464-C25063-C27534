@@ -159,46 +159,126 @@
       Favoritos
     </button>
 
-    <dialog id="open-favorite-pokemon">
-      <h2>Pokémones Favoritos</h3>
-        <p>4 Pokémones marcados como Favoritos</p>
-        <table class="favs-table">
-          <tbody>
-            <tr>
-              <td><img class=pokemon-card__image src="assets/favorite-icon.svg" alt="Favorite" width=30 height=30></img>
-              </td>
-              <td><img class=pokemon-card__image src="assets/blastoise.png" alt="Blastoise" width=30 height=30></img>
-              </td>
-              <td>"#1. Blastoise"</td>
-              <td><button type="button">Quitar de Favoritos</button></td>
-              <td><button type="button">Ver Detalle</button></td>
-            </tr>
+    <dialog id="open-favorite-pokemon" class="favorite-pokemon-dialog">
+      <header class="fav-dialog__header">
+        <h2 id="fav-pokemon-title" class="fav-dialog__title">Favoritos</h2>
+        <button type="button" class="boton fav-dialog__close_up"
+          command="close" commandfor="open-favorite-pokemon">
+          <span class="solo-lectores">Cerrar</span>
+        </button>
+      </header>
 
-            <tr>
-              <td><img class=pokemon-card__image src="assets/favorite-icon.svg" alt="Favorite" width=30 height=30></img>
-              </td>
-              <td><img class=pokemon-card__image src="assets/bulbasaur.png" alt="Bulbasaur" width=30 height=30></img>
-              </td>
-              <td>"#2. Bulbasaur"</td>
-              <td><button type="button">Quitar de Favoritos</button></td>
-              <td><button type="button">Ver Detalle</button></td>
-            </tr>
+      <section id="fav-pokemon" class="fav-pokemon__content">
+        <p class="fav-pokemon__summary">4 Pokémon marcados como favoritos</p>
 
-            <tr>
-              <td><img class=pokemon-card__image src="assets/favorite-icon.svg" alt="Favorite" width=30 height=30></img>
-              </td>
-              <td><img class=pokemon-card__image src="assets/charizard.png" alt="Charizard" width=30 height=30></img>
-              </td>
-              <td>"#3. Charizard"</td>
-              <td><button type="button">Quitar de Favoritos</button></td>
-              <td><button type="button">Ver Detalle</button></td>
-            </tr>
+        <ul class="fav-pokemon__list">
+          <li class="fav-card">
+            <span class="fav-card__star" aria-hidden="true"></span>
+            <div class="fav-card__image-container">
+              <img class="fav-card__image" src="assets/bulbasaur.png" alt="Bulbasaur" width="48" height="48">
+            </div>
+            <div class="fav-card__info">
+              <div class="fav-card__header">
+                <span class="fav-card__name">Bulbasaur</span>
+                <span class="fav-card__number">#001</span>
+              </div>
+              <div class="fav-card__types">
+                <span class="tipo tipo--planta">Planta</span>
+                <span class="tipo tipo--veneno">Veneno</span>
+              </div>
+            </div>
+            <div class="fav-card__actions">
+              <button type="button" class="boton boton--borde-azul boton--chico fav-card__btn-detail">
+                Ver detalle
+              </button>
+              <button type="button" class="boton boton--borde-rojo boton--chico fav-card__btn-remove">
+                Quitar de favoritos
+              </button>
+            </div>
+          </li>
 
-          </tbody>
-        </table>
+          <li class="fav-card">
+            <span class="fav-card__star" aria-hidden="true"></span>
+            <div class="fav-card__image-container">
+              <img class="fav-card__image" src="assets/charmander.png" alt="Charmander" width="48" height="48">
+            </div>
+            <div class="fav-card__info">
+              <div class="fav-card__header">
+                <span class="fav-card__name">Charmander</span>
+                <span class="fav-card__number">#004</span>
+              </div>
+              <div class="fav-card__types">
+                <span class="tipo tipo--fuego">Fuego</span>
+              </div>
+            </div>
+            <div class="fav-card__actions">
+              <button type="button" class="boton boton--borde-azul boton--chico fav-card__btn-detail">
+                Ver detalle
+              </button>
+              <button type="button" class="boton boton--borde-rojo boton--chico fav-card__btn-remove">
+                Quitar de favoritos
+              </button>
+            </div>
+          </li>
 
-        <button type="button" command="close" commandfor="open-favorite-pokemon">Cerrar</button>
+          <li class="fav-card">
+            <span class="fav-card__star" aria-hidden="true"></span>
+            <div class="fav-card__image-container">
+              <img class="fav-card__image" src="assets/squirtle.png" alt="Squirtle" width="48" height="48">
+            </div>
+            <div class="fav-card__info">
+              <div class="fav-card__header">
+                <span class="fav-card__name">Squirtle</span>
+                <span class="fav-card__number">#007</span>
+              </div>
+              <div class="fav-card__types">
+                <span class="tipo tipo--agua">Agua</span>
+              </div>
+            </div>
+            <div class="fav-card__actions">
+              <button type="button" class="boton boton--borde-azul boton--chico fav-card__btn-detail">
+                Ver detalle
+              </button>
+              <button type="button" class="boton boton--borde-rojo boton--chico fav-card__btn-remove">
+                Quitar de favoritos
+              </button>
+            </div>
+          </li>
 
+          <li class="fav-card">
+            <span class="fav-card__star" aria-hidden="true"></span>
+            <div class="fav-card__image-container">
+              <img class="fav-card__image" src="assets/pikachu.png" alt="Pikachu" width="48" height="48">
+            </div>
+            <div class="fav-card__info">
+              <div class="fav-card__header">
+                <span class="fav-card__name">Pikachu</span>
+                <span class="fav-card__number">#025</span>
+              </div>
+              <div class="fav-card__types">
+                <span class="tipo tipo--electrico">Eléctrico</span>
+              </div>
+            </div>
+            <div class="fav-card__actions">
+              <button type="button" class="boton boton--borde-azul boton--chico fav-card__btn-detail">
+                Ver detalle
+              </button>
+              <button type="button" class="boton boton--borde-rojo boton--chico fav-card__btn-remove">
+                Quitar de favoritos
+              </button>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <footer class="fav-dialog__footer">
+        <button type="button" class="boton boton--primario fav-dialog__add"
+          command="show-modal" commandfor="add-pokemon-capture-dialog">
+          Agregar desde capturados
+        </button>
+        <button type="button" class="boton boton--claro fav-dialog__close_primary"
+          command="close" commandfor="open-favorite-pokemon">Cerrar</button>
+      </footer>
     </dialog>
 
     <button type="button" command="show-modal" commandfor="open-stats">

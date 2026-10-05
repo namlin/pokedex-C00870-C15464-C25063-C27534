@@ -105,6 +105,7 @@
   --icono-cerrar: url("assets/cerrar.svg");
   --icono-agregar-blanco: url("assets/mas-blanco.svg");
   --icono-agregar-azul: url("assets/mas-azul.svg");
+  --icono-favorito: url("assets/favorite-icon.svg");
 }
 
 /* --------------------------------------------------------------------------

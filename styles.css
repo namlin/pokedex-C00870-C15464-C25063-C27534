@@ -1169,7 +1169,6 @@ footer a {
   gap: .25rem;
 }
 
-
 /* Se modifican valores del estilo de las pastillas de tipo heredadas
   para adaptarlas al contexto del modal. */
 .team-pokemon-dialog .tipo {
@@ -1242,19 +1241,337 @@ footer a {
   height: 1rem;
   flex-shrink: 0;
   background-color: currentColor;
-  mask-position: center; /* Se usa mask en vez de background-image para que el color del ícono sea
+  mask-position: center;  /* Se usa mask en vez de background-image para que el color del ícono sea
                             el mismo que el del texto del botón (currentColor). */
-  mask-size: contain;    /* Se ajusta el tamaño del ícono al tamaño del contenedor. */
-  mask-repeat: no-repeat; /* Se evita que el ícono se repita. */
+  mask-size: contain;  /* Se ajusta el tamaño del ícono al tamaño del contenedor. */
+  mask-repeat: no-repeat;  /* Se evita que el ícono se repita. */
 }
 
-/* Se agrega el ícono de agregar Pokémon al botón de agregar. */
+/* Ícono de agregar Pokémon al botón de agregar. */
 .team-dialog__add::before {
   mask-image: var(--icono-agregar-blanco);
 }
 
-/* Modal favoritos */
+/* --- Modal Pokémones Favoritos ------------------------------------------------ */
+.favorite-pokemon-dialog {
+  width: min(42rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  color: var(--navy);
+  background: var(--sprite-fondo);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-3);
+}
 
+/* Sombra de fondo que cubre toda la ventana cuando se abre el dialog. */
+.favorite-pokemon-dialog::backdrop {
+  background: var(--backdrop-modal);
+}
 
-/* Modal estadísticas */
+/* ---- 1. Encabezado del modal Favoritos --------------------------------- */
+.fav-dialog__header {
+  position: static;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 1.25rem;
+  text-align: left;
+  background: var(--sprite-fondo);
+  border-bottom: 1px solid var(--linea);
+  box-shadow: none;
+}
 
+.fav-dialog__title {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-family: var(--fuente-titulo);
+  color: var(--navy);
+}
+
+/* Ícono de estrella amarilla a la izquierda del título */
+.fav-dialog__title::before {
+  content: "";
+  flex: 0 0 2rem;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--amarillo);
+  background-image: var(--icono-favorito);
+  background-position: center;
+  background-size: 1.15rem;
+  background-repeat: no-repeat;
+  border-radius: var(--radio-pastilla);
+  box-shadow: var(--sombra-1);
+}
+
+/* Botón de cerrar superior */
+.fav-dialog__close_up {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  min-height: 2rem;
+  padding: 0;
+  border-color: var(--pista);
+  border-radius: var(--radio-pastilla);
+  background: var(--blanco);
+}
+
+.fav-dialog__close_up::before {
+  content: "";
+  width: .875rem;
+  height: .875rem;
+  flex-shrink: 0;
+  background-image: var(--icono-cerrar);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* ---- 2. Contenido del modal Favoritos --------------------------------- */
+.fav-pokemon__content {
+  padding: 1.25rem;
+}
+
+.fav-pokemon__summary {
+  margin: 0 0 1rem;
+  color: var(--tinta-suave);
+  font-size: .875rem;
+}
+
+/* Lista vertical de tarjetas de favoritos */
+.fav-pokemon__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Tarjeta individual de Pokémon Favorito */
+.fav-card {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.75rem 1rem;
+  background: var(--blanco);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-1);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.fav-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--sombra-2);
+}
+
+/* Badge de estrella a la izquierda de la imagen */
+.fav-card__star {
+  flex: 0 0 2rem;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--crema);
+  border: 1.5px solid var(--amarillo-borde);
+  background-image: var(--icono-favorito);
+  background-position: center;
+  background-size: 1.1rem;
+  background-repeat: no-repeat;
+  border-radius: var(--radio-pastilla);
+}
+
+/* Marco contenedor de la imagen del Pokémon */
+.fav-card__image-container {
+  flex: 0 0 3.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sprite-fondo);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  box-shadow: var(--brillo);
+}
+
+.fav-card__image {
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+}
+
+/* Información del Pokémon (Nombre, número y tipos) */
+.fav-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1 1 auto;
+}
+
+.fav-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fav-card__name {
+  font-family: var(--fuente-titulo);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.fav-card__number {
+  padding: 0.15rem 0.45rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--navy);
+  background: var(--amarillo);
+  border-radius: var(--radio-pastilla);
+}
+
+.fav-card__types {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.fav-card .tipo {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+/* Botones de acción a la derecha */
+.fav-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.fav-card__btn-detail,
+.fav-card__btn-remove {
+  white-space: nowrap;
+}
+
+/* Ícono de flecha en el botón "Ver detalle" usando pseudo-elemento ::after (Requerimiento 5) */
+.fav-card__btn-detail::after {
+  content: "";
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: rotate(45deg);
+  margin-left: 0.35rem;
+  flex-shrink: 0;
+  transition: transform var(--dur) var(--ease);
+}
+
+.fav-card__btn-detail:hover::after {
+  transform: translateX(2px) rotate(45deg);
+}
+
+/* Ícono de X en el botón "Quitar de favoritos" usando pseudo-elemento ::after (Requerimiento 5) */
+.fav-card__btn-remove::after {
+  content: "";
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  background-color: currentColor;
+  mask-image: var(--icono-cerrar);
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: var(--icono-cerrar);
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  margin-left: 0.35rem;
+  flex-shrink: 0;
+}
+
+/* ---- 3. Pie del modal Favoritos --------------------------------- */
+.fav-dialog__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: .5rem;
+  margin: 0;
+  padding: .75rem 1.25rem;
+  background: var(--blanco);
+  border-top: 1px solid var(--linea);
+  box-shadow: none;
+}
+
+.fav-dialog__add::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask-image: var(--icono-agregar-blanco);
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: var(--icono-agregar-blanco);
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+}
+
+/* Responsive breakpoint para pantallas pequeñas */
+@media (max-width: 580px) {
+  .fav-card {
+    flex-wrap: wrap;
+  }
+  .fav-card__actions {
+    width: 100%;
+    justify-content: flex-end;
+    margin-left: 0;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--linea);
+  }
+}
+
+/* Soporte para estructura basada en tabla (usando selectores de clase exclusivamente) */
+.favorite-pokemon-dialog .favs-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.75rem;
+  margin: 0;
+}
+
+.favorite-pokemon-dialog .favs-table tr {
+  background: var(--blanco);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-1);
+}
+
+.favorite-pokemon-dialog .favs-table td {
+  padding: 0.75rem 0.5rem;
+  vertical-align: middle;
+}
+
+.favorite-pokemon-dialog .favs-table td:first-child {
+  padding-left: 1rem;
+  border-top-left-radius: var(--radio-lg);
+  border-bottom-left-radius: var(--radio-lg);
+}
+
+.favorite-pokemon-dialog .favs-table td:last-child {
+  padding-right: 1rem;
+  border-top-right-radius: var(--radio-lg);
+  border-bottom-right-radius: var(--radio-lg);
+}
