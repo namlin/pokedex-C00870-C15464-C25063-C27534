@@ -56,7 +56,9 @@ body::before {
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%23fff' stroke-width='3'%3E%3Ccircle cx='32' cy='32' r='29'/%3E%3Cpath d='M3 32h58'/%3E%3Ccircle cx='32' cy='32' r='10'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: var(--fuente-titulo);
   font-weight: 600;
   line-height: 1.15;
@@ -146,16 +148,45 @@ img {
 
 /* Cada tarjeta entra un poquito después que la anterior (efecto cascada).
    --n es una variable propia: la regla de arriba la lee con calc(). */
-.pokemon-card:nth-child(2)  { --n: 1; }
-.pokemon-card:nth-child(3)  { --n: 2; }
-.pokemon-card:nth-child(4)  { --n: 3; }
-.pokemon-card:nth-child(5)  { --n: 4; }
-.pokemon-card:nth-child(6)  { --n: 5; }
-.pokemon-card:nth-child(7)  { --n: 6; }
-.pokemon-card:nth-child(8)  { --n: 7; }
-.pokemon-card:nth-child(9)  { --n: 8; }
-.pokemon-card:nth-child(10) { --n: 9; }
-.pokemon-card:nth-child(n+11) { --n: 10; }
+.pokemon-card:nth-child(2) {
+  --n: 1;
+}
+
+.pokemon-card:nth-child(3) {
+  --n: 2;
+}
+
+.pokemon-card:nth-child(4) {
+  --n: 3;
+}
+
+.pokemon-card:nth-child(5) {
+  --n: 4;
+}
+
+.pokemon-card:nth-child(6) {
+  --n: 5;
+}
+
+.pokemon-card:nth-child(7) {
+  --n: 6;
+}
+
+.pokemon-card:nth-child(8) {
+  --n: 7;
+}
+
+.pokemon-card:nth-child(9) {
+  --n: 8;
+}
+
+.pokemon-card:nth-child(10) {
+  --n: 9;
+}
+
+.pokemon-card:nth-child(n+11) {
+  --n: 10;
+}
 
 /* Toda la tarjeta es el enlace: display: block lo estira, y así el
    área clicable es la tarjeta entera, no solo el texto. */
@@ -250,7 +281,7 @@ header {
   box-shadow: 0 8px 24px -8px rgba(20, 44, 82, .55);
 }
 
-@media (width >= 40rem) {
+@media (width >=40rem) {
   header {
     flex-direction: row;
     justify-content: space-between;
@@ -259,7 +290,9 @@ header {
   }
 }
 
-header p { margin: 0; }
+header p {
+  margin: 0;
+}
 
 .header__acciones {
   display: flex;
@@ -325,7 +358,7 @@ header nav a[aria-current] {
   padding-left: 0;
 }
 
-@media (width >= 40rem) {
+@media (width >=40rem) {
   .carrusel {
     flex-direction: row;
     justify-content: center;
@@ -369,7 +402,8 @@ header nav a[aria-current] {
 .paginacion a {
   display: grid;
   place-items: center;
-  width: 2.75rem;                 /* 44px: tamaño mínimo cómodo para el dedo */
+  width: 2.75rem;
+  /* 44px: tamaño mínimo cómodo para el dedo */
   height: 2.75rem;
   border-radius: 50%;
   background: var(--blanco);
@@ -414,7 +448,7 @@ section.buscador h2 {
   font-size: 1.4rem;
 }
 
-section.buscador > p {
+section.buscador>p {
   margin: .25rem 0 1rem;
   color: var(--crema);
 }
@@ -506,8 +540,13 @@ section.buscador > p {
   transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), background var(--dur);
 }
 
-.boton:hover  { transform: translateY(-2px); }
-.boton:active { transform: translateY(1px) scale(.98); }
+.boton:hover {
+  transform: translateY(-2px);
+}
+
+.boton:active {
+  transform: translateY(1px) scale(.98);
+}
 
 .boton--primario {
   background: var(--azul);
@@ -617,12 +656,23 @@ section.buscador > p {
   animation: llenar 1s var(--ease) .3s backwards;
 }
 
-.stats-table tbody td:nth-child(1) { --color-stat: var(--stat-ps); }
+.stats-table tbody td:nth-child(1) {
+  --color-stat: var(--stat-ps);
+}
+
 .stats-table tbody td:nth-child(2),
-.stats-table tbody td:nth-child(4) { --color-stat: var(--stat-ataque); }
+.stats-table tbody td:nth-child(4) {
+  --color-stat: var(--stat-ataque);
+}
+
 .stats-table tbody td:nth-child(3),
-.stats-table tbody td:nth-child(5) { --color-stat: var(--stat-defensa); }
-.stats-table tbody td:nth-child(6) { --color-stat: var(--stat-velocidad); }
+.stats-table tbody td:nth-child(5) {
+  --color-stat: var(--stat-defensa);
+}
+
+.stats-table tbody td:nth-child(6) {
+  --color-stat: var(--stat-velocidad);
+}
 
 .stats-table__total,
 .stats-table__total td {
@@ -642,7 +692,7 @@ main {
   padding: 1.5rem 1rem;
 }
 
-@media (width >= 64rem) {
+@media (width >=64rem) {
   main {
     padding: 2rem;
   }
@@ -691,7 +741,7 @@ footer a {
    8. Consultas de contenedor (clase 5)
    -------------------------------------------------------------------------- */
 
-@container (inline-size >= 20rem) {
+@container (inline-size >=20rem) {
   .pokemon-card__name {
     font-size: 1.35rem;
   }
@@ -702,7 +752,7 @@ footer a {
    9. Disposición con Grid (clase 6)
    -------------------------------------------------------------------------- */
 
-@media (width >= 40rem) {
+@media (width >=40rem) {
   footer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -721,7 +771,7 @@ footer a {
   margin-bottom: 1.5rem;
 }
 
-@media (width >= 40rem) {
+@media (width >=40rem) {
   .ficha-pokemon__resumen {
     grid-template-columns: 300px 1fr;
     grid-template-areas:
@@ -729,9 +779,17 @@ footer a {
       "imagen  habilidades";
   }
 
-  .ficha-pokemon__imagen      { grid-area: imagen; }
-  .ficha-pokemon__detalles    { grid-area: detalles; }
-  .ficha-pokemon__habilidades { grid-area: habilidades; }
+  .ficha-pokemon__imagen {
+    grid-area: imagen;
+  }
+
+  .ficha-pokemon__detalles {
+    grid-area: detalles;
+  }
+
+  .ficha-pokemon__habilidades {
+    grid-area: habilidades;
+  }
 }
 
 
@@ -749,7 +807,7 @@ footer a {
   animation: aparecer .6s var(--ease) backwards;
 }
 
-@media (width >= 40rem) {
+@media (width >=40rem) {
   #ficha-pokemon {
     padding: 2.25rem;
   }
@@ -823,7 +881,8 @@ footer a {
 /* Imagen grande: sobre las rayitas y flotando suavemente. La animación va
    en la <img> y el marco (figure) queda quieto. */
 .ficha-pokemon__imagen {
-  align-self: start;   /* sin esto el grid la estira a la altura de las dos filas */
+  align-self: start;
+  /* sin esto el grid la estira a la altura de las dos filas */
   margin: 0;
   padding: 1rem;
   text-align: center;
@@ -879,7 +938,7 @@ footer a {
   font-weight: 600;
 }
 
-.ficha-pokemon__habilidades dt + dd {
+.ficha-pokemon__habilidades dt+dd {
   padding: .15rem 0 .75rem;
   border-bottom: 1px solid var(--linea);
   color: var(--tinta-suave);
@@ -902,12 +961,29 @@ footer a {
   font-weight: 700;
 }
 
-.tipo--planta    { --color-tipo: var(--tipo-planta); }
-.tipo--fuego     { --color-tipo: var(--tipo-fuego); }
-.tipo--agua      { --color-tipo: var(--tipo-agua); }
-.tipo--electrico { --color-tipo: var(--tipo-electrico); }
-.tipo--veneno    { --color-tipo: var(--tipo-veneno); }
-.tipo--volador   { --color-tipo: var(--tipo-volador); }
+.tipo--planta {
+  --color-tipo: var(--tipo-planta);
+}
+
+.tipo--fuego {
+  --color-tipo: var(--tipo-fuego);
+}
+
+.tipo--agua {
+  --color-tipo: var(--tipo-agua);
+}
+
+.tipo--electrico {
+  --color-tipo: var(--tipo-electrico);
+}
+
+.tipo--veneno {
+  --color-tipo: var(--tipo-veneno);
+}
+
+.tipo--volador {
+  --color-tipo: var(--tipo-volador);
+}
 
 /* Cadena evolutiva: píldoras unidas por flechas (::after). El Pokémon que
    se está viendo va resaltado. */
@@ -929,7 +1005,7 @@ footer a {
   font-weight: 600;
 }
 
-.cadena-evolutiva li + li::before {
+.cadena-evolutiva li+li::before {
   content: "→";
   margin-right: .5rem;
   color: var(--tinta-suave);
@@ -990,26 +1066,41 @@ footer a {
    -------------------------------------------------------------------------- */
 
 @keyframes aparecer {
-  from { opacity: 0; transform: translateY(16px) scale(.97); }
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(.97);
+  }
 }
 
 @keyframes flotar {
-  50% { transform: translateY(-10px); }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes latido {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(250, 209, 98, .7); }
-  50%      { box-shadow: 0 0 0 10px rgba(250, 209, 98, 0); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(250, 209, 98, .7);
+  }
+
+  50% {
+    box-shadow: 0 0 0 10px rgba(250, 209, 98, 0);
+  }
 }
 
 @keyframes llenar {
-  from { background-size: 0 100%, 100% 100%; }
+  from {
+    background-size: 0 100%, 100% 100%;
+  }
 }
 
 /* Quien pide "reducir movimiento" en su sistema (por mareos, migrañas o
    simple preferencia) no debe recibir animaciones. En vez de tocar cada
    regla, este bloque las apaga todas de una vez. */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -1241,10 +1332,13 @@ footer a {
   height: 1rem;
   flex-shrink: 0;
   background-color: currentColor;
-  mask-position: center;  /* Se usa mask en vez de background-image para que el color del ícono sea
+  mask-position: center;
+  /* Se usa mask en vez de background-image para que el color del ícono sea
                             el mismo que el del texto del botón (currentColor). */
-  mask-size: contain;  /* Se ajusta el tamaño del ícono al tamaño del contenedor. */
-  mask-repeat: no-repeat;  /* Se evita que el ícono se repita. */
+  mask-size: contain;
+  /* Se ajusta el tamaño del ícono al tamaño del contenedor. */
+  mask-repeat: no-repeat;
+  /* Se evita que el ícono se repita. */
 }
 
 /* Ícono de agregar Pokémon al botón de agregar. */
@@ -1574,4 +1668,236 @@ footer a {
   padding-right: 1rem;
   border-top-right-radius: var(--radio-lg);
   border-bottom-right-radius: var(--radio-lg);
+}
+
+/* Pantalla principal del entrenador */
+
+body:has(.trainer-profile) {
+  display: flex;
+  flex-direction: column;
+  color: var(--blanco);
+}
+
+body:has(.trainer-profile)>header {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+body:has(.trainer-profile)>header nav ul {
+  justify-content: flex-end;
+  gap: 1.25rem;
+}
+
+body:has(.trainer-profile)>header nav a {
+  padding-inline: .8rem;
+}
+
+.trainer-profile {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 1.75rem;
+}
+
+.trainer-card {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  grid-template-areas:
+    "avatar header"
+    "avatar details"
+    "avatar bio";
+  gap: .25rem 1.5rem;
+  align-items: start;
+  padding: 1.5rem;
+  color: var(--navy);
+  background: linear-gradient(180deg, var(--rojo), var(--blanco));
+  border: 2px solid var(--amarillo);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-2), var(--brillo);
+}
+
+.trainer-avatar {
+  grid-area: avatar;
+  width: 150px;
+  height: 150px;
+  margin: 0;
+  overflow: hidden;
+  border: 3px solid var(--azul-borde);
+  border-radius: var(--radio-lg);
+  background: var(--sprite-zona);
+}
+
+.trainer-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.trainer-header {
+  grid-area: header;
+  position: static;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.trainer-header h1 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 1.6rem;
+}
+
+.btn-edit {
+  min-width: 150px;
+  min-height: 2.5rem;
+  padding: 0 .9rem;
+  border: 2px solid var(--azul-borde);
+  border-radius: var(--radio-pastilla);
+  color: var(--navy);
+  background: var(--amarillo);
+  font: inherit;
+  font-size: .85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.trainer-details {
+  display: grid;
+  grid-area: details;
+  grid-template-columns: max-content 1fr;
+  gap: .2rem .5rem;
+  margin: 0;
+  color: var(--tinta-suave);
+  font-size: .9rem;
+}
+
+.trainer-details dt,
+.trainer-details dd {
+  margin: 0;
+}
+
+.trainer-details dt {
+  font-weight: 700;
+}
+
+.trainer-bio {
+  grid-area: bio;
+  margin: .4rem 0 0;
+  color: var(--tinta-suave);
+  font-size: .9rem;
+  line-height: 1.35;
+}
+
+
+body:has(.trainer-profile) main {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  max-width: 800px;
+  padding: 1rem 1.25rem 2rem;
+}
+
+body:has(.trainer-profile) main>button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .65rem;
+  width: 100%;
+  min-height: 118px;
+  border: 2px solid var(--amarillo);
+  border-radius: var(--radio-lg);
+  color: var(--navy);
+  background: var(--amarillo);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--sombra-1);
+  transition: transform var(--dur) var(--ease), background var(--dur);
+}
+
+body:has(.trainer-profile) main>button[commandfor="team-pokemon-dialog"]::before,
+body:has(.trainer-profile) main>button[commandfor="open-stats"]::before,
+body:has(.trainer-profile) main>button[commandfor="open-favorite-pokemon"]::before,
+body:has(.trainer-profile) main>button[commandfor="add-pokemon-capture-dialog"]::before {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+body:has(.trainer-profile) main>button[commandfor="team-pokemon-dialog"]::before {
+  background-color: var(--azul);
+  -webkit-mask: var(--icono-equipo) center / contain no-repeat;
+  mask: var(--icono-equipo) center / contain no-repeat;
+}
+
+body:has(.trainer-profile) main>button[commandfor="open-stats"]::before {
+  background-image: url("assets/estadisticas.svg");
+}
+
+body:has(.trainer-profile) main>button[commandfor="open-favorite-pokemon"]::before {
+  background-image: url("assets/favorite-icon.svg");
+}
+
+body:has(.trainer-profile) main>button[commandfor="add-pokemon-capture-dialog"]::before {
+  background-image: url("assets/pokeball.svg");
+}
+
+body:has(.trainer-profile) main>button:hover {
+  background: var(--crema);
+  transform: translateY(-2px);
+}
+
+body:has(.trainer-profile)>footer {
+  width: 100%;
+  max-width: none;
+  margin: auto 0 0;
+}
+
+@media (width < 40rem) {
+  body:has(.trainer-profile)>header nav ul {
+    justify-content: center;
+    gap: .25rem;
+  }
+
+  .trainer-card {
+    grid-template-columns: 96px 1fr;
+    gap: .6rem .9rem;
+    padding: 1rem;
+  }
+
+  .trainer-avatar {
+    width: 96px;
+    height: 96px;
+  }
+
+  .trainer-header {
+    display: block;
+  }
+
+  .trainer-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .btn-edit {
+    min-width: 0;
+    margin-top: .5rem;
+  }
+
+  body:has(.trainer-profile) main {
+    grid-template-columns: 1fr;
+  }
 }
