@@ -11,7 +11,7 @@
   <!-- favicon.ico vive en la raiz: el navegador lo pide solo, sin <link> -->
 
   <link rel="stylesheet" href="tokens.css">
-  <link rel="stylesheet" href="styles.css">  
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -24,7 +24,7 @@
     <nav>
       <ul>
         <li><a href="index.html" accesskey="p">Pokédex</a></li>
-        <li><a href="./" accesskey="p">Perfil de entrenador</a></li>
+        <li><a href="./" accesskey="p" aria-current="page">Perfil de entrenador</a></li>
         <li><a href="acerca-de.html">Acerca de</a></li>
         <li><a href="configuracion.html">Configuración</a></li>
       </ul>
@@ -35,7 +35,7 @@
     <article class="trainer-card">
 
       <figure class="trainer-avatar">
-        <img src="assets/entrenador.png" alt="Fotografía del entrenador Red" width="200" height="200" />
+        <img src="assets/entrenadorAnimado.jpeg" alt="Fotografía del entrenador Red" width="200" height="200" />
       </figure>
 
       <header class="trainer-header">
@@ -74,8 +74,7 @@
     <dialog id="team-pokemon-dialog" class="team-pokemon-dialog">
       <header class="team-dialog__header">
         <h2 id="team-pokemon-title" class="team-dialog__title">Equipo Pokémon</h2>
-        <button type="button" class="boton team-dialog__close_up"
-          command="close" commandfor="team-pokemon-dialog">
+        <button type="button" class="boton team-dialog__close_up" command="close" commandfor="team-pokemon-dialog">
           <span class="solo-lectores">Cerrar</span>
         </button>
       </header>
@@ -88,8 +87,8 @@
             <span class="pokemon-card__number pokemon-team__number"># 001</span>
             <span class="pokemon-card__name pokemon-team__name">Venusaur</span>
             <div class="pokemon-team__types">
-                <span class="tipo tipo--planta">Planta</span>
-                <span class="tipo tipo--veneno">Veneno</span>
+              <span class="tipo tipo--planta">Planta</span>
+              <span class="tipo tipo--veneno">Veneno</span>
             </div>
             <button type="button" class="boton boton--borde-rojo boton--chico pokemon-team__remove">
               Quitar
@@ -100,8 +99,8 @@
             <span class="pokemon-card__number pokemon-team__number"># 002</span>
             <span class="pokemon-card__name pokemon-team__name">Charizard</span>
             <div class="pokemon-team__types">
-                <span class="tipo tipo--fuego">Fuego</span>
-                <span class="tipo tipo--volador">Volador</span>
+              <span class="tipo tipo--fuego">Fuego</span>
+              <span class="tipo tipo--volador">Volador</span>
             </div>
             <button type="button" class="boton boton--borde-rojo boton--chico pokemon-team__remove">
               Quitar
@@ -112,7 +111,7 @@
             <span class="pokemon-card__number pokemon-team__number"># 003</span>
             <span class="pokemon-card__name pokemon-team__name">Blastoise</span>
             <div class="pokemon-team__types">
-                <span class="tipo tipo--agua">Agua</span>
+              <span class="tipo tipo--agua">Agua</span>
             </div>
             <button type="button" class="boton boton--borde-rojo boton--chico pokemon-team__remove">
               Quitar
@@ -123,7 +122,7 @@
             <span class="pokemon-card__number pokemon-team__number"># 004</span>
             <span class="pokemon-card__name pokemon-team__name">Pikachu</span>
             <div class="pokemon-team__types">
-                <span class="tipo tipo--electrico">Eléctrico</span>
+              <span class="tipo tipo--electrico">Eléctrico</span>
             </div>
             <button type="button" class="boton boton--borde-rojo boton--chico pokemon-team__remove">
               Quitar
@@ -134,7 +133,7 @@
             <span class="pokemon-card__number pokemon-team__number"># 005</span>
             <span class="pokemon-card__name pokemon-team__name">Charmander</span>
             <div class="pokemon-team__types">
-                <span class="tipo tipo--fuego">Fuego</span>
+              <span class="tipo tipo--fuego">Fuego</span>
             </div>
             <button type="button" class="boton boton--borde-rojo boton--chico pokemon-team__remove">Quitar</button>
           </li>
@@ -144,13 +143,13 @@
         </ul>
       </section>
 
-      <footer class="team-dialog__footer"> 
-        <button type="button" class="boton boton--primario team-dialog__add"
-          command="show-modal" commandfor="add-pokemon-capture-dialog">
+      <footer class="team-dialog__footer">
+        <button type="button" class="boton boton--primario team-dialog__add" command="show-modal"
+          commandfor="add-pokemon-capture-dialog">
           Agregar desde capturados
         </button>
-        <button type="button" class="boton boton--claro team-dialog__close_primary"
-          command="close" commandfor="team-pokemon-dialog">Cerrar</button>
+        <button type="button" class="boton boton--claro team-dialog__close_primary" command="close"
+          commandfor="team-pokemon-dialog">Cerrar</button>
       </footer>
 
     </dialog>
