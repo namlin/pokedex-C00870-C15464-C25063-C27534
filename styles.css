@@ -1352,6 +1352,426 @@ footer a {
 
 /* Modal estadísticas */
 
+/* Modal estadísticas */
+
+.stats-dialog {
+  width: min(56rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+
+  color: var(--navy);
+  background: var(--sprite-fondo);
+
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+
+  box-shadow: var(--sombra-3);
+}
+
+
+/* Fondo detrás del modal */
+.stats-dialog::backdrop {
+  background: var(--backdrop-modal);
+}
+
+
+/* --------------------------------------------------------------------------
+   Encabezado
+   -------------------------------------------------------------------------- */
+
+.stats-dialog__header {
+  position: static;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  margin: 0;
+  padding: .85rem 1.25rem;
+
+  color: var(--navy);
+  background: var(--sprite-fondo);
+
+  border-bottom: 1px solid var(--linea);
+
+  box-shadow: none;
+}
+
+
+.stats-dialog__title {
+  position: relative;
+
+  margin: 0;
+  padding-left: 3rem;
+
+  font-family: var(--fuente-titulo);
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 2rem;
+
+  /*
+    Cuadro verde que queda detrás del ícono.
+    El ícono propiamente dicho se agrega con ::before.
+  */
+  background:
+    linear-gradient(var(--verde) 0 0)
+    left center / 2rem 2rem
+    no-repeat;
+
+  border-radius: var(--radio);
+}
+
+
+/*
+  Ícono de estadísticas.
+
+  El SVG ya existe en assets/estadisticas.svg.
+  Se usa como mask para poder pintarlo blanco sin modificar el archivo SVG.
+*/
+.stats-dialog__title::before {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 1rem;
+
+  width: 1rem;
+  height: 1rem;
+
+  background: var(--sprite-fondo);
+
+  transform: translate(-50%, -50%);
+
+  -webkit-mask:
+    var(--icono-estadisticas)
+    center / contain
+    no-repeat;
+
+  mask:
+    var(--icono-estadisticas)
+    center / contain
+    no-repeat;
+}
+
+
+/* --------------------------------------------------------------------------
+   Botón X
+   -------------------------------------------------------------------------- */
+
+.stats-dialog__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 2rem;
+  height: 2rem;
+
+  padding: 0;
+
+  color: var(--navy);
+  background: var(--blanco);
+
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-pastilla);
+
+  cursor: pointer;
+
+  transition:
+    transform .2s ease,
+    background .2s ease;
+}
+
+.stats-dialog__close::before {
+  content: "";
+
+  width: .75rem;
+  height: .75rem;
+
+  background-image: var(--icono-cerrar);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+.stats-dialog__close:hover,
+.stats-dialog__close:focus-visible {
+  background: var(--crema);
+
+  transform: scale(1.06);
+}
+
+
+.stats-dialog__close:focus-visible {
+  outline-color: var(--azul-borde);
+}
+
+
+/* --------------------------------------------------------------------------
+   Contenido
+   -------------------------------------------------------------------------- */
+
+.stats-dialog__content {
+  padding: 1rem 1.25rem .8rem;
+
+  overflow: auto;
+}
+
+
+.stats-dialog__description {
+  margin: 0 0 .75rem;
+
+  color: var(--tinta-suave);
+
+  font-size: .85rem;
+}
+
+
+/* Permite desplazamiento horizontal en pantallas muy pequeñas */
+.stats-dialog__table-wrapper {
+  overflow-x: auto;
+
+  border-radius: var(--radio);
+
+  box-shadow: var(--sombra-1);
+}
+
+
+/* --------------------------------------------------------------------------
+   Tabla
+   -------------------------------------------------------------------------- */
+
+.stats-dialog .stats-table {
+  width: 100%;
+  min-width: 28rem;
+
+  table-layout: fixed;
+
+  border-collapse: separate;
+  border-spacing: 0;
+
+  color: var(--navy);
+  background: var(--sprite-fondo);
+
+  border-radius: var(--radio);
+
+  box-shadow: none;
+}
+
+
+.stats-dialog .stats-table th,
+.stats-dialog .stats-table td {
+  padding: .35rem .4rem;
+
+  border-top: 1px solid var(--linea);
+
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+/* Encabezado amarillo claro */
+.stats-dialog .stats-table thead th {
+  border-top: 0;
+
+  color: var(--navy);
+  background: var(--crema);
+
+  font-family: var(--fuente-titulo);
+  font-size: .68rem;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.stats-dialog .stats-table thead th:first-child {
+  width: 24%;
+
+  text-align: left;
+}
+
+.stats-dialog .stats-table abbr {
+  text-decoration: none;
+
+  cursor: help;
+}
+
+
+/* Alternancia suave entre filas */
+.stats-dialog .stats-table tbody tr:nth-child(even) {
+  background: var(--blanco);
+}
+
+
+.stats-dialog .stats-table tbody td {
+  font-family: var(--fuente-texto);
+  font-size: .78rem;
+  font-weight: 500;
+}
+
+.stats-dialog .stats-table tbody td::after {
+  display: none;
+}
+
+
+/* Nombre del Pokémon */
+.stats-dialog .stats-table tbody td:first-child {
+  text-align: left;
+
+  font-family: var(--fuente-titulo);
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+.stats-dialog .stats-table .pokemon-card__image {
+  display: inline-block;
+
+  width: 1.6rem;
+  max-width: none;
+  height: 1.6rem;
+
+  margin: 0 .4rem 0 0;
+  padding: 0;
+
+  aspect-ratio: auto;
+
+  object-fit: contain;
+  vertical-align: middle;
+
+  background: transparent;
+
+  border-radius: 0;
+
+  filter: none;
+
+  transition: none;
+}
+
+
+/* Estadística más alta de cada columna */
+.stats-dialog .stats-table__best {
+  font-weight: 700;
+}
+
+
+/* Total de cada Pokémon */
+.stats-table__score {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 2.25rem;
+  min-height: 1.5rem;
+
+  padding: .1rem .4rem;
+
+  color: var(--sprite-fondo);
+  background: var(--navy);
+
+  border-radius: var(--radio-pastilla);
+
+  font-family: var(--fuente-titulo);
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+
+/* --------------------------------------------------------------------------
+   Fila de promedio
+   -------------------------------------------------------------------------- */
+
+.stats-dialog .stats-table__total td {
+  color: var(--navy);
+  background: var(--amarillo);
+
+  font-family: var(--fuente-titulo);
+  font-size: .8rem;
+  font-weight: 700;
+
+  border-top-color: var(--amarillo-borde);
+}
+
+
+.stats-dialog .stats-table__total td:first-child {
+  text-align: left;
+}
+
+
+/* Texto informativo bajo la tabla */
+.stats-dialog__note {
+  margin: .7rem 0 0;
+
+  color: var(--tinta-suave);
+
+  font-size: .72rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   Pie del modal
+   -------------------------------------------------------------------------- */
+
+.stats-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+
+  margin: 0;
+  padding: .75rem 1.25rem;
+
+  background: var(--blanco);
+
+  border-top: 1px solid var(--linea);
+
+  box-shadow: none;
+}
+
+
+.stats-dialog__close-bottom:hover,
+.stats-dialog__close-bottom:focus-visible {
+  transform: translateY(-2px);
+}
+
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (width < 36rem) {
+
+  .stats-dialog {
+    width: calc(100% - 1rem);
+    max-height: calc(100dvh - 1rem);
+  }
+
+
+  .stats-dialog__header,
+  .stats-dialog__content,
+  .stats-dialog__footer {
+    padding-inline: .85rem;
+  }
+
+
+  .stats-dialog__title {
+    font-size: 1.25rem;
+  }
+
+
+  .stats-dialog .stats-table th,
+  .stats-dialog .stats-table td {
+    padding: .3rem .3rem;
+  }
+
+}
+
 
 /* Pantalla principal del entrenador */
 
