@@ -1393,7 +1393,7 @@ body:has(.trainer-profile)>header nav a {
   align-items: start;
   padding: 1.5rem;
   color: var(--navy);
-  background: linear-gradient(180deg, #fff, var(--blanco));
+  background: linear-gradient(180deg, var(--rojo), var(--blanco));
   border: 2px solid var(--amarillo);
   border-radius: var(--radio-lg);
   box-shadow: var(--sombra-2), var(--brillo);
@@ -1490,17 +1490,53 @@ body:has(.trainer-profile) main {
 }
 
 body:has(.trainer-profile) main>button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .65rem;
   width: 100%;
   min-height: 118px;
   border: 2px solid var(--amarillo);
   border-radius: var(--radio-lg);
   color: var(--navy);
-  background: var(--blanco);
+  background: var(--amarillo);
   font: inherit;
   font-weight: 700;
   cursor: pointer;
   box-shadow: var(--sombra-1);
   transition: transform var(--dur) var(--ease), background var(--dur);
+}
+
+body:has(.trainer-profile) main>button[commandfor="team-pokemon-dialog"]::before,
+body:has(.trainer-profile) main>button[commandfor="open-stats"]::before,
+body:has(.trainer-profile) main>button[commandfor="open-favorite-pokemon"]::before,
+body:has(.trainer-profile) main>button[commandfor="add-pokemon-capture-dialog"]::before {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+body:has(.trainer-profile) main>button[commandfor="team-pokemon-dialog"]::before {
+  background-color: var(--azul);
+  -webkit-mask: var(--icono-equipo) center / contain no-repeat;
+  mask: var(--icono-equipo) center / contain no-repeat;
+}
+
+body:has(.trainer-profile) main>button[commandfor="open-stats"]::before {
+  background-image: url("assets/estadisticas.svg");
+}
+
+body:has(.trainer-profile) main>button[commandfor="open-favorite-pokemon"]::before {
+  background-image: url("assets/favorite-icon.svg");
+}
+
+body:has(.trainer-profile) main>button[commandfor="add-pokemon-capture-dialog"]::before {
+  background-image: url("assets/pokeball.svg");
 }
 
 body:has(.trainer-profile) main>button:hover {
