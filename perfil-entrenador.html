@@ -204,124 +204,244 @@
       Estadísticas
     </button>
 
-    <dialog id="open-stats">
-      <table class="stats-table">
-        <thead>
-          <tr>
-            <th abbr="Pkm">Pokemon</th>
-            <th abbr="PS">Puntos de Salud</th>
-            <th abbr="ATQ">Ataque</th>
-            <th abbr="DEF">Defensa</th>
-            <th abbr="AT. ESP.">Ataque Especial</th>
-            <th abbr="DEF. ESP.">Defensa Especial</th>
-            <th abbr="VEL">Velocidad</th>
-            <th abbr="Total">Total</th>
-          </tr>
-        </thead>
+    <dialog id="open-stats"
+      class="stats-dialog"
+      aria-labelledby="stats-dialog-title"
+      aria-describedby="stats-dialog-description stats-dialog-note">
 
-        <tbody>
-          <tr>
-            <td>
-              <img class="pokemon-card__image" src="assets/squirtle.png" alt="Squirtle" width="30" height="30">
-              Squirtle
-            </td>
-            <td>44</td>
-            <td>48</td>
-            <td>65</td>
-            <td>50</td>
-            <td>64</td>
-            <td>43</td>
-            <td>314</td>
-          </tr>
+      <header class="stats-dialog__header">
+        <h2 id="stats-dialog-title" class="stats-dialog__title">
+          Estadísticas
+        </h2>
 
-          <tr>
-            <td>
-              <img class="pokemon-card__image" src="assets/pikachu.png" alt="Pikachu" width="30" height="30">
-              Pikachu
-            </td>
-            <td>35</td>
-            <td>55</td>
-            <td>40</td>
-            <td>50</td>
-            <td>50</td>
-            <td>90</td>
-            <td>320</td>
-          </tr>
+        <button
+          type="button"
+          class="stats-dialog__close"
+          command="close"
+          commandfor="open-stats">
+          <span class="solo-lectores">Cerrar</span>
+        </button>
+      </header>
 
-          <tr>
-            <td>
-              <img class="pokemon-card__image" src="assets/charizard.png" alt="Charizard" width="30" height="30">
-              Charizard
-            </td>
-            <td>78</td>
-            <td>84</td>
-            <td>78</td>
-            <td>109</td>
-            <td>85</td>
-            <td>100</td>
-            <td>534</td>
-          </tr>
+      <section class="stats-dialog__content">
 
-          <tr>
+        <p id="stats-dialog-description" class="stats-dialog__description">
+          Comparativa de los Pokémon de tu equipo
+        </p>
 
-            <td>
-              <img class="pokemon-card__image" src="assets/venusaur.png" alt="Venusaur" width="30" height="30">
-              Venusaur
-            </td>
-            <td>80</td>
-            <td>82</td>
-            <td>83</td>
-            <td>100</td>
-            <td>100</td>
-            <td>90</td>
-            <td>525</td>
-          </tr>
+        <div class="stats-dialog__table-wrapper">
 
-          <tr>
-            <td>
-              <img class="pokemon-card__image" src="assets/charmeleon.png" alt="Charmeleon" width="30" height="30">
-              Charmeleon
-            </td>
-            <td>58</td>
-            <td>64</td>
-            <td>58</td>
-            <td>80</td>
-            <td>65</td>
-            <td>80</td>
-            <td>405</td>
-          </tr>
+          <table class="stats-table">
 
-          <tr>
-            <td>
-              <img class="pokemon-card__image" src="assets/wartortle.png" alt="Wartortle" width="30" height="30">
-              Wartortle
-            </td>
-            <td>59</td>
-            <td>63</td>
-            <td>60</td>
-            <td>65</td>
-            <td>80</td>
-            <td>58</td>
-            <td>405</td>
-          </tr>
-        </tbody>
+            <thead>
+              <tr>
+                <th scope="col">Pokémon</th>
 
-        <tfoot>
-          <tr class="stats-table__total">
-            <td>Promedio</td>
-            <td>59</td>
-            <td>66</td>
-            <td>64</td>
-            <td>76</td>
-            <td>74</td>
-            <td>77</td>
-            <td>417</td>
-          </tr>
-        </tfoot>
+                <th scope="col">
+                  <abbr title="Puntos de Salud">PS</abbr>
+                </th>
 
-      </table>
+                <th scope="col">
+                  <abbr title="Ataque">ATQ</abbr>
+                </th>
 
-      <button type="button" command="close" commandfor="open-stats">Cerrar</button>
+                <th scope="col">
+                  <abbr title="Defensa">DEF</abbr>
+                </th>
+
+                <th scope="col">
+                  <abbr title="Ataque Especial">AT.ESP</abbr>
+                </th>
+
+                <th scope="col">
+                  <abbr title="Defensa Especial">DEF.ESP</abbr>
+                </th>
+
+                <th scope="col">
+                  <abbr title="Velocidad">VEL</abbr>
+                </th>
+
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <tr>
+                <td>
+                  <img
+                    class="pokemon-card__image"
+                    src="assets/squirtle.png"
+                    alt=""
+                    width="30"
+                    height="30">
+                  Squirtle
+                </td>
+
+                <td>44</td>
+                <td>48</td>
+                <td>65</td>
+                <td>50</td>
+                <td>64</td>
+                <td>43</td>
+
+                <td>
+                  <span class="stats-table__score">314</span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <img
+                    class="pokemon-card__image"
+                    src="assets/pikachu.png"
+                    alt=""
+                    width="30"
+                    height="30">
+                  Pikachu
+                </td>
+
+                <td>35</td>
+                <td>55</td>
+                <td>40</td>
+                <td>50</td>
+                <td>50</td>
+                <td class="stats-table__best">90</td>
+
+                <td>
+                  <span class="stats-table__score">320</span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <img
+                    class="pokemon-card__image"
+                    src="assets/charizard.png"
+                    alt=""
+                    width="30"
+                    height="30">
+                  Charizard
+                </td>
+
+                <td>78</td>
+                <td class="stats-table__best">84</td>
+                <td>78</td>
+                <td class="stats-table__best">109</td>
+                <td>85</td>
+                <td class="stats-table__best">100</td>
+
+                <td>
+                  <span class="stats-table__score">534</span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <img
+                    class="pokemon-card__image"
+                    src="assets/venusaur.png"
+                    alt=""
+                    width="30"
+                    height="30">
+                  Venusaur
+                </td>
+
+                <td class="stats-table__best">80</td>
+                <td>82</td>
+                <td class="stats-table__best">83</td>
+                <td>100</td>
+                <td class="stats-table__best">100</td>
+                <td>90</td>
+
+                <td>
+                  <span class="stats-table__score">525</span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <img
+                    class="pokemon-card__image"
+                    src="assets/charmeleon.png"
+                    alt=""
+                    width="30"
+                    height="30">
+                  Charmeleon
+                </td>
+
+                <td>58</td>
+                <td>64</td>
+                <td>58</td>
+                <td>80</td>
+                <td>65</td>
+                <td>80</td>
+
+                <td>
+                  <span class="stats-table__score">405</span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <img
+                    class="pokemon-card__image"
+                    src="assets/wartortle.png"
+                    alt=""
+                    width="30"
+                    height="30">
+                  Wartortle
+                </td>
+
+                <td>59</td>
+                <td>63</td>
+                <td>60</td>
+                <td>65</td>
+                <td>80</td>
+                <td>58</td>
+
+                <td>
+                  <span class="stats-table__score">405</span>
+                </td>
+              </tr>
+
+            </tbody>
+
+            <tfoot>
+              <tr class="stats-table__total">
+                <td>Promedio del equipo</td>
+                <td>59</td>
+                <td>66</td>
+                <td>64</td>
+                <td>76</td>
+                <td>74</td>
+                <td>77</td>
+                <td>417</td>
+              </tr>
+            </tfoot>
+
+          </table>
+
+        </div>
+
+        <p id="stats-dialog-note" class="stats-dialog__note">
+          Valores base tomados de la Pokédex · la fila de totales resume el equipo completo.
+        </p>
+
+      </section>
+
+      <footer class="stats-dialog__footer">
+
+        <button
+          type="button"
+          class="boton boton--primario stats-dialog__close-bottom"
+          command="close"
+          commandfor="open-stats">
+          Cerrar
+        </button>
+
+      </footer>
+
     </dialog>
 
     <button type="button" command="show-modal" commandfor="add-pokemon-capture-dialog">
