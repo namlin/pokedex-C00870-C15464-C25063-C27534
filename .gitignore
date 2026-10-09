@@ -1,2 +1,10 @@
-# macOS Files:
-.DS_STore
+# Dependencias (nunca se suben al repositorio)
+node_modules/
+
+# Archivos de entorno y secretos
+.env
+.env.local
+
+# Archivos de compilación / build
+dist/
+build/
