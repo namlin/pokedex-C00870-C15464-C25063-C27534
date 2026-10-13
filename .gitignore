@@ -8,3 +8,5 @@ node_modules/
 # Archivos de compilación / build
 dist/
 build/
+
+settings.json
