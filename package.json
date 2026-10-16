@@ -7,13 +7,20 @@
     "doc": "docs"
   },
   "scripts": {
+    "start": "node servidor.js",
+    "dev": "nodemon servidor.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mariannuar/ci0137-pokedex.git"
   },
-  "keywords": [],
+  "keywords": [
+    "node",
+    "http",
+    "pokedex",
+    "ci-0137"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
