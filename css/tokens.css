@@ -101,12 +101,12 @@
     repeating-linear-gradient(-45deg, var(--sprite-raya) 0 5px, #EBF3FA 5px 10px);
 
   /* --- Links ------------------------------------------------------------- */
-  --icono-equipo: url("assets/pokebolas.svg");
-  --icono-estadisticas: url("assets/estadisticas.svg");
-  --icono-cerrar: url("assets/cerrar.svg");
-  --icono-agregar-blanco: url("assets/mas-blanco.svg");
-  --icono-agregar-azul: url("assets/mas-azul.svg");
-  --icono-favorito: url("assets/favorite-icon.svg");
+  --icono-equipo: url("../assets/pokebolas.svg");
+  --icono-estadisticas: url("../assets/estadisticas.svg");
+  --icono-cerrar: url("../assets/cerrar.svg");
+  --icono-agregar-blanco: url("../assets/mas-blanco.svg");
+  --icono-agregar-azul: url("../assets/mas-azul.svg");
+  --icono-favorito: url("../assets/favorite-icon.svg");
 }
 
 /* --------------------------------------------------------------------------
