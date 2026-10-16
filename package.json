@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node servidor.js",
-    "dev": "nodemon servidor.js",
+    "dev": "node --watch servidor.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
