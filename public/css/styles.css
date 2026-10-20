@@ -2266,15 +2266,15 @@ body:has(.trainer-profile) main>button[commandfor="team-pokemon-dialog"]::before
 }
 
 body:has(.trainer-profile) main>button[commandfor="open-stats"]::before {
-  background-image: url("assets/estadisticas.svg");
+  background-image: url("../assets/estadisticas.svg");
 }
 
 body:has(.trainer-profile) main>button[commandfor="open-favorite-pokemon"]::before {
-  background-image: url("assets/favorite-icon.svg");
+  background-image: url("../assets/favorite-icon.svg");
 }
 
 body:has(.trainer-profile) main>button[commandfor="add-pokemon-capture-dialog"]::before {
-  background-image: url("assets/pokeball.svg");
+  background-image: url("../assets/pokeball.svg");
 }
 
 body:has(.trainer-profile) main>button:hover {
