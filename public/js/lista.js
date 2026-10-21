@@ -3,6 +3,7 @@
 //  y hace funcionar el buscador. Ya no hay <li> escritos a mano.
 // =============================================================
 import { pokedex, numeroPokedex } from './datos.js';
+import { estaCapturado, alternarCaptura } from './capturados.js';
 
 const lista = document.querySelector('.pokemon-list');
 const form = document.querySelector('#buscador form');
@@ -39,6 +40,21 @@ function crearTarjeta(pokemon) {
 
   a.append(img, numero, nombre);
   li.append(a);
+
+  // Botón de captura: va en el <li>, FUERA del enlace, para que no navegue.
+  const btnCaptura = document.createElement('button');
+  btnCaptura.type = 'button';
+  btnCaptura.className = 'captura-btn';
+  pintarBoton(btnCaptura, estaCapturado(pokemon.id));
+  if (estaCapturado(pokemon.id)) li.classList.add('pokemon-card--capturado');
+
+  btnCaptura.addEventListener('click', () => {
+    const ahora = alternarCaptura(pokemon.id);   // guarda en localStorage
+    li.classList.toggle('pokemon-card--capturado', ahora);
+    pintarBoton(btnCaptura, ahora);
+  });
+
+  li.append(btnCaptura);
   return li;
 }
 
@@ -97,3 +113,9 @@ form.addEventListener('submit', (evento) => {
 form.addEventListener('input', dibujar);
 
 dibujar();   // primer dibujado al cargar
+
+// Pone el texto y el estado del botón de captura
+function pintarBoton(boton, capturado) {
+  boton.textContent = capturado ? '✓ Capturado' : 'Capturar';
+  boton.setAttribute('aria-pressed', capturado);
+}

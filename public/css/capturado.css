@@ -1,0 +1,28 @@
+/* Botón "Capturar" en cada tarjeta de la lista */
+.captura-btn {
+  display: block;
+  width: 100%;
+  margin-top: .75rem;
+  padding: .45rem .8rem;
+  font: inherit;
+  font-weight: 700;
+  color: var(--rojo);
+  background: #fff;
+  border: 2px solid var(--rojo);
+  border-radius: var(--radio-pastilla);
+  cursor: pointer;
+  transition: transform var(--dur) var(--ease), background var(--dur), color var(--dur);
+}
+.captura-btn:hover { transform: translateY(-2px); }
+
+/* Cuando ya está capturado, el botón se rellena */
+.captura-btn[aria-pressed="true"] {
+  color: #fff;
+  background: var(--rojo);
+}
+
+/* La tarjeta capturada lleva una marca (anillo rojo) */
+.pokemon-card--capturado {
+  outline: 3px solid var(--rojo);
+  outline-offset: 2px;
+}

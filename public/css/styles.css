@@ -56,9 +56,7 @@ body::before {
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%23fff' stroke-width='3'%3E%3Ccircle cx='32' cy='32' r='29'/%3E%3Cpath d='M3 32h58'/%3E%3Ccircle cx='32' cy='32' r='10'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   font-family: var(--fuente-titulo);
   font-weight: 600;
   line-height: 1.15;
@@ -148,45 +146,16 @@ img {
 
 /* Cada tarjeta entra un poquito después que la anterior (efecto cascada).
    --n es una variable propia: la regla de arriba la lee con calc(). */
-.pokemon-card:nth-child(2) {
-  --n: 1;
-}
-
-.pokemon-card:nth-child(3) {
-  --n: 2;
-}
-
-.pokemon-card:nth-child(4) {
-  --n: 3;
-}
-
-.pokemon-card:nth-child(5) {
-  --n: 4;
-}
-
-.pokemon-card:nth-child(6) {
-  --n: 5;
-}
-
-.pokemon-card:nth-child(7) {
-  --n: 6;
-}
-
-.pokemon-card:nth-child(8) {
-  --n: 7;
-}
-
-.pokemon-card:nth-child(9) {
-  --n: 8;
-}
-
-.pokemon-card:nth-child(10) {
-  --n: 9;
-}
-
-.pokemon-card:nth-child(n+11) {
-  --n: 10;
-}
+.pokemon-card:nth-child(2)  { --n: 1; }
+.pokemon-card:nth-child(3)  { --n: 2; }
+.pokemon-card:nth-child(4)  { --n: 3; }
+.pokemon-card:nth-child(5)  { --n: 4; }
+.pokemon-card:nth-child(6)  { --n: 5; }
+.pokemon-card:nth-child(7)  { --n: 6; }
+.pokemon-card:nth-child(8)  { --n: 7; }
+.pokemon-card:nth-child(9)  { --n: 8; }
+.pokemon-card:nth-child(10) { --n: 9; }
+.pokemon-card:nth-child(n+11) { --n: 10; }
 
 /* Toda la tarjeta es el enlace: display: block lo estira, y así el
    área clicable es la tarjeta entera, no solo el texto. */
@@ -281,7 +250,7 @@ header {
   box-shadow: 0 8px 24px -8px rgba(20, 44, 82, .55);
 }
 
-@media (width >=40rem) {
+@media (width >= 40rem) {
   header {
     flex-direction: row;
     justify-content: space-between;
@@ -290,9 +259,7 @@ header {
   }
 }
 
-header p {
-  margin: 0;
-}
+header p { margin: 0; }
 
 .header__acciones {
   display: flex;
@@ -358,7 +325,7 @@ header nav a[aria-current] {
   padding-left: 0;
 }
 
-@media (width >=40rem) {
+@media (width >= 40rem) {
   .carrusel {
     flex-direction: row;
     justify-content: center;
@@ -402,8 +369,7 @@ header nav a[aria-current] {
 .paginacion a {
   display: grid;
   place-items: center;
-  width: 2.75rem;
-  /* 44px: tamaño mínimo cómodo para el dedo */
+  width: 2.75rem;                 /* 44px: tamaño mínimo cómodo para el dedo */
   height: 2.75rem;
   border-radius: 50%;
   background: var(--blanco);
@@ -448,7 +414,7 @@ section.buscador h2 {
   font-size: 1.4rem;
 }
 
-section.buscador>p {
+section.buscador > p {
   margin: .25rem 0 1rem;
   color: var(--crema);
 }
@@ -540,13 +506,8 @@ section.buscador>p {
   transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), background var(--dur);
 }
 
-.boton:hover {
-  transform: translateY(-2px);
-}
-
-.boton:active {
-  transform: translateY(1px) scale(.98);
-}
+.boton:hover  { transform: translateY(-2px); }
+.boton:active { transform: translateY(1px) scale(.98); }
 
 .boton--primario {
   background: var(--azul);
@@ -656,23 +617,12 @@ section.buscador>p {
   animation: llenar 1s var(--ease) .3s backwards;
 }
 
-.stats-table tbody td:nth-child(1) {
-  --color-stat: var(--stat-ps);
-}
-
+.stats-table tbody td:nth-child(1) { --color-stat: var(--stat-ps); }
 .stats-table tbody td:nth-child(2),
-.stats-table tbody td:nth-child(4) {
-  --color-stat: var(--stat-ataque);
-}
-
+.stats-table tbody td:nth-child(4) { --color-stat: var(--stat-ataque); }
 .stats-table tbody td:nth-child(3),
-.stats-table tbody td:nth-child(5) {
-  --color-stat: var(--stat-defensa);
-}
-
-.stats-table tbody td:nth-child(6) {
-  --color-stat: var(--stat-velocidad);
-}
+.stats-table tbody td:nth-child(5) { --color-stat: var(--stat-defensa); }
+.stats-table tbody td:nth-child(6) { --color-stat: var(--stat-velocidad); }
 
 .stats-table__total,
 .stats-table__total td {
@@ -692,7 +642,7 @@ main {
   padding: 1.5rem 1rem;
 }
 
-@media (width >=64rem) {
+@media (width >= 64rem) {
   main {
     padding: 2rem;
   }
@@ -741,7 +691,7 @@ footer a {
    8. Consultas de contenedor (clase 5)
    -------------------------------------------------------------------------- */
 
-@container (inline-size >=20rem) {
+@container (inline-size >= 20rem) {
   .pokemon-card__name {
     font-size: 1.35rem;
   }
@@ -752,7 +702,7 @@ footer a {
    9. Disposición con Grid (clase 6)
    -------------------------------------------------------------------------- */
 
-@media (width >=40rem) {
+@media (width >= 40rem) {
   footer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -771,7 +721,7 @@ footer a {
   margin-bottom: 1.5rem;
 }
 
-@media (width >=40rem) {
+@media (width >= 40rem) {
   .ficha-pokemon__resumen {
     grid-template-columns: 300px 1fr;
     grid-template-areas:
@@ -779,17 +729,9 @@ footer a {
       "imagen  habilidades";
   }
 
-  .ficha-pokemon__imagen {
-    grid-area: imagen;
-  }
-
-  .ficha-pokemon__detalles {
-    grid-area: detalles;
-  }
-
-  .ficha-pokemon__habilidades {
-    grid-area: habilidades;
-  }
+  .ficha-pokemon__imagen      { grid-area: imagen; }
+  .ficha-pokemon__detalles    { grid-area: detalles; }
+  .ficha-pokemon__habilidades { grid-area: habilidades; }
 }
 
 
@@ -807,7 +749,7 @@ footer a {
   animation: aparecer .6s var(--ease) backwards;
 }
 
-@media (width >=40rem) {
+@media (width >= 40rem) {
   #ficha-pokemon {
     padding: 2.25rem;
   }
@@ -881,8 +823,7 @@ footer a {
 /* Imagen grande: sobre las rayitas y flotando suavemente. La animación va
    en la <img> y el marco (figure) queda quieto. */
 .ficha-pokemon__imagen {
-  align-self: start;
-  /* sin esto el grid la estira a la altura de las dos filas */
+  align-self: start;   /* sin esto el grid la estira a la altura de las dos filas */
   margin: 0;
   padding: 1rem;
   text-align: center;
@@ -938,7 +879,7 @@ footer a {
   font-weight: 600;
 }
 
-.ficha-pokemon__habilidades dt+dd {
+.ficha-pokemon__habilidades dt + dd {
   padding: .15rem 0 .75rem;
   border-bottom: 1px solid var(--linea);
   color: var(--tinta-suave);
@@ -961,29 +902,12 @@ footer a {
   font-weight: 700;
 }
 
-.tipo--planta {
-  --color-tipo: var(--tipo-planta);
-}
-
-.tipo--fuego {
-  --color-tipo: var(--tipo-fuego);
-}
-
-.tipo--agua {
-  --color-tipo: var(--tipo-agua);
-}
-
-.tipo--electrico {
-  --color-tipo: var(--tipo-electrico);
-}
-
-.tipo--veneno {
-  --color-tipo: var(--tipo-veneno);
-}
-
-.tipo--volador {
-  --color-tipo: var(--tipo-volador);
-}
+.tipo--planta    { --color-tipo: var(--tipo-planta); }
+.tipo--fuego     { --color-tipo: var(--tipo-fuego); }
+.tipo--agua      { --color-tipo: var(--tipo-agua); }
+.tipo--electrico { --color-tipo: var(--tipo-electrico); }
+.tipo--veneno    { --color-tipo: var(--tipo-veneno); }
+.tipo--volador   { --color-tipo: var(--tipo-volador); }
 
 /* Cadena evolutiva: píldoras unidas por flechas (::after). El Pokémon que
    se está viendo va resaltado. */
@@ -1005,7 +929,7 @@ footer a {
   font-weight: 600;
 }
 
-.cadena-evolutiva li+li::before {
+.cadena-evolutiva li + li::before {
   content: "→";
   margin-right: .5rem;
   color: var(--tinta-suave);
@@ -1066,41 +990,26 @@ footer a {
    -------------------------------------------------------------------------- */
 
 @keyframes aparecer {
-  from {
-    opacity: 0;
-    transform: translateY(16px) scale(.97);
-  }
+  from { opacity: 0; transform: translateY(16px) scale(.97); }
 }
 
 @keyframes flotar {
-  50% {
-    transform: translateY(-10px);
-  }
+  50% { transform: translateY(-10px); }
 }
 
 @keyframes latido {
-
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(250, 209, 98, .7);
-  }
-
-  50% {
-    box-shadow: 0 0 0 10px rgba(250, 209, 98, 0);
-  }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(250, 209, 98, .7); }
+  50%      { box-shadow: 0 0 0 10px rgba(250, 209, 98, 0); }
 }
 
 @keyframes llenar {
-  from {
-    background-size: 0 100%, 100% 100%;
-  }
+  from { background-size: 0 100%, 100% 100%; }
 }
 
 /* Quien pide "reducir movimiento" en su sistema (por mareos, migrañas o
    simple preferencia) no debe recibir animaciones. En vez de tocar cada
    regla, este bloque las apaga todas de una vez. */
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
