@@ -46,7 +46,7 @@ function dibujarFicha(p) {
   const entradas = Object.entries(p.stats);
   const alta = entradas.reduce((a, b) => (b[1] > a[1] ? b : a));
   const baja = entradas.reduce((a, b) => (b[1] < a[1] ? b : a));
-  const lectura = `${p.nombre} destaca en ${etiquetas[alta[0]]} (${alta[1]}) y flojea en ${etiquetas[baja[0]]} (${baja[1]}).`;
+  const lectura = `${p.nombre} destaca en ${etiquetas[alta[0]]} (${alta[1]}) y débil en ${etiquetas[baja[0]]} (${baja[1]}).`;
 
   ficha.innerHTML = `
       <h1><span>${numeroPokedex(p.id)}</span> ${p.nombre}</h1>

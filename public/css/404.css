@@ -1,0 +1,87 @@
+/* ==========================================================================
+   Pokédex — CI-0137
+   Página 404 (no encontrado)
+
+   Se enlaza DESPUÉS de tokens.css y styles.css, así que reutiliza los colores,
+   las sombras, la tipografía y la clase .boton. Solo agrega lo propio de esta
+   página: el panel, el número grande y las tarjetas de opciones.
+   ========================================================================== */
+
+.error404 {
+  max-width: 48rem;
+  margin: 2rem auto;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  color: var(--navy);
+  background: linear-gradient(180deg, #fff, var(--blanco));
+  border-radius: var(--radio-xl);
+  box-shadow: var(--sombra-3), var(--brillo);
+  animation: aparecer .6s var(--ease) backwards;
+}
+
+/* El "404" gigante, con una sombra dura amarilla que lo hace resaltar. */
+.error404__codigo {
+  margin: 0;
+  font-family: var(--fuente-titulo);
+  font-size: clamp(4.5rem, 20vw, 9rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--azul);
+  text-shadow: 0 6px 0 var(--amarillo-borde);
+}
+
+.error404__titulo {
+  margin: .75rem 0 .35rem;
+  font-size: clamp(1.5rem, 5vw, 2.25rem);
+}
+
+.error404__texto {
+  max-width: 34rem;
+  margin: 0 auto 1.75rem;
+  color: var(--tinta-suave);
+}
+
+/* Las opciones: tarjetas blancas que se levantan al pasar el mouse, igual que
+   las tarjetas del resto del sitio. */
+.error404__opciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1rem;
+  margin: 0 0 1.75rem;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.opcion {
+  display: block;
+  height: 100%;
+  padding: 1.1rem 1.25rem;
+  color: var(--navy);
+  background: #fff;
+  border: 2px solid var(--linea);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-1);
+  text-decoration: none;
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur);
+}
+
+.opcion:hover,
+.opcion:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--amarillo);
+  box-shadow: var(--sombra-2);
+}
+
+.opcion__titulo {
+  display: block;
+  margin-bottom: .2rem;
+  font-family: var(--fuente-titulo);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.opcion__detalle {
+  color: var(--tinta-suave);
+  font-size: .95rem;
+}

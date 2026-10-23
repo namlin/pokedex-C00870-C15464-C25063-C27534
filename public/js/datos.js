@@ -142,7 +142,7 @@ export const pokedex = [
   },
   {
     id: 25, nombre: 'Pikachu', slug: 'pikachu',
-    tipos: ['electrico'],
+    tipos: ['eléctrico'],
     peso: 6, tamano: 0.4,
     stats: { hp: 35, ataque: 55, defensa: 40, ataqueEsp: 50, defensaEsp: 50, velocidad: 90 },
     habilidades: [

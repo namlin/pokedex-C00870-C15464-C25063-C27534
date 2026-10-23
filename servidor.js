@@ -1,35 +1,38 @@
-// http es un módulo que ya viene con Node (no se instala).
-const http = require('http');
-const fs = require('fs'); // fs = fiele system, para leer archivos del disco
-const path = require('path'); // path = para manejar rutas de archivos
-const { tipoDe } = require('./mime.js');
+// SERVIDOR — arma la aplicación: configura el motor de plantillas, enchufa
+// los middlewares, sirve lo estático, monta las rutas y queda escuchando.
+// (Reemplaza al servidor.js de la clase de Node.)
 
-// createServer recibe una función que se ejecuta en CADA petición.
-const servidor = http.createServer((peticion, respuesta) => {
-  // peticion.url es lo que viene después del dominio: "/", "/acerca", etc.
-  const soloRuta = peticion.url.split('?')[0]; // descarta la query string
-  const ruta = soloRuta === '/' ? '/index.html' : soloRuta;
+import express from 'express';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import pokemonRutas from './rutas/pokemonRutas.js';
 
-  // Armar la ruta real del archivo que se quiere servir.
-  const archivo = path.join(__dirname, 'public', ruta);
-  // Asincrónico: no bloquea mientras lee del disco
-  fs.readFile(archivo, (error, contenido) => {
-    if (error) {
-      // No existe -> respondemos con la página 404 (también asincrónico)
-      console.log(peticion.method, peticion.url, '-> 404');
-      fs.readFile(path.join(__dirname, 'public', '404.html'), (e, pagina404) => {
-        respuesta.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
-        respuesta.end(pagina404);
-      });
-      return;
-    }
-    console.log(peticion.method, peticion.url, '-> 200');
-    respuesta.writeHead(200, { 'Content-Type': tipoDe(path.extname(archivo)) });
-    respuesta.end(contenido);
-  });
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const app = express();
+const PUERTO = 3000;
+
+// --- Plantillas: usamos EJS y las vistas viven en la carpeta vistas/ ---
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'vistas'));
+
+// --- Middlewares (corren para TODA petición, en este orden) ---
+app.use((peticion, respuesta, siguiente) => {        // logger propio
+  console.log(peticion.method, peticion.url);
+  siguiente();
+});
+app.use(express.urlencoded({ extended: true }));     // lee los formularios (POST)
+app.use(express.static(path.join(__dirname, 'public')));  // sirve public/
+
+// --- Rutas: todo lo que empiece con /pokemon lo maneja ese router ---
+// (La raíz "/" la sirve express.static con public/index.html: ese es el
+//  sitio estático de siempre. La versión con plantillas vive en /pokemon.)
+app.use('/pokemon', pokemonRutas);
+
+// --- 404: si nadie respondió, no existe ---
+app.use((peticion, respuesta) => {
+  respuesta.status(404).render('404', { titulo: 'No encontrado' });
 });
 
-// listen deja el servidor "escuchando" pedidos en el puerto 3000.
-servidor.listen(3000, () => {
-  console.log('Servidor en http://localhost:3000');
+app.listen(PUERTO, () => {
+  console.log('Servidor en http://localhost:' + PUERTO);
 });
