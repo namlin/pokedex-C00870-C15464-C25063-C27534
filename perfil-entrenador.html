@@ -9,6 +9,9 @@
   <link rel="icon" type="image/svg+xml" href="assets/pokeball.svg">
   <link rel="icon" type="image/png" href="assets/pokeball.png">
   <!-- favicon.ico vive en la raiz: el navegador lo pide solo, sin <link> -->
+
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -21,7 +24,7 @@
     <nav>
       <ul>
         <li><a href="index.html" accesskey="p">Pokédex</a></li>
-        <li><a href="./" accesskey="p">Perfil de entrenador</a></li>
+        <li><a href="./" accesskey="p" aria-current="page">Perfil de entrenador</a></li>
         <li><a href="acerca-de.html">Acerca de</a></li>
         <li><a href="configuracion.html">Configuración</a></li>
       </ul>
@@ -32,7 +35,7 @@
     <article class="trainer-card">
 
       <figure class="trainer-avatar">
-        <img src="assets/entrenador.png" alt="Fotografía del entrenador Red" width="200" height="200" />
+        <img src="assets/entrenadorAnimado.jpeg" alt="Fotografía del entrenador Red" width="200" height="200" />
       </figure>
 
       <header class="trainer-header">
@@ -68,220 +71,457 @@
       Equipo Pokémon
     </button>
 
-    <dialog id="team-pokemon-dialog">
-      <h2>Equipo Pokémon</h2>
-      <p>Este es tu equipo Pokémon.</p>
+    <dialog id="team-pokemon-dialog" class="team-pokemon-dialog">
+      <header class="team-dialog__header">
+        <h2 id="team-pokemon-title" class="team-dialog__title">Equipo Pokémon</h2>
+        <button type="button" class="boton team-dialog__close_up" command="close" commandfor="team-pokemon-dialog">
+          <span class="solo-lectores">Cerrar</span>
+        </button>
+      </header>
 
-      <section id="team-pokemon">
+      <section id="team-pokemon" class="team-pokemon__content">
+        <p class="team-pokemon__summary">5 de 6 espacios ocupados</p>
         <ul class="pokemon-team__list">
-          <li class="pokemon-team__slot">
+          <li class="pokemon-card pokemon-team__slot">
             <img class="pokemon-team__image" src="assets/venusaur.png" alt="Venusaur" width="96" height="96">
-            <span class="pokemon-team__number"># 001</span>
-            <span class="pokemon-team__name">Venusaur</span>
-            <button type="button">Quitar</button>
+            <span class="pokemon-card__number pokemon-team__number"># 001</span>
+            <span class="pokemon-card__name pokemon-team__name">Venusaur</span>
+            <div class="pokemon-team__types">
+              <span class="tipo tipo--planta">Planta</span>
+              <span class="tipo tipo--veneno">Veneno</span>
+            </div>
+            <button type="button" class="boton boton--borde-rojo boton--chico pokemon-team__remove">
+              Quitar
+            </button>
           </li>
-          <li class="pokemon-team__slot">
+          <li class="pokemon-card pokemon-team__slot">
             <img class="pokemon-team__image" src="assets/charizard.png" alt="Charizard" width="96" height="96">
-            <span class="pokemon-team__number"># 002</span>
-            <span class="pokemon-team__name">Charizard</span>
-            <button type="button">Quitar</button>
+            <span class="pokemon-card__number pokemon-team__number"># 002</span>
+            <span class="pokemon-card__name pokemon-team__name">Charizard</span>
+            <div class="pokemon-team__types">
+              <span class="tipo tipo--fuego">Fuego</span>
+              <span class="tipo tipo--volador">Volador</span>
+            </div>
+            <button type="button" class="boton boton--borde-rojo boton--chico pokemon-team__remove">
+              Quitar
+            </button>
           </li>
-          <li class="pokemon-team__slot">
+          <li class="pokemon-card pokemon-team__slot">
             <img class="pokemon-team__image" src="assets/blastoise.png" alt="Blastoise" width="96" height="96">
-            <span class="pokemon-team__number"># 003</span>
-            <span class="pokemon-team__name">Blastoise</span>
-            <button type="button">Quitar</button>
+            <span class="pokemon-card__number pokemon-team__number"># 003</span>
+            <span class="pokemon-card__name pokemon-team__name">Blastoise</span>
+            <div class="pokemon-team__types">
+              <span class="tipo tipo--agua">Agua</span>
+            </div>
+            <button type="button" class="boton boton--borde-rojo boton--chico pokemon-team__remove">
+              Quitar
+            </button>
           </li>
-          <li class="pokemon-team__slot">
+          <li class="pokemon-card pokemon-team__slot">
             <img class="pokemon-team__image" src="assets/pikachu.png" alt="Pikachu" width="96" height="96">
-            <span class="pokemon-team__number"># 004</span>
-            <span class="pokemon-team__name">Pikachu</span>
-            <button type="button">Quitar</button>
+            <span class="pokemon-card__number pokemon-team__number"># 004</span>
+            <span class="pokemon-card__name pokemon-team__name">Pikachu</span>
+            <div class="pokemon-team__types">
+              <span class="tipo tipo--electrico">Eléctrico</span>
+            </div>
+            <button type="button" class="boton boton--borde-rojo boton--chico pokemon-team__remove">
+              Quitar
+            </button>
           </li>
-          <li class="pokemon-team__slot">
+          <li class="pokemon-card pokemon-team__slot">
             <img class="pokemon-team__image" src="assets/charmander.png" alt="Charmander" width="96" height="96">
-            <span class="pokemon-team__number"># 005</span>
-            <span class="pokemon-team__name">Charmander</span>
-            <button type="button">Quitar</button>
+            <span class="pokemon-card__number pokemon-team__number"># 005</span>
+            <span class="pokemon-card__name pokemon-team__name">Charmander</span>
+            <div class="pokemon-team__types">
+              <span class="tipo tipo--fuego">Fuego</span>
+            </div>
+            <button type="button" class="boton boton--borde-rojo boton--chico pokemon-team__remove">Quitar</button>
           </li>
-          <li class="pokemon-team__slot pokemon-team__slot--empty">Espacio libre</li>
+          <li class="pokemon-team__slot pokemon-team__slot--empty">
+            <span class="pokemon-team__empty-text">Espacio libre</span>
+          </li>
         </ul>
       </section>
 
-      <button type="button" command="show-modal" commandfor="add-pokemon-capture-dialog">
-        Agregar desde capturados
-      </button>
-      <button type="button" command="close" commandfor="team-pokemon-dialog">Cerrar</button>
+      <footer class="team-dialog__footer">
+        <button type="button" class="boton boton--primario team-dialog__add" command="show-modal"
+          commandfor="add-pokemon-capture-dialog">
+          Agregar desde capturados
+        </button>
+        <button type="button" class="boton boton--claro team-dialog__close_primary" command="close"
+          commandfor="team-pokemon-dialog">Cerrar</button>
+      </footer>
+
     </dialog>
 
     <button type="button" command="show-modal" commandfor="open-favorite-pokemon">
       Favoritos
     </button>
 
-    <dialog id="open-favorite-pokemon">
-      <h2>Pokémones Favoritos</h3>
-        <p>4 Pokémones marcados como Favoritos</p>
-        <table class="favs-table">
-          <tbody>
-            <tr>
-              <td><img class=pokemon-card__image src="assets/favorite-icon.svg" alt="Favorite" width=30 height=30></img>
-              </td>
-              <td><img class=pokemon-card__image src="assets/blastoise.png" alt="Blastoise" width=30 height=30></img>
-              </td>
-              <td>"#1. Blastoise"</td>
-              <td><button type="button">Quitar de Favoritos</button></td>
-              <td><button type="button">Ver Detalle</button></td>
-            </tr>
+    <dialog id="open-favorite-pokemon" class="favorite-pokemon-dialog">
+      <header class="fav-dialog__header">
+        <h2 id="fav-pokemon-title" class="fav-dialog__title">Favoritos</h2>
+        <button type="button" class="boton fav-dialog__close_up"
+          command="close" commandfor="open-favorite-pokemon">
+          <span class="solo-lectores">Cerrar</span>
+        </button>
+      </header>
 
-            <tr>
-              <td><img class=pokemon-card__image src="assets/favorite-icon.svg" alt="Favorite" width=30 height=30></img>
-              </td>
-              <td><img class=pokemon-card__image src="assets/bulbasaur.png" alt="Bulbasaur" width=30 height=30></img>
-              </td>
-              <td>"#2. Bulbasaur"</td>
-              <td><button type="button">Quitar de Favoritos</button></td>
-              <td><button type="button">Ver Detalle</button></td>
-            </tr>
+      <section id="fav-pokemon" class="fav-pokemon__content">
+        <p class="fav-pokemon__summary">4 Pokémon marcados como favoritos</p>
 
-            <tr>
-              <td><img class=pokemon-card__image src="assets/favorite-icon.svg" alt="Favorite" width=30 height=30></img>
-              </td>
-              <td><img class=pokemon-card__image src="assets/charizard.png" alt="Charizard" width=30 height=30></img>
-              </td>
-              <td>"#3. Charizard"</td>
-              <td><button type="button">Quitar de Favoritos</button></td>
-              <td><button type="button">Ver Detalle</button></td>
-            </tr>
+        <ul class="fav-pokemon__list">
+          <li class="fav-card">
+            <span class="fav-card__star" aria-hidden="true"></span>
+            <div class="fav-card__image-container">
+              <img class="fav-card__image" src="assets/bulbasaur.png" alt="Bulbasaur" width="48" height="48">
+            </div>
+            <div class="fav-card__info">
+              <div class="fav-card__header">
+                <span class="fav-card__name">Bulbasaur</span>
+                <span class="fav-card__number">#001</span>
+              </div>
+              <div class="fav-card__types">
+                <span class="tipo tipo--planta">Planta</span>
+                <span class="tipo tipo--veneno">Veneno</span>
+              </div>
+            </div>
+            <div class="fav-card__actions">
+              <button type="button" class="boton boton--borde-azul boton--chico fav-card__btn-detail">
+                Ver detalle
+              </button>
+              <button type="button" class="boton boton--borde-rojo boton--chico fav-card__btn-remove">
+                Quitar de favoritos
+              </button>
+            </div>
+          </li>
 
-          </tbody>
-        </table>
+          <li class="fav-card">
+            <span class="fav-card__star" aria-hidden="true"></span>
+            <div class="fav-card__image-container">
+              <img class="fav-card__image" src="assets/charmander.png" alt="Charmander" width="48" height="48">
+            </div>
+            <div class="fav-card__info">
+              <div class="fav-card__header">
+                <span class="fav-card__name">Charmander</span>
+                <span class="fav-card__number">#004</span>
+              </div>
+              <div class="fav-card__types">
+                <span class="tipo tipo--fuego">Fuego</span>
+              </div>
+            </div>
+            <div class="fav-card__actions">
+              <button type="button" class="boton boton--borde-azul boton--chico fav-card__btn-detail">
+                Ver detalle
+              </button>
+              <button type="button" class="boton boton--borde-rojo boton--chico fav-card__btn-remove">
+                Quitar de favoritos
+              </button>
+            </div>
+          </li>
 
-        <button type="button" command="close" commandfor="open-favorite-pokemon">Cerrar</button>
+          <li class="fav-card">
+            <span class="fav-card__star" aria-hidden="true"></span>
+            <div class="fav-card__image-container">
+              <img class="fav-card__image" src="assets/squirtle.png" alt="Squirtle" width="48" height="48">
+            </div>
+            <div class="fav-card__info">
+              <div class="fav-card__header">
+                <span class="fav-card__name">Squirtle</span>
+                <span class="fav-card__number">#007</span>
+              </div>
+              <div class="fav-card__types">
+                <span class="tipo tipo--agua">Agua</span>
+              </div>
+            </div>
+            <div class="fav-card__actions">
+              <button type="button" class="boton boton--borde-azul boton--chico fav-card__btn-detail">
+                Ver detalle
+              </button>
+              <button type="button" class="boton boton--borde-rojo boton--chico fav-card__btn-remove">
+                Quitar de favoritos
+              </button>
+            </div>
+          </li>
 
+          <li class="fav-card">
+            <span class="fav-card__star" aria-hidden="true"></span>
+            <div class="fav-card__image-container">
+              <img class="fav-card__image" src="assets/pikachu.png" alt="Pikachu" width="48" height="48">
+            </div>
+            <div class="fav-card__info">
+              <div class="fav-card__header">
+                <span class="fav-card__name">Pikachu</span>
+                <span class="fav-card__number">#025</span>
+              </div>
+              <div class="fav-card__types">
+                <span class="tipo tipo--electrico">Eléctrico</span>
+              </div>
+            </div>
+            <div class="fav-card__actions">
+              <button type="button" class="boton boton--borde-azul boton--chico fav-card__btn-detail">
+                Ver detalle
+              </button>
+              <button type="button" class="boton boton--borde-rojo boton--chico fav-card__btn-remove">
+                Quitar de favoritos
+              </button>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <footer class="fav-dialog__footer">
+        <button type="button" class="boton boton--primario fav-dialog__add"
+          command="show-modal" commandfor="add-pokemon-capture-dialog">
+          Agregar desde capturados
+        </button>
+        <button type="button" class="boton boton--claro fav-dialog__close_primary"
+          command="close" commandfor="open-favorite-pokemon">Cerrar</button>
+      </footer>
     </dialog>
 
     <button type="button" command="show-modal" commandfor="open-stats">
       Estadísticas
     </button>
 
-    <dialog id="open-stats">
-      <table class="stats-table">
-        <thead>
-          <tr>
-            <th abbr="Pkm">Pokemon</th>
-            <th abbr="PS">Puntos de Salud</th>
-            <th abbr="ATQ">Ataque</th>
-            <th abbr="DEF">Defensa</th>
-            <th abbr="AT. ESP.">Ataque Especial</th>
-            <th abbr="DEF. ESP.">Defensa Especial</th>
-            <th abbr="VEL">Velocidad</th>
-            <th abbr="Total">Total</th>
-          </tr>
-        </thead>
+    <dialog id="open-stats"
+      class="stats-dialog"
+      aria-labelledby="stats-dialog-title"
+      aria-describedby="stats-dialog-description stats-dialog-note">
 
-        <tbody>
-          <tr>
-            <td>
-              <img class="pokemon-card__image" src="assets/squirtle.png" alt="Squirtle" width="30" height="30">
-              Squirtle
-            </td>
-            <td>44</td>
-            <td>48</td>
-            <td>65</td>
-            <td>50</td>
-            <td>64</td>
-            <td>43</td>
-            <td>314</td>
-          </tr>
+      <header class="stats-dialog__header">
+        <h2 id="stats-dialog-title" class="stats-dialog__title">
+          Estadísticas
+        </h2>
 
-          <tr>
-            <td>
-              <img class="pokemon-card__image" src="assets/pikachu.png" alt="Pikachu" width="30" height="30">
-              Pikachu
-            </td>
-            <td>35</td>
-            <td>55</td>
-            <td>40</td>
-            <td>50</td>
-            <td>50</td>
-            <td>90</td>
-            <td>320</td>
-          </tr>
+        <button
+          type="button"
+          class="stats-dialog__close"
+          command="close"
+          commandfor="open-stats">
+          <span class="solo-lectores">Cerrar</span>
+        </button>
+      </header>
 
-          <tr>
-            <td>
-              <img class="pokemon-card__image" src="assets/charizard.png" alt="Charizard" width="30" height="30">
-              Charizard
-            </td>
-            <td>78</td>
-            <td>84</td>
-            <td>78</td>
-            <td>109</td>
-            <td>85</td>
-            <td>100</td>
-            <td>534</td>
-          </tr>
+      <section class="stats-dialog__content">
 
-          <tr>
+        <p id="stats-dialog-description" class="stats-dialog__description">
+          Comparativa de los Pokémon de tu equipo
+        </p>
 
-            <td>
-              <img class="pokemon-card__image" src="assets/venusaur.png" alt="Venusaur" width="30" height="30">
-              Venusaur
-            </td>
-            <td>80</td>
-            <td>82</td>
-            <td>83</td>
-            <td>100</td>
-            <td>100</td>
-            <td>90</td>
-            <td>525</td>
-          </tr>
+        <div class="stats-dialog__table-wrapper">
 
-          <tr>
-            <td>
-              <img class="pokemon-card__image" src="assets/charmeleon.png" alt="Charmeleon" width="30" height="30">
-              Charmeleon
-            </td>
-            <td>58</td>
-            <td>64</td>
-            <td>58</td>
-            <td>80</td>
-            <td>65</td>
-            <td>80</td>
-            <td>405</td>
-          </tr>
+          <table class="stats-table">
 
-          <tr>
-            <td>
-              <img class="pokemon-card__image" src="assets/wartortle.png" alt="Wartortle" width="30" height="30">
-              Wartortle
-            </td>
-            <td>59</td>
-            <td>63</td>
-            <td>60</td>
-            <td>65</td>
-            <td>80</td>
-            <td>58</td>
-            <td>405</td>
-          </tr>
-        </tbody>
+            <thead>
+              <tr>
+                <th scope="col">Pokémon</th>
 
-        <tfoot>
-          <tr class="stats-table__total">
-            <td>Promedio</td>
-            <td>59</td>
-            <td>66</td>
-            <td>64</td>
-            <td>76</td>
-            <td>74</td>
-            <td>77</td>
-            <td>417</td>
-          </tr>
-        </tfoot>
+                <th scope="col">
+                  <abbr title="Puntos de Salud">PS</abbr>
+                </th>
 
-      </table>
+                <th scope="col">
+                  <abbr title="Ataque">ATQ</abbr>
+                </th>
 
-      <button type="button" command="close" commandfor="open-stats">Cerrar</button>
+                <th scope="col">
+                  <abbr title="Defensa">DEF</abbr>
+                </th>
+
+                <th scope="col">
+                  <abbr title="Ataque Especial">AT.ESP</abbr>
+                </th>
+
+                <th scope="col">
+                  <abbr title="Defensa Especial">DEF.ESP</abbr>
+                </th>
+
+                <th scope="col">
+                  <abbr title="Velocidad">VEL</abbr>
+                </th>
+
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <tr>
+                <td>
+                  <img
+                    class="pokemon-card__image"
+                    src="assets/squirtle.png"
+                    alt=""
+                    width="30"
+                    height="30">
+                  Squirtle
+                </td>
+
+                <td>44</td>
+                <td>48</td>
+                <td>65</td>
+                <td>50</td>
+                <td>64</td>
+                <td>43</td>
+
+                <td>
+                  <span class="stats-table__score">314</span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <img
+                    class="pokemon-card__image"
+                    src="assets/pikachu.png"
+                    alt=""
+                    width="30"
+                    height="30">
+                  Pikachu
+                </td>
+
+                <td>35</td>
+                <td>55</td>
+                <td>40</td>
+                <td>50</td>
+                <td>50</td>
+                <td class="stats-table__best">90</td>
+
+                <td>
+                  <span class="stats-table__score">320</span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <img
+                    class="pokemon-card__image"
+                    src="assets/charizard.png"
+                    alt=""
+                    width="30"
+                    height="30">
+                  Charizard
+                </td>
+
+                <td>78</td>
+                <td class="stats-table__best">84</td>
+                <td>78</td>
+                <td class="stats-table__best">109</td>
+                <td>85</td>
+                <td class="stats-table__best">100</td>
+
+                <td>
+                  <span class="stats-table__score">534</span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <img
+                    class="pokemon-card__image"
+                    src="assets/venusaur.png"
+                    alt=""
+                    width="30"
+                    height="30">
+                  Venusaur
+                </td>
+
+                <td class="stats-table__best">80</td>
+                <td>82</td>
+                <td class="stats-table__best">83</td>
+                <td>100</td>
+                <td class="stats-table__best">100</td>
+                <td>90</td>
+
+                <td>
+                  <span class="stats-table__score">525</span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <img
+                    class="pokemon-card__image"
+                    src="assets/charmeleon.png"
+                    alt=""
+                    width="30"
+                    height="30">
+                  Charmeleon
+                </td>
+
+                <td>58</td>
+                <td>64</td>
+                <td>58</td>
+                <td>80</td>
+                <td>65</td>
+                <td>80</td>
+
+                <td>
+                  <span class="stats-table__score">405</span>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <img
+                    class="pokemon-card__image"
+                    src="assets/wartortle.png"
+                    alt=""
+                    width="30"
+                    height="30">
+                  Wartortle
+                </td>
+
+                <td>59</td>
+                <td>63</td>
+                <td>60</td>
+                <td>65</td>
+                <td>80</td>
+                <td>58</td>
+
+                <td>
+                  <span class="stats-table__score">405</span>
+                </td>
+              </tr>
+
+            </tbody>
+
+            <tfoot>
+              <tr class="stats-table__total">
+                <td>Promedio del equipo</td>
+                <td>59</td>
+                <td>66</td>
+                <td>64</td>
+                <td>76</td>
+                <td>74</td>
+                <td>77</td>
+                <td>417</td>
+              </tr>
+            </tfoot>
+
+          </table>
+
+        </div>
+
+        <p id="stats-dialog-note" class="stats-dialog__note">
+          Valores base tomados de la Pokédex · la fila de totales resume el equipo completo.
+        </p>
+
+      </section>
+
+      <footer class="stats-dialog__footer">
+
+        <button
+          type="button"
+          class="boton boton--primario stats-dialog__close-bottom"
+          command="close"
+          commandfor="open-stats">
+          Cerrar
+        </button>
+
+      </footer>
+
     </dialog>
 
     <button type="button" command="show-modal" commandfor="add-pokemon-capture-dialog">

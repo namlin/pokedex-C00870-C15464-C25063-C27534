@@ -56,7 +56,9 @@ body::before {
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%23fff' stroke-width='3'%3E%3Ccircle cx='32' cy='32' r='29'/%3E%3Cpath d='M3 32h58'/%3E%3Ccircle cx='32' cy='32' r='10'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: var(--fuente-titulo);
   font-weight: 600;
   line-height: 1.15;
@@ -146,16 +148,45 @@ img {
 
 /* Cada tarjeta entra un poquito después que la anterior (efecto cascada).
    --n es una variable propia: la regla de arriba la lee con calc(). */
-.pokemon-card:nth-child(2)  { --n: 1; }
-.pokemon-card:nth-child(3)  { --n: 2; }
-.pokemon-card:nth-child(4)  { --n: 3; }
-.pokemon-card:nth-child(5)  { --n: 4; }
-.pokemon-card:nth-child(6)  { --n: 5; }
-.pokemon-card:nth-child(7)  { --n: 6; }
-.pokemon-card:nth-child(8)  { --n: 7; }
-.pokemon-card:nth-child(9)  { --n: 8; }
-.pokemon-card:nth-child(10) { --n: 9; }
-.pokemon-card:nth-child(n+11) { --n: 10; }
+.pokemon-card:nth-child(2) {
+  --n: 1;
+}
+
+.pokemon-card:nth-child(3) {
+  --n: 2;
+}
+
+.pokemon-card:nth-child(4) {
+  --n: 3;
+}
+
+.pokemon-card:nth-child(5) {
+  --n: 4;
+}
+
+.pokemon-card:nth-child(6) {
+  --n: 5;
+}
+
+.pokemon-card:nth-child(7) {
+  --n: 6;
+}
+
+.pokemon-card:nth-child(8) {
+  --n: 7;
+}
+
+.pokemon-card:nth-child(9) {
+  --n: 8;
+}
+
+.pokemon-card:nth-child(10) {
+  --n: 9;
+}
+
+.pokemon-card:nth-child(n+11) {
+  --n: 10;
+}
 
 /* Toda la tarjeta es el enlace: display: block lo estira, y así el
    área clicable es la tarjeta entera, no solo el texto. */
@@ -250,7 +281,7 @@ header {
   box-shadow: 0 8px 24px -8px rgba(20, 44, 82, .55);
 }
 
-@media (width >= 40rem) {
+@media (width >=40rem) {
   header {
     flex-direction: row;
     justify-content: space-between;
@@ -259,7 +290,9 @@ header {
   }
 }
 
-header p { margin: 0; }
+header p {
+  margin: 0;
+}
 
 .header__acciones {
   display: flex;
@@ -325,7 +358,7 @@ header nav a[aria-current] {
   padding-left: 0;
 }
 
-@media (width >= 40rem) {
+@media (width >=40rem) {
   .carrusel {
     flex-direction: row;
     justify-content: center;
@@ -369,7 +402,8 @@ header nav a[aria-current] {
 .paginacion a {
   display: grid;
   place-items: center;
-  width: 2.75rem;                 /* 44px: tamaño mínimo cómodo para el dedo */
+  width: 2.75rem;
+  /* 44px: tamaño mínimo cómodo para el dedo */
   height: 2.75rem;
   border-radius: 50%;
   background: var(--blanco);
@@ -414,7 +448,7 @@ section.buscador h2 {
   font-size: 1.4rem;
 }
 
-section.buscador > p {
+section.buscador>p {
   margin: .25rem 0 1rem;
   color: var(--crema);
 }
@@ -506,8 +540,13 @@ section.buscador > p {
   transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), background var(--dur);
 }
 
-.boton:hover  { transform: translateY(-2px); }
-.boton:active { transform: translateY(1px) scale(.98); }
+.boton:hover {
+  transform: translateY(-2px);
+}
+
+.boton:active {
+  transform: translateY(1px) scale(.98);
+}
 
 .boton--primario {
   background: var(--azul);
@@ -617,12 +656,23 @@ section.buscador > p {
   animation: llenar 1s var(--ease) .3s backwards;
 }
 
-.stats-table tbody td:nth-child(1) { --color-stat: var(--stat-ps); }
+.stats-table tbody td:nth-child(1) {
+  --color-stat: var(--stat-ps);
+}
+
 .stats-table tbody td:nth-child(2),
-.stats-table tbody td:nth-child(4) { --color-stat: var(--stat-ataque); }
+.stats-table tbody td:nth-child(4) {
+  --color-stat: var(--stat-ataque);
+}
+
 .stats-table tbody td:nth-child(3),
-.stats-table tbody td:nth-child(5) { --color-stat: var(--stat-defensa); }
-.stats-table tbody td:nth-child(6) { --color-stat: var(--stat-velocidad); }
+.stats-table tbody td:nth-child(5) {
+  --color-stat: var(--stat-defensa);
+}
+
+.stats-table tbody td:nth-child(6) {
+  --color-stat: var(--stat-velocidad);
+}
 
 .stats-table__total,
 .stats-table__total td {
@@ -642,7 +692,7 @@ main {
   padding: 1.5rem 1rem;
 }
 
-@media (width >= 64rem) {
+@media (width >=64rem) {
   main {
     padding: 2rem;
   }
@@ -691,7 +741,7 @@ footer a {
    8. Consultas de contenedor (clase 5)
    -------------------------------------------------------------------------- */
 
-@container (inline-size >= 20rem) {
+@container (inline-size >=20rem) {
   .pokemon-card__name {
     font-size: 1.35rem;
   }
@@ -702,7 +752,7 @@ footer a {
    9. Disposición con Grid (clase 6)
    -------------------------------------------------------------------------- */
 
-@media (width >= 40rem) {
+@media (width >=40rem) {
   footer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -721,7 +771,7 @@ footer a {
   margin-bottom: 1.5rem;
 }
 
-@media (width >= 40rem) {
+@media (width >=40rem) {
   .ficha-pokemon__resumen {
     grid-template-columns: 300px 1fr;
     grid-template-areas:
@@ -729,9 +779,17 @@ footer a {
       "imagen  habilidades";
   }
 
-  .ficha-pokemon__imagen      { grid-area: imagen; }
-  .ficha-pokemon__detalles    { grid-area: detalles; }
-  .ficha-pokemon__habilidades { grid-area: habilidades; }
+  .ficha-pokemon__imagen {
+    grid-area: imagen;
+  }
+
+  .ficha-pokemon__detalles {
+    grid-area: detalles;
+  }
+
+  .ficha-pokemon__habilidades {
+    grid-area: habilidades;
+  }
 }
 
 
@@ -749,7 +807,7 @@ footer a {
   animation: aparecer .6s var(--ease) backwards;
 }
 
-@media (width >= 40rem) {
+@media (width >=40rem) {
   #ficha-pokemon {
     padding: 2.25rem;
   }
@@ -823,7 +881,8 @@ footer a {
 /* Imagen grande: sobre las rayitas y flotando suavemente. La animación va
    en la <img> y el marco (figure) queda quieto. */
 .ficha-pokemon__imagen {
-  align-self: start;   /* sin esto el grid la estira a la altura de las dos filas */
+  align-self: start;
+  /* sin esto el grid la estira a la altura de las dos filas */
   margin: 0;
   padding: 1rem;
   text-align: center;
@@ -879,7 +938,7 @@ footer a {
   font-weight: 600;
 }
 
-.ficha-pokemon__habilidades dt + dd {
+.ficha-pokemon__habilidades dt+dd {
   padding: .15rem 0 .75rem;
   border-bottom: 1px solid var(--linea);
   color: var(--tinta-suave);
@@ -902,12 +961,29 @@ footer a {
   font-weight: 700;
 }
 
-.tipo--planta    { --color-tipo: var(--tipo-planta); }
-.tipo--fuego     { --color-tipo: var(--tipo-fuego); }
-.tipo--agua      { --color-tipo: var(--tipo-agua); }
-.tipo--electrico { --color-tipo: var(--tipo-electrico); }
-.tipo--veneno    { --color-tipo: var(--tipo-veneno); }
-.tipo--volador   { --color-tipo: var(--tipo-volador); }
+.tipo--planta {
+  --color-tipo: var(--tipo-planta);
+}
+
+.tipo--fuego {
+  --color-tipo: var(--tipo-fuego);
+}
+
+.tipo--agua {
+  --color-tipo: var(--tipo-agua);
+}
+
+.tipo--electrico {
+  --color-tipo: var(--tipo-electrico);
+}
+
+.tipo--veneno {
+  --color-tipo: var(--tipo-veneno);
+}
+
+.tipo--volador {
+  --color-tipo: var(--tipo-volador);
+}
 
 /* Cadena evolutiva: píldoras unidas por flechas (::after). El Pokémon que
    se está viendo va resaltado. */
@@ -929,7 +1005,7 @@ footer a {
   font-weight: 600;
 }
 
-.cadena-evolutiva li + li::before {
+.cadena-evolutiva li+li::before {
   content: "→";
   margin-right: .5rem;
   color: var(--tinta-suave);
@@ -990,30 +1066,1259 @@ footer a {
    -------------------------------------------------------------------------- */
 
 @keyframes aparecer {
-  from { opacity: 0; transform: translateY(16px) scale(.97); }
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(.97);
+  }
 }
 
 @keyframes flotar {
-  50% { transform: translateY(-10px); }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes latido {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(250, 209, 98, .7); }
-  50%      { box-shadow: 0 0 0 10px rgba(250, 209, 98, 0); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(250, 209, 98, .7);
+  }
+
+  50% {
+    box-shadow: 0 0 0 10px rgba(250, 209, 98, 0);
+  }
 }
 
 @keyframes llenar {
-  from { background-size: 0 100%, 100% 100%; }
+  from {
+    background-size: 0 100%, 100% 100%;
+  }
 }
 
 /* Quien pide "reducir movimiento" en su sistema (por mareos, migrañas o
    simple preferencia) no debe recibir animaciones. En vez de tocar cada
    regla, este bloque las apaga todas de una vez. */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
     animation: none !important;
     transition-duration: .01ms !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   13. Perfil del entrenador y modales
+   -------------------------------------------------------------------------- */
+
+/* Perfil del entrenador */
+
+
+/* --- Modal equipo Pokémon ------------------------------------------------ */
+.team-pokemon-dialog {
+  width: min(36rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  color: var(--navy);
+  background: var(--sprite-fondo);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-3);
+}
+
+/* Sombra de fondo que cubre toda la ventana cuando se abre el dialog. */
+.team-pokemon-dialog::backdrop {
+  background: var(--backdrop-modal);
+}
+
+/* ---- 1. Encabezado del modal  --------------------------------- */
+.team-dialog__header {
+  position: static;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  text-align: left;
+  background: var(--sprite-fondo);
+  border-bottom: 1px solid var(--linea);
+  box-shadow: none;
+}
+
+.team-dialog__title {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+/* Se agrega el ícono de equipo a la izquierda del título. */
+.team-dialog__title::before {
+  content: "";
+  flex: 0 0 2rem;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--azul);
+  background-image: var(--icono-equipo);
+  background-position: center;
+  background-size: 1.4rem;
+  background-repeat: no-repeat;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-1);
+}
+
+/* Botón de cerrar superior */
+.team-dialog__close_up {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  min-height: 2rem;
+  padding: 0;
+  border-color: var(--pista);
+  border-radius: var(--radio-pastilla);
+}
+
+/* Se agrega la X dentro del botón */
+.team-dialog__close_up::before {
+  content: "";
+  width: .875rem;
+  height: .875rem;
+  flex-shrink: 0;
+  background-image: var(--icono-cerrar);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* ---- 2. Contenido del modal  --------------------------------- */
+.team-pokemon__content {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.team-pokemon__summary {
+  margin: 0 0 .75rem;
+  color: var(--tinta-suave);
+  font-size: .85rem;
+}
+
+/* Lista de slots del equipo: 3 columnas, con gap entre ellos. */
+.team-pokemon-dialog .pokemon-team__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  gap: .875rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Cada slot del equipo es un flex vertical, centrado y con gap entre imagen,
+   número, nombre y tipos. */
+.team-pokemon-dialog .pokemon-team__slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .25rem;
+  padding: .5rem;
+}
+
+.team-pokemon-dialog .pokemon-team__image {
+  display: block;
+  width: 6rem;
+  height: 6rem;
+  margin: 0;
+  object-fit: contain;
+}
+
+/* El número del Pokémon se superpone a la imagen, en la esquina superior
+   izquierda. */
+.team-pokemon-dialog .pokemon-card__number {
+  position: absolute;
+  top: .75rem;
+  left: .75rem;
+  margin: 0;
+  padding: .2rem .4rem;
+  font-size: .75rem;
+}
+
+.team-pokemon-dialog .pokemon-team__name {
+  font-size: 1.125rem;
+}
+
+/* Los tipos del Pokémon se muestran en una fila centrada, con gap entre ellos.
+   Cada tipo es una pastilla de color herededa. */
+.team-pokemon-dialog .pokemon-team__types {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .25rem;
+}
+
+/* Se modifican valores del estilo de las pastillas de tipo heredadas
+  para adaptarlas al contexto del modal. */
+.team-pokemon-dialog .tipo {
+  padding: .3rem .5rem;
+  font-size: .75rem;
+  line-height: 1.5;
+}
+
+/* Al botón de eliminar Pokémon del equipo se le agrega una raya junto al texto. */
+.team-pokemon-dialog .pokemon-team__remove::before {
+  content: "";
+  width: .75rem;
+  height: 2px;
+  flex-shrink: 0;
+  background-color: currentColor;
+  flex: 1;
+}
+
+/* Slot vacío del equipo */
+.team-pokemon-dialog .pokemon-team__slot--empty {
+  justify-content: center;
+  gap: .75rem;
+  border-radius: var(--radio-lg);
+  color: var(--azul-borde);
+  background: var(--blanco);
+  border: 2px dashed var(--pista);
+  box-shadow: var(--brillo);
+}
+
+/* Texto que indica que el slot está vacío y se puede agregar un Pokémon */
+.team-pokemon-dialog .pokemon-team__empty-text {
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+/* Icono de agregar Pokémon en el slot vacío */
+.team-pokemon-dialog .pokemon-team__slot--empty::before {
+  content: "";
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--sprite-fondo);
+  background-image: var(--icono-agregar-azul);
+  background-position: center;
+  background-size: 1.25rem;
+  background-repeat: no-repeat;
+  border-radius: var(--radio-pastilla);
+  box-shadow: var(--sombra-1);
+}
+
+/* ---- 3. Pie del modal  --------------------------------- */
+/* Contiene los botones de agregar Pokémon y cerrar.
+  Se alinean a la derecha y se modifica el color heredado. */
+.team-dialog__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: .5rem;
+  margin: 0;
+  padding: .75rem 1.25rem;
+  background: var(--blanco);
+  border-top: 1px solid var(--linea);
+  box-shadow: none;
+}
+
+/* Espacio para el ícono de agregar Pokémon al equipo */
+.team-dialog__add::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask-position: center;
+  /* Se usa mask en vez de background-image para que el color del ícono sea
+                            el mismo que el del texto del botón (currentColor). */
+  mask-size: contain;
+  /* Se ajusta el tamaño del ícono al tamaño del contenedor. */
+  mask-repeat: no-repeat;
+  /* Se evita que el ícono se repita. */
+}
+
+/* Ícono de agregar Pokémon al botón de agregar. */
+.team-dialog__add::before {
+  mask-image: var(--icono-agregar-blanco);
+}
+
+/* --- Modal Pokémones Favoritos ------------------------------------------------ */
+.favorite-pokemon-dialog {
+  width: min(42rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  color: var(--navy);
+  background: var(--sprite-fondo);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-3);
+}
+
+/* Sombra de fondo que cubre toda la ventana cuando se abre el dialog. */
+.favorite-pokemon-dialog::backdrop {
+  background: var(--backdrop-modal);
+}
+
+/* ---- 1. Encabezado del modal Favoritos --------------------------------- */
+.fav-dialog__header {
+  position: static;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 1.25rem;
+  text-align: left;
+  background: var(--sprite-fondo);
+  border-bottom: 1px solid var(--linea);
+  box-shadow: none;
+}
+
+.fav-dialog__title {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-family: var(--fuente-titulo);
+  color: var(--navy);
+}
+
+/* Ícono de estrella amarilla a la izquierda del título */
+.fav-dialog__title::before {
+  content: "";
+  flex: 0 0 2rem;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--amarillo);
+  background-image: var(--icono-favorito);
+  background-position: center;
+  background-size: 1.15rem;
+  background-repeat: no-repeat;
+  border-radius: var(--radio-pastilla);
+  box-shadow: var(--sombra-1);
+}
+
+/* Botón de cerrar superior */
+.fav-dialog__close_up {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  min-height: 2rem;
+  padding: 0;
+  border-color: var(--pista);
+  border-radius: var(--radio-pastilla);
+  background: var(--blanco);
+}
+
+.fav-dialog__close_up::before {
+  content: "";
+  width: .875rem;
+  height: .875rem;
+  flex-shrink: 0;
+  background-image: var(--icono-cerrar);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* ---- 2. Contenido del modal Favoritos --------------------------------- */
+.fav-pokemon__content {
+  padding: 1.25rem;
+}
+
+.fav-pokemon__summary {
+  margin: 0 0 1rem;
+  color: var(--tinta-suave);
+  font-size: .875rem;
+}
+
+/* Lista vertical de tarjetas de favoritos */
+.fav-pokemon__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Tarjeta individual de Pokémon Favorito */
+.fav-card {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.75rem 1rem;
+  background: var(--blanco);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-1);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.fav-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--sombra-2);
+}
+
+/* Badge de estrella a la izquierda de la imagen */
+.fav-card__star {
+  flex: 0 0 2rem;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--crema);
+  border: 1.5px solid var(--amarillo-borde);
+  background-image: var(--icono-favorito);
+  background-position: center;
+  background-size: 1.1rem;
+  background-repeat: no-repeat;
+  border-radius: var(--radio-pastilla);
+}
+
+/* Marco contenedor de la imagen del Pokémon */
+.fav-card__image-container {
+  flex: 0 0 3.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sprite-fondo);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  box-shadow: var(--brillo);
+}
+
+.fav-card__image {
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+}
+
+/* Información del Pokémon (Nombre, número y tipos) */
+.fav-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1 1 auto;
+}
+
+.fav-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fav-card__name {
+  font-family: var(--fuente-titulo);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.fav-card__number {
+  padding: 0.15rem 0.45rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--navy);
+  background: var(--amarillo);
+  border-radius: var(--radio-pastilla);
+}
+
+.fav-card__types {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.fav-card .tipo {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+/* Botones de acción a la derecha */
+.fav-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.fav-card__btn-detail,
+.fav-card__btn-remove {
+  white-space: nowrap;
+}
+
+/* Ícono de flecha en el botón "Ver detalle" usando pseudo-elemento ::after (Requerimiento 5) */
+.fav-card__btn-detail::after {
+  content: "";
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: rotate(45deg);
+  margin-left: 0.35rem;
+  flex-shrink: 0;
+  transition: transform var(--dur) var(--ease);
+}
+
+.fav-card__btn-detail:hover::after {
+  transform: translateX(2px) rotate(45deg);
+}
+
+/* Ícono de X en el botón "Quitar de favoritos" usando pseudo-elemento ::after (Requerimiento 5) */
+.fav-card__btn-remove::after {
+  content: "";
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  background-color: currentColor;
+  mask-image: var(--icono-cerrar);
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: var(--icono-cerrar);
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  margin-left: 0.35rem;
+  flex-shrink: 0;
+}
+
+/* ---- 3. Pie del modal Favoritos --------------------------------- */
+.fav-dialog__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: .5rem;
+  margin: 0;
+  padding: .75rem 1.25rem;
+  background: var(--blanco);
+  border-top: 1px solid var(--linea);
+  box-shadow: none;
+}
+
+.fav-dialog__add::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask-image: var(--icono-agregar-blanco);
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: var(--icono-agregar-blanco);
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+}
+
+/* Responsive breakpoint para pantallas pequeñas */
+@media (max-width: 580px) {
+  .fav-card {
+    flex-wrap: wrap;
+  }
+  .fav-card__actions {
+    width: 100%;
+    justify-content: flex-end;
+    margin-left: 0;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--linea);
+  }
+}
+
+/* Soporte para estructura basada en tabla (usando selectores de clase exclusivamente) */
+.favorite-pokemon-dialog .favs-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.75rem;
+  margin: 0;
+}
+
+.favorite-pokemon-dialog .favs-table tr {
+  background: var(--blanco);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-1);
+}
+
+.favorite-pokemon-dialog .favs-table td {
+  padding: 0.75rem 0.5rem;
+  vertical-align: middle;
+}
+
+.favorite-pokemon-dialog .favs-table td:first-child {
+  padding-left: 1rem;
+  border-top-left-radius: var(--radio-lg);
+  border-bottom-left-radius: var(--radio-lg);
+}
+
+.favorite-pokemon-dialog .favs-table td:last-child {
+  padding-right: 1rem;
+  border-top-right-radius: var(--radio-lg);
+  border-bottom-right-radius: var(--radio-lg);
+}
+
+/* Modal estadísticas */
+
+.stats-dialog {
+  width: min(56rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+
+  color: var(--navy);
+  background: var(--sprite-fondo);
+
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+
+  box-shadow: var(--sombra-3);
+}
+
+
+/* Fondo detrás del modal */
+.stats-dialog::backdrop {
+  background: var(--backdrop-modal);
+}
+
+
+/* --------------------------------------------------------------------------
+   Encabezado
+   -------------------------------------------------------------------------- */
+
+.stats-dialog__header {
+  position: static;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  margin: 0;
+  padding: .85rem 1.25rem;
+
+  color: var(--navy);
+  background: var(--sprite-fondo);
+
+  border-bottom: 1px solid var(--linea);
+
+  box-shadow: none;
+}
+
+
+.stats-dialog__title {
+  position: relative;
+
+  margin: 0;
+  padding-left: 3rem;
+
+  font-family: var(--fuente-titulo);
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 2rem;
+
+  /*
+    Cuadro verde que queda detrás del ícono.
+    El ícono propiamente dicho se agrega con ::before.
+  */
+  background:
+    linear-gradient(var(--verde) 0 0)
+    left center / 2rem 2rem
+    no-repeat;
+
+  border-radius: var(--radio);
+}
+
+
+/*
+  Ícono de estadísticas.
+
+  El SVG ya existe en assets/estadisticas.svg.
+  Se usa como mask para poder pintarlo blanco sin modificar el archivo SVG.
+*/
+.stats-dialog__title::before {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 1rem;
+
+  width: 1rem;
+  height: 1rem;
+
+  background: var(--sprite-fondo);
+
+  transform: translate(-50%, -50%);
+
+  -webkit-mask:
+    var(--icono-estadisticas)
+    center / contain
+    no-repeat;
+
+  mask:
+    var(--icono-estadisticas)
+    center / contain
+    no-repeat;
+}
+
+
+/* --------------------------------------------------------------------------
+   Botón X
+   -------------------------------------------------------------------------- */
+
+.stats-dialog__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 2rem;
+  height: 2rem;
+
+  padding: 0;
+
+  color: var(--navy);
+  background: var(--blanco);
+
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-pastilla);
+
+  cursor: pointer;
+
+  transition:
+    transform .2s ease,
+    background .2s ease;
+}
+
+.stats-dialog__close::before {
+  content: "";
+
+  width: .75rem;
+  height: .75rem;
+
+  background-image: var(--icono-cerrar);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+.stats-dialog__close:hover,
+.stats-dialog__close:focus-visible {
+  background: var(--crema);
+
+  transform: scale(1.06);
+}
+
+
+.stats-dialog__close:focus-visible {
+  outline-color: var(--azul-borde);
+}
+
+
+/* --------------------------------------------------------------------------
+   Contenido
+   -------------------------------------------------------------------------- */
+
+.stats-dialog__content {
+  padding: 1rem 1.25rem .8rem;
+
+  overflow: auto;
+}
+
+
+.stats-dialog__description {
+  margin: 0 0 .75rem;
+
+  color: var(--tinta-suave);
+
+  font-size: .85rem;
+}
+
+
+/* Permite desplazamiento horizontal en pantallas muy pequeñas */
+.stats-dialog__table-wrapper {
+  overflow-x: auto;
+
+  border-radius: var(--radio);
+
+  box-shadow: var(--sombra-1);
+}
+
+
+/* --------------------------------------------------------------------------
+   Tabla
+   -------------------------------------------------------------------------- */
+
+.stats-dialog .stats-table {
+  width: 100%;
+  min-width: 28rem;
+
+  table-layout: fixed;
+
+  border-collapse: separate;
+  border-spacing: 0;
+
+  color: var(--navy);
+  background: var(--sprite-fondo);
+
+  border-radius: var(--radio);
+
+  box-shadow: none;
+}
+
+
+.stats-dialog .stats-table th,
+.stats-dialog .stats-table td {
+  padding: .35rem .4rem;
+
+  border-top: 1px solid var(--linea);
+
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+/* Encabezado amarillo claro */
+.stats-dialog .stats-table thead th {
+  border-top: 0;
+
+  color: var(--navy);
+  background: var(--crema);
+
+  font-family: var(--fuente-titulo);
+  font-size: .68rem;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.stats-dialog .stats-table thead th:first-child {
+  width: 24%;
+
+  text-align: left;
+}
+
+.stats-dialog .stats-table abbr {
+  text-decoration: none;
+
+  cursor: help;
+}
+
+
+/* Alternancia suave entre filas */
+.stats-dialog .stats-table tbody tr:nth-child(even) {
+  background: var(--blanco);
+}
+
+
+.stats-dialog .stats-table tbody td {
+  font-family: var(--fuente-texto);
+  font-size: .78rem;
+  font-weight: 500;
+}
+
+.stats-dialog .stats-table tbody td::after {
+  display: none;
+}
+
+
+/* Nombre del Pokémon */
+.stats-dialog .stats-table tbody td:first-child {
+  text-align: left;
+
+  font-family: var(--fuente-titulo);
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+.stats-dialog .stats-table .pokemon-card__image {
+  display: inline-block;
+
+  width: 1.6rem;
+  max-width: none;
+  height: 1.6rem;
+
+  margin: 0 .4rem 0 0;
+  padding: 0;
+
+  aspect-ratio: auto;
+
+  object-fit: contain;
+  vertical-align: middle;
+
+  background: transparent;
+
+  border-radius: 0;
+
+  filter: none;
+
+  transition: none;
+}
+
+
+/* Estadística más alta de cada columna */
+.stats-dialog .stats-table__best {
+  font-weight: 700;
+}
+
+
+/* Total de cada Pokémon */
+.stats-table__score {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 2.25rem;
+  min-height: 1.5rem;
+
+  padding: .1rem .4rem;
+
+  color: var(--sprite-fondo);
+  background: var(--navy);
+
+  border-radius: var(--radio-pastilla);
+
+  font-family: var(--fuente-titulo);
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+
+/* --------------------------------------------------------------------------
+   Fila de promedio
+   -------------------------------------------------------------------------- */
+
+.stats-dialog .stats-table__total td {
+  color: var(--navy);
+  background: var(--amarillo);
+
+  font-family: var(--fuente-titulo);
+  font-size: .8rem;
+  font-weight: 700;
+
+  border-top-color: var(--amarillo-borde);
+}
+
+
+.stats-dialog .stats-table__total td:first-child {
+  text-align: left;
+}
+
+
+/* Texto informativo bajo la tabla */
+.stats-dialog__note {
+  margin: .7rem 0 0;
+
+  color: var(--tinta-suave);
+
+  font-size: .72rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   Pie del modal
+   -------------------------------------------------------------------------- */
+
+.stats-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+
+  margin: 0;
+  padding: .75rem 1.25rem;
+
+  background: var(--blanco);
+
+  border-top: 1px solid var(--linea);
+
+  box-shadow: none;
+}
+
+
+.stats-dialog__close-bottom:hover,
+.stats-dialog__close-bottom:focus-visible {
+  transform: translateY(-2px);
+}
+
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (width < 36rem) {
+
+  .stats-dialog {
+    width: calc(100% - 1rem);
+    max-height: calc(100dvh - 1rem);
+  }
+
+
+  .stats-dialog__header,
+  .stats-dialog__content,
+  .stats-dialog__footer {
+    padding-inline: .85rem;
+  }
+
+
+  .stats-dialog__title {
+    font-size: 1.25rem;
+  }
+
+
+  .stats-dialog .stats-table th,
+  .stats-dialog .stats-table td {
+    padding: .3rem .3rem;
+  }
+
+}
+
+
+/* Pantalla principal del entrenador */
+
+body:has(.trainer-profile) {
+  display: flex;
+  flex-direction: column;
+  color: var(--blanco);
+}
+
+body:has(.trainer-profile)>header {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+body:has(.trainer-profile)>header nav ul {
+  justify-content: flex-end;
+  gap: 1.25rem;
+}
+
+body:has(.trainer-profile)>header nav a {
+  padding-inline: .8rem;
+}
+
+.trainer-profile {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 1.75rem;
+}
+
+.trainer-card {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  grid-template-areas:
+    "avatar header"
+    "avatar details"
+    "avatar bio";
+  gap: .25rem 1.5rem;
+  align-items: start;
+  padding: 1.5rem;
+  color: var(--navy);
+  background: linear-gradient(180deg, var(--rojo), var(--blanco));
+  border: 2px solid var(--amarillo);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-2), var(--brillo);
+}
+
+.trainer-avatar {
+  grid-area: avatar;
+  width: 150px;
+  height: 150px;
+  margin: 0;
+  overflow: hidden;
+  border: 3px solid var(--azul-borde);
+  border-radius: var(--radio-lg);
+  background: var(--sprite-zona);
+}
+
+.trainer-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.trainer-header {
+  grid-area: header;
+  position: static;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.trainer-header h1 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 1.6rem;
+}
+
+.btn-edit {
+  min-width: 150px;
+  min-height: 2.5rem;
+  padding: 0 .9rem;
+  border: 2px solid var(--azul-borde);
+  border-radius: var(--radio-pastilla);
+  color: var(--navy);
+  background: var(--amarillo);
+  font: inherit;
+  font-size: .85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.trainer-details {
+  display: grid;
+  grid-area: details;
+  grid-template-columns: max-content 1fr;
+  gap: .2rem .5rem;
+  margin: 0;
+  color: var(--tinta-suave);
+  font-size: .9rem;
+}
+
+.trainer-details dt,
+.trainer-details dd {
+  margin: 0;
+}
+
+.trainer-details dt {
+  font-weight: 700;
+}
+
+.trainer-bio {
+  grid-area: bio;
+  margin: .4rem 0 0;
+  color: var(--tinta-suave);
+  font-size: .9rem;
+  line-height: 1.35;
+}
+
+
+body:has(.trainer-profile) main {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  max-width: 800px;
+  padding: 1rem 1.25rem 2rem;
+}
+
+body:has(.trainer-profile) main>button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .65rem;
+  width: 100%;
+  min-height: 118px;
+  border: 2px solid var(--amarillo);
+  border-radius: var(--radio-lg);
+  color: var(--navy);
+  background: var(--amarillo);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--sombra-1);
+  transition: transform var(--dur) var(--ease), background var(--dur);
+}
+
+body:has(.trainer-profile) main>button[commandfor="team-pokemon-dialog"]::before,
+body:has(.trainer-profile) main>button[commandfor="open-stats"]::before,
+body:has(.trainer-profile) main>button[commandfor="open-favorite-pokemon"]::before,
+body:has(.trainer-profile) main>button[commandfor="add-pokemon-capture-dialog"]::before {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+body:has(.trainer-profile) main>button[commandfor="team-pokemon-dialog"]::before {
+  background-color: var(--azul);
+  -webkit-mask: var(--icono-equipo) center / contain no-repeat;
+  mask: var(--icono-equipo) center / contain no-repeat;
+}
+
+body:has(.trainer-profile) main>button[commandfor="open-stats"]::before {
+  background-image: url("assets/estadisticas.svg");
+}
+
+body:has(.trainer-profile) main>button[commandfor="open-favorite-pokemon"]::before {
+  background-image: url("assets/favorite-icon.svg");
+}
+
+body:has(.trainer-profile) main>button[commandfor="add-pokemon-capture-dialog"]::before {
+  background-image: url("assets/pokeball.svg");
+}
+
+body:has(.trainer-profile) main>button:hover {
+  background: var(--crema);
+  transform: translateY(-2px);
+}
+
+body:has(.trainer-profile)>footer {
+  width: 100%;
+  max-width: none;
+  margin: auto 0 0;
+}
+
+@media (width < 40rem) {
+  body:has(.trainer-profile)>header nav ul {
+    justify-content: center;
+    gap: .25rem;
+  }
+
+  .trainer-card {
+    grid-template-columns: 96px 1fr;
+    gap: .6rem .9rem;
+    padding: 1rem;
+  }
+
+  .trainer-avatar {
+    width: 96px;
+    height: 96px;
+  }
+
+  .trainer-header {
+    display: block;
+  }
+
+  .trainer-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .btn-edit {
+    min-width: 0;
+    margin-top: .5rem;
+  }
+
+  body:has(.trainer-profile) main {
+    grid-template-columns: 1fr;
   }
 }
