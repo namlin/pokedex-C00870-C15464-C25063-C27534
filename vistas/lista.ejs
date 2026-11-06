@@ -1,29 +1,120 @@
-<%- include('parciales/header') %>
+<%#===========================================================================lista.ejs — reemplaza index.html. La
+  estructura, clases e ids son las mismas; lo único que cambia es que las tarjetas ahora las arma el servidor con un
+  forEach, en vez del navegador con lista.js. Recibe del controlador: pokemones, filtros,
+  numeroPokedex.===========================================================================%>
+  <%- include('parciales/header', { titulo, estilos: ['/css/capturado.css'], paginaActual: 'pokedex' ,
+    script: '/js/captura-lista.js' , }) %>
 
-  <h1>Pokédex</h1>
+    <main>
+      <h1>Lista de Pokémon</h1>
 
-  <ul>
-    <% pokemones.forEach((p) => { %>
-      <li class="tarjeta">
-        <a href="/pokemon/<%= p.id %>"><strong>#<%= p.id %> · <%= p.nombre %></strong></a>
-        <div>
-          <% p.tipos.forEach((t) => { %><span class="tipo"><%= t %></span><% }) %>
-        </div>
-      </li>
-    <% }) %>
-  </ul>
+      <section id="buscador" class="buscador">
+        <h2>Buscar y filtrar</h2>
+        <p>Buscá por nombre o filtrá por tipo para encontrar un Pokémon más rápido.</p>
 
-  <form action="/pokemon" method="POST">
-    <h2>Agregar un Pokémon</h2>
-    <label for="id">Número (id)</label>
-    <input type="number" id="id" name="id" required>
-    <label for="nombre">Nombre</label>
-    <input type="text" id="nombre" name="nombre" required>
-    <label for="tipos">Tipos (separados por coma)</label>
-    <input type="text" id="tipos" name="tipos" placeholder="fuego, volador">
-    <label for="descripcion">Descripción</label>
-    <input type="text" id="descripcion" name="descripcion">
-    <button type="submit">Agregar</button>
-  </form>
+        <%# El formulario es el mismo de antes (method="get" ), pero ahora quien filtra es el SERVIDOR: al enviarlo,
+          recarga con ?nombre=...&tipo=... y el controlador devuelve la lista ya filtrada. Por eso marcamos
+          selected/checked según los filtros, para dejarlo como lo dejó la persona. %>
+          <search>
+            <form class="buscador" action="/" method="get">
+              <fieldset>
+                <legend>Criterios de búsqueda</legend>
 
-<%- include('parciales/footer') %>
+                <label for="nombre">Nombre</label>
+                <input type="search" id="nombre" name="nombre" value="<%= filtros.nombre %>">
+
+                <label for="tipo">Tipo</label>
+                <select id="tipo" name="tipo">
+                  <option value="" <%=filtros.tipo==='' ? 'selected' : '' %>>Todos los tipos</option>
+                  <option value="planta" <%=filtros.tipo==='planta' ? 'selected' : '' %>>Planta</option>
+                  <option value="fuego" <%=filtros.tipo==='fuego' ? 'selected' : '' %>>Fuego</option>
+                  <option value="agua" <%=filtros.tipo==='agua' ? 'selected' : '' %>>Agua</option>
+                  <option value="electrico" <%=filtros.tipo==='electrico' ? 'selected' : '' %>>Eléctrico</option>
+                  <option value="veneno" <%=filtros.tipo==='veneno' ? 'selected' : '' %>>Veneno</option>
+                  <option value="volador" <%=filtros.tipo==='volador' ? 'selected' : '' %>>Volador</option>
+                </select>
+
+                <label for="orden">Ordenar por</label>
+                <select id="orden" name="orden">
+                  <option value="numero-asc" <%=filtros.orden==='numero-asc' ? 'selected' : '' %>>Número (menor a mayor)
+                  </option>
+                  <option value="numero-desc" <%=filtros.orden==='numero-desc' ? 'selected' : '' %>>Número (mayor a
+                    menor)</option>
+                  <option value="nombre-asc" <%=filtros.orden==='nombre-asc' ? 'selected' : '' %>>Nombre (A-Z)</option>
+                  <option value="nombre-desc" <%=filtros.orden==='nombre-desc' ? 'selected' : '' %>>Nombre (Z-A)
+                  </option>
+                  <option value="tamano-desc" <%=filtros.orden==='tamano-desc' ? 'selected' : '' %>>Tamaño (más alto
+                    primero)</option>
+                  <option value="tamano-asc" <%=filtros.orden==='tamano-asc' ? 'selected' : '' %>>Tamaño (más bajo
+                    primero)</option>
+                </select>
+
+                <button type="submit" class="boton boton--rojo">Buscar</button>
+
+                <p>
+                  <input type="checkbox" id="solo-capturados" name="solo-capturados" value="si"
+                    <%=filtros.soloCapturados ? 'checked' : '' %>>
+                  <label for="solo-capturados">Mostrar solo los que ya capturé</label>
+                </p>
+
+                <fieldset>
+                  <legend>Etapa evolutiva</legend>
+
+                  <input type="radio" id="etapa-todas" name="etapa" value="todas" <%=filtros.etapa==='todas' ? 'checked'
+                    : '' %>>
+                  <label for="etapa-todas">Todas</label>
+
+                  <input type="radio" id="etapa-inicial" name="etapa" value="inicial" <%=filtros.etapa==='inicial'
+                    ? 'checked' : '' %>>
+                  <label for="etapa-inicial">Solo formas iniciales</label>
+
+                  <input type="radio" id="etapa-final" name="etapa" value="final" <%=filtros.etapa==='final' ? 'checked'
+                    : '' %>>
+                  <label for="etapa-final">Solo formas finales</label>
+                </fieldset>
+              </fieldset>
+            </form>
+          </search>
+      </section>
+
+      <section id="lista-pokemon">
+        <%# Antes esta <ul> estaba vacía y la llenaba lista.js. Ahora el servidor
+          recorre los pokémon y arma cada tarjeta (un <li class="pokemon-card">),
+            con la misma estructura y clases que generaba crearTarjeta(). %>
+            <ul class="pokemon-list">
+              <% pokemones.forEach((pokemon)=> { %>
+                <li class="pokemon-card">
+                  <a class="pokemon-card__link" href="/pokemon/<%= pokemon.id %>">
+                    <img class="pokemon-card__image" src="/assets/<%= pokemon.slug %>.png" alt="<%= pokemon.nombre %>"
+                      width="96" height="96">
+                    <span class="pokemon-card__number">
+                      <%= numeroPokedex(pokemon.id) %>
+                    </span>
+                    <span class="pokemon-card__name">
+                      <%= pokemon.nombre %>
+                    </span>
+                  </a>
+                  <%# El botón de captura va FUERA del enlace para que no navegue. Arranca en "Capturar" : el estado
+                    real (localStorage) lo pone captura-lista.js en el navegador, porque el servidor no lo sabe. El
+                    data-id le dice al script a qué Pokémon pertenece. %>
+                    <button type="button" class="captura-btn" data-id="<%= pokemon.id %>"
+                      aria-pressed="false">Capturar</button>
+                </li>
+                <% }) %>
+            </ul>
+
+            <% if (pokemones.length===0) { %>
+              <p>Ningún Pokémon coincide con la búsqueda.</p>
+              <% } %>
+      </section>
+
+      <nav id="paginacion">
+        <ol class="paginacion">
+          <li><a href="/" aria-current="page">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+        </ol>
+      </nav>
+    </main>
+
+    <%- include('parciales/footer') %>

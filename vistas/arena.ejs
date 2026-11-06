@@ -1,0 +1,42 @@
+<%#===========================================================================arena.ejs — la página del arena.
+  Reutiliza el header y el pie (los parciales) y las clases del sitio. El lobby
+  (lista de Pokémon disponibles) y el combate NO vienen del servidor como HTML:
+  los dibuja arena-cliente.js en el navegador con lo que llega por socket.io.
+  Por eso cargamos el cliente de socket.io ANTES que nuestro script.===========================================================================%>
+<%- include('parciales/header', { titulo: 'Pokédex - Arena', paginaActual: 'arena', estilos: ['/css/arena.css'] }) %>
+
+  <main class="arena-pagina">
+    <h1>Combate en vivo</h1>
+
+    <%# Lobby: la lista la llena el cliente desde el evento 'disponibles'. %>
+    <section id="lobby" class="lobby">
+      <p id="lobby-texto">Elegí tu Pokémon para entrar a la batalla:</p>
+      <ul id="disponibles" class="arena-roster"></ul>
+    </section>
+
+    <p id="aviso" class="arena-aviso" hidden></p>
+
+    <%# Arena: oculta hasta que empieza la partida. %>
+    <section id="arena" class="arena" hidden>
+      <div class="arena__lado">
+        <div class="arena__sprite"><img id="yo-img" src="" alt="" width="150" height="150"></div>
+        <h2 id="yo-nombre"></h2>
+        <div class="arena__hp"><span id="yo-hp"></span></div>
+      </div>
+      <div class="arena__vs">VS</div>
+      <div class="arena__lado">
+        <div class="arena__sprite"><img id="rival-img" src="" alt="" width="150" height="150"></div>
+        <h2 id="rival-nombre"></h2>
+        <div class="arena__hp"><span id="rival-hp"></span></div>
+      </div>
+    </section>
+
+    <button id="atacar" class="boton boton--rojo arena-atacar" hidden>Atacar</button>
+    <p id="log" class="arena-log"></p>
+  </main>
+
+  <%# El cliente de socket.io lo sirve socket.io solo en esta dirección fija. %>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="module" src="/js/arena-cliente.js"></script>
+
+<%- include('parciales/footer') %>

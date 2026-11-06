@@ -1,0 +1,20 @@
+<%#===========================================================================memoria.ejs — el juego de memoria/parejas,
+  una página más de la Pokédex. Usa el header y el pie de siempre. El tablero lo
+  arma y maneja memoria/main.js en el navegador (patrón estado único + render),
+  con los Pokémon que trae de /api/pokemon.===========================================================================%>
+<%- include('parciales/header', { titulo: 'Pokédex - Memoria', paginaActual: 'memoria', estilos: ['/css/memoria.css'] }) %>
+
+  <main id="juego" class="memoria">
+    <h1>Memoria Pokémon</h1>
+    <p class="memoria__marcador">
+      Intentos: <span id="intentos">0</span> · Parejas: <span id="parejas">0 / 6</span>
+    </p>
+    <p id="aviso" class="memoria__aviso">Encontrá todas las parejas.</p>
+    <div id="tablero" class="memoria__tablero"></div>
+    <button id="reiniciar" class="boton boton--rojo">Reiniciar</button>
+  </main>
+
+  <%# Todo el comportamiento va en módulos externos, al final del documento. %>
+  <script type="module" src="/js/memoria/main.js"></script>
+
+<%- include('parciales/footer') %>
