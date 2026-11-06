@@ -1,5 +1,6 @@
 // Las capturas se comparten con la lista y el perfil de la profesora.
 import { listaCapturados } from './capturados.js';
+import { agregarAlEquipo } from './equipo-pokemon.js';
 
 const modal = document.querySelector('#add-pokemon-capture-dialog');
 const grilla = modal.querySelector('.capturados');
@@ -10,6 +11,7 @@ const nombre = formulario.elements.nombre;
 const tipo = formulario.elements.tipo;
 const resumen = document.querySelector('[data-resumen="capturados"]');
 const preview = document.querySelector('[data-preview="capturados"]');
+const AgregarAlEquipo = modal.querySelector('[data-agregar-equipo]');
 
 let catalogo;
 let carga;
@@ -156,5 +158,18 @@ window.addEventListener('storage', (evento) => {
 });
 // Al volver con Atrás, la página puede restaurarse sin ejecutar otra vez el módulo.
 window.addEventListener('pageshow', (evento) => { if (evento.persisted) actualizarCapturados(); });
+
+AgregarAlEquipo.addEventListener('click', () => {
+  const seleccionados = [...grilla.querySelectorAll('.captura__check:checked')]
+
+  const idsSeleccionados = [...seleccionados].map((casilla) => {
+    const tarjeta = casilla.closest('.captura');
+    return Number(tarjeta.dataset.id);
+  });
+
+  const resultado = agregarAlEquipo(idsSeleccionados);
+
+  nota.textContent = resultado.mensaje;
+});
 
 actualizarCapturados();
