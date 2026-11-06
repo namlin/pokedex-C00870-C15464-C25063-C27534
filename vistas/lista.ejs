@@ -1,0 +1,29 @@
+<%- include('parciales/header') %>
+
+  <h1>Pokédex</h1>
+
+  <ul>
+    <% pokemones.forEach((p) => { %>
+      <li class="tarjeta">
+        <a href="/pokemon/<%= p.id %>"><strong>#<%= p.id %> · <%= p.nombre %></strong></a>
+        <div>
+          <% p.tipos.forEach((t) => { %><span class="tipo"><%= t %></span><% }) %>
+        </div>
+      </li>
+    <% }) %>
+  </ul>
+
+  <form action="/pokemon" method="POST">
+    <h2>Agregar un Pokémon</h2>
+    <label for="id">Número (id)</label>
+    <input type="number" id="id" name="id" required>
+    <label for="nombre">Nombre</label>
+    <input type="text" id="nombre" name="nombre" required>
+    <label for="tipos">Tipos (separados por coma)</label>
+    <input type="text" id="tipos" name="tipos" placeholder="fuego, volador">
+    <label for="descripcion">Descripción</label>
+    <input type="text" id="descripcion" name="descripcion">
+    <button type="submit">Agregar</button>
+  </form>
+
+<%- include('parciales/footer') %>

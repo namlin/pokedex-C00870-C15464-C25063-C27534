@@ -1,0 +1,465 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset=utf8>
+  <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <style>
+    :root {
+      color-scheme: light;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px)
+    }
+
+    html {
+      scroll-padding-top: env(safe-area-inset-top, 0px)
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font: 14px -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: #000
+    }
+
+    img {
+      max-width: 100%
+    }
+
+    [hidden]:not([hidden=until-found i]) {
+      display: none !important
+    }
+  </style>
+</head>
+
+<body>
+  <title>Ejercicios de JavaScript</title>
+  <meta name="description"
+    content="Ejercicios de JavaScript: closures, DOM interactivo y localStorage.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+    /* Hoja de ejercicios (parte 2). Índice lateral + columna de lectura; tarjetas de ejercicio. */
+    :root {
+      --bg: #f6f5f2;
+      --surface: #fffefb;
+      --fg: #201d1a;
+      --muted: #6a645b;
+      --line: #e5e0d6;
+      --accent: #8a5a2f;
+      --accent-soft: #f0e6db;
+      --chip: #ece7df;
+      --code-bg: #f3efe8;
+      --f1: #3f7d57;
+      --f2: #c08a2d;
+      --f3: #b4513a;
+      --serif: 'Fraunces', Georgia, serif;
+      --sans: 'Figtree', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #171613;
+        --surface: #201e1a;
+        --fg: #ece7df;
+        --muted: #a69d90;
+        --line: #332f28;
+        --accent: #d79a5e;
+        --accent-soft: #2a2118;
+        --chip: #282319;
+        --code-bg: #221f1a;
+        --f1: #6cbd88;
+        --f2: #e0b062;
+        --f3: #e0876d;
+        color-scheme: dark;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #171613;
+      --surface: #201e1a;
+      --fg: #ece7df;
+      --muted: #a69d90;
+      --line: #332f28;
+      --accent: #d79a5e;
+      --accent-soft: #2a2118;
+      --chip: #282319;
+      --code-bg: #221f1a;
+      --f1: #6cbd88;
+      --f2: #e0b062;
+      --f3: #e0876d;
+      color-scheme: dark;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font: 17px/1.6 var(--sans);
+      padding-inline: 16px;
+      padding-block: 32px
+    }
+
+    .wrap {
+      max-width: 1020px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 46px
+    }
+
+    nav {
+      position: sticky;
+      top: calc(env(safe-area-inset-top, 0px) + 20px);
+      align-self: start;
+      max-height: calc(100vh - 48px);
+      overflow: auto;
+      font-size: 14px
+    }
+
+    nav>ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px
+    }
+
+    nav .blk {
+      font: 600 11px var(--sans);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent)
+    }
+
+    nav .blk ol {
+      list-style: none;
+      margin: 6px 0 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px
+    }
+
+    nav .blk a {
+      color: var(--muted);
+      text-decoration: none;
+      line-height: 1.3
+    }
+
+    nav .blk a:hover {
+      color: var(--fg)
+    }
+
+    header.intro {
+      margin-bottom: 8px
+    }
+
+    .eyebrow {
+      font: 600 12px var(--sans);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 10px
+    }
+
+    h1 {
+      font: 600 clamp(2.1rem, 6vw, 3.2rem)/1.03 var(--serif);
+      margin: 0 0 14px;
+      text-wrap: balance
+    }
+
+    .blockbanner {
+      margin: 40px 0 4px
+    }
+
+    .blockbanner h2 {
+      font: 600 1.75rem var(--serif);
+      margin: 0
+    }
+
+    .blockbanner p {
+      color: var(--muted);
+      margin: 6px 0 0;
+      max-width: 60ch
+    }
+
+    .ej {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-top: 16px;
+      scroll-margin-top: 16px
+    }
+
+    .ej__head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 6px
+    }
+
+    .ej__n {
+      font: 600 .95rem var(--sans);
+      color: var(--accent);
+      font-variant-numeric: tabular-nums
+    }
+
+    .ej h3 {
+      font: 600 1.2rem var(--serif);
+      margin: 0;
+      flex: 1 1 auto;
+      min-width: 12rem
+    }
+
+    .nivel {
+      font: 600 10px var(--sans);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 99px;
+      align-self: center;
+      white-space: nowrap
+    }
+
+    .n1 {
+      background: var(--accent-soft);
+      color: var(--f1);
+      border: 1px solid var(--f1)
+    }
+
+    .n2 {
+      background: var(--accent-soft);
+      color: var(--f2);
+      border: 1px solid var(--f2)
+    }
+
+    .n3 {
+      background: var(--accent-soft);
+      color: var(--f3);
+      border: 1px solid var(--f3)
+    }
+
+    .ej p {
+      margin: 10px 0;
+      max-width: 64ch
+    }
+
+    .ej code {
+      font-family: var(--mono);
+      font-size: .88em;
+      background: var(--code-bg);
+      padding: 1px 6px;
+      border-radius: 5px
+    }
+
+    .ej pre {
+      background: var(--code-bg);
+      border-radius: 10px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      margin: 10px 0;
+      font: .82rem/1.5 var(--mono)
+    }
+
+    .espera {
+      font-size: .95rem;
+      color: var(--muted)
+    }
+
+    .espera b {
+      color: var(--fg);
+      font-weight: 600
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 44px;
+      padding-top: 20px;
+      color: var(--muted);
+      font-size: .85rem
+    }
+
+    @media (max-width:820px) {
+      .wrap {
+        display: block
+      }
+
+      nav {
+        position: static;
+        max-height: none;
+        margin-bottom: 26px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 16px 18px;
+        background: var(--surface)
+      }
+    }
+  </style>
+
+
+  <main>
+    <header class="intro">
+      <p class="eyebrow">Desarrollo de Aplicaciones Web · CI-0137</p>
+      <h1>Ejercicios de JavaScript</h1>
+    </header>
+
+    <div class="blockbanner">
+      <h2>Funciones por dentro</h2>
+      <p>Funciones que devuelven funciones y que recuerdan datos (closures), y métodos de arreglos encadenados.</p>
+    </div>
+
+    <section class="ej" id="e1">
+      <div class="ej__head"><span class="ej__n">1</span>
+        <h3>Contador con memoria</h3><span class="nivel n1">Fácil</span>
+      </div>
+      <p>La función <code>crearContador()</code> devuelve otra función. Cada vez que se llama a esa función devuelta, el
+        número sube en uno: 1, 2, 3… Dos contadores distintos llevan su cuenta por separado.</p>
+      <p class="espera"><b>Debe dar:</b> <code>const c = crearContador();</code> → <code>c()</code> da 1,
+        <code>c()</code> da 2, <code>c()</code> da 3.
+      </p>
+    </section>
+
+    <section class="ej" id="e2">
+      <div class="ej__head"><span class="ej__n">2</span>
+        <h3>Saludo configurable</h3><span class="nivel n1">Fácil</span>
+      </div>
+      <p>La función <code>crearSaludo(saludo)</code> devuelve otra función. Esa función devuelta recibe un
+        <code>nombre</code> y arma la frase completa.
+      </p>
+      <p class="espera"><b>Debe dar:</b> <code>const hola = crearSaludo('Hola');</code> → <code>hola('Mari')</code> →
+        «Hola, Mari». Y <code>crearSaludo('Adiós')('Mari')</code> → «Adiós, Mari».</p>
+    </section>
+
+    <section class="ej" id="e3">
+      <div class="ej__head"><span class="ej__n">3</span>
+        <h3>Lo caro del carrito</h3><span class="nivel n2">Medio</span>
+      </div>
+      <p>A partir de un arreglo de productos con <code>nombre</code> y <code>precio</code>, en <strong>una sola línea
+          encadenada</strong>, se suma el precio solo de los que cuestan más de 1000.</p>
+      <p class="espera"><b>Debe dar:</b> con precios 500, 1200, 300 y 2000 → 3200.</p>
+    </section>
+
+    <section class="ej" id="e4">
+      <div class="ej__head"><span class="ej__n">4</span>
+        <h3>Fábrica de descuentos</h3><span class="nivel n2">Medio</span>
+      </div>
+      <p>La función <code>crearDescuento(porcentaje)</code> devuelve otra función que aplica ese descuento a cualquier
+        precio. A partir de ella se arman <code>mitadDePrecio</code> y <code>diezPorciento</code>.</p>
+      <p class="espera"><b>Debe dar:</b> <code>const mitad = crearDescuento(50);</code> → <code>mitad(1000)</code> →
+        500. <code>crearDescuento(10)(200)</code> → 180.</p>
+    </section>
+
+    <section class="ej" id="e5">
+      <div class="ej__head"><span class="ej__n">5</span>
+        <h3>Agrupar por categoría</h3><span class="nivel n3">Difícil</span>
+      </div>
+      <p>A partir de un arreglo de productos con <code>nombre</code> y <code>categoria</code>, se devuelve un objeto
+        donde cada categoría es una llave y su valor es el arreglo de nombres de esa categoría.</p>
+      <pre>// de esto:
+[{ nombre: 'Manzana', categoria: 'fruta' },
+ { nombre: 'Pan',     categoria: 'panadería' },
+ { nombre: 'Banano',  categoria: 'fruta' }]
+
+// a esto:
+{ fruta: ['Manzana', 'Banano'], panadería: ['Pan'] }</pre>
+    </section>
+
+    <div class="blockbanner">
+      <h2>El DOM que escucha</h2>
+      <p>Construir elementos desde datos y responder a lo que hace la persona.</p>
+    </div>
+
+    <section class="ej" id="e6">
+      <div class="ej__head"><span class="ej__n">6</span>
+        <h3>Pintar una lista</h3><span class="nivel n1">Fácil</span>
+      </div>
+      <p>A partir de un <code>&lt;ul id="frutas"&gt;&lt;/ul&gt;</code> vacío y un arreglo
+        <code>['Manzana', 'Banano', 'Uva']</code>, se crea un <code>&lt;li&gt;</code> por cada fruta y se agregan a la
+        lista.
+      </p>
+      <p class="espera"><b>Debe dar:</b> tres <code>&lt;li&gt;</code> dentro del <code>&lt;ul&gt;</code>, uno por fruta.
+      </p>
+    </section>
+
+    <section class="ej" id="e7">
+      <div class="ej__head"><span class="ej__n">7</span>
+        <h3>Buscador en vivo</h3><span class="nivel n2">Medio</span>
+      </div>
+      <p>Con la lista del ejercicio 6 y un <code>&lt;input&gt;</code> de texto: mientras se escribe, se muestran solo
+        las frutas que contienen lo escrito. Al borrar todo, vuelven a aparecer todas.</p>
+      <p class="espera"><b>Debe dar:</b> escribir «an» deja «Manzana» y «Banano»; borrar muestra las tres otra vez.</p>
+    </section>
+
+    <section class="ej" id="e8">
+      <div class="ej__head"><span class="ej__n">8</span>
+        <h3>Botón que alterna</h3><span class="nivel n2">Medio</span>
+      </div>
+      <p>Un botón de «Me gusta» que, al tocarlo, cambia a «✓ Te gusta» y se marca; al tocarlo de nuevo, vuelve a «Me
+        gusta». El estado se lleva en el atributo <code>aria-pressed</code>.</p>
+      <p class="espera"><b>Debe dar:</b> el texto y el <code>aria-pressed</code> (<code>true</code>/<code>false</code>)
+        cambian en cada clic.</p>
+    </section>
+
+    <section class="ej" id="e9">
+      <div class="ej__head"><span class="ej__n">9</span>
+        <h3>Leer un formulario</h3><span class="nivel n2">Medio</span>
+      </div>
+      <p>Un formulario con un campo <code>nombre</code> y un <code>select</code> de <code>color</code>. Al enviarlo,
+        <strong>sin recargar la página</strong>, se muestra en pantalla «Hola NOMBRE, tu color es COLOR».
+      </p>
+    </section>
+
+    <div class="blockbanner">
+      <h2>Recordar en el navegador</h2>
+      <p>Guardar datos con <code>localStorage</code> para que sobrevivan a la recarga.</p>
+    </div>
+
+    <section class="ej" id="e10">
+      <div class="ej__head"><span class="ej__n">10</span>
+        <h3>Guardar el nombre</h3><span class="nivel n1">Fácil</span>
+      </div>
+      <p>Un campo de texto y un botón «Guardar». Al guardar, el nombre queda en <code>localStorage</code>. Cuando se
+        recarga la página, si ya hay un nombre guardado, aparece un saludo con él.</p>
+      <p class="espera"><b>Debe dar:</b> se guarda «Mari», se recarga, y sale «Hola de nuevo, Mari».</p>
+    </section>
+
+    <section class="ej" id="e11">
+      <div class="ej__head"><span class="ej__n">11</span>
+        <h3>Favoritos que quedan</h3><span class="nivel n2">Medio</span>
+      </div>
+      <p>Una lista de colores, cada uno con un botón «♥». Al tocarlo, ese color se agrega o se quita de los favoritos, y
+        la lista de favoritos se guarda para que siga ahí al recargar.</p>
+      <p class="espera"><b>Debe dar:</b> se marcan rojo y azul, se recarga, y siguen marcados.</p>
+    </section>
+
+    <section class="ej" id="e12">
+      <div class="ej__head"><span class="ej__n">12</span>
+        <h3>El tema que elegiste</h3><span class="nivel n2">Medio</span>
+      </div>
+      <p>Un botón que cambia entre tema claro y oscuro (con un atributo <code>data-theme</code> en
+        <code>&lt;html&gt;</code>). La elección se guarda para que, al volver a entrar, la página arranque con el tema
+        elegido.
+      </p>
+    </section>
+
+    <footer>
+      Ejercicios de práctica · parte 2 · CI-0137 Desarrollo de Aplicaciones Web · Universidad de Costa Rica
+    </footer>
+
+  </main>
+
+</body>
+
+</html>

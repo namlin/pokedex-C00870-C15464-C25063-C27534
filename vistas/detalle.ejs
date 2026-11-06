@@ -1,0 +1,11 @@
+<%- include('parciales/header') %>
+
+  <h1>#<%= pokemon.id %> · <%= pokemon.nombre %></h1>
+  <p>
+    <% pokemon.tipos.forEach((t) => { %><span class="tipo"><%= t %></span><% }) %>
+  </p>
+  <% if (pokemon.descripcion) { %>
+    <p><%= pokemon.descripcion %></p>
+  <% } %>
+
+<%- include('parciales/footer') %>

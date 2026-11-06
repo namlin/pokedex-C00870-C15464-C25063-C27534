@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ej. 9 — Leer un formulario</title>
+<link rel="stylesheet" href="../estilos.css">
+</head>
+<body>
+<main>
+  <h1>Ejercicio 9 — Leer un formulario</h1>
+  <p class="instruccion">Al enviar el formulario, sin recargar, se muestra «Hola NOMBRE, tu color es COLOR» en la salida. El código va en <code>09-formulario.js</code>.</p>
+  <div class="caja">
+    <form id="datos">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" name="nombre" required>
+      <label for="color">Color favorito</label>
+      <select id="color" name="color">
+        <option>rojo</option>
+        <option>verde</option>
+        <option>azul</option>
+      </select>
+      <button type="submit">Enviar</button>
+    </form>
+    <p class="salida" id="salida"></p>
+  </div>
+</main>
+<script src="09-formulario.js" defer></script>
+</body>
+</html>

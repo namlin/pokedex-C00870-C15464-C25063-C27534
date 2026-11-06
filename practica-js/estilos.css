@@ -1,0 +1,33 @@
+/* Estilos base para los ejercicios. No hace falta tocar nada acá:
+   tu trabajo es el archivo .js de cada ejercicio. */
+:root{
+  --bg:#f6f5f2; --surface:#ffffff; --fg:#201d1a; --muted:#6a645b; --line:#e3ddd3;
+  --accent:#4b6b9c; --accent-fg:#ffffff; --soft:#eef1f6; --code:#f1efe9;
+  --radio:12px;
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:ui-monospace,Menlo,Consolas,monospace;
+}
+html[data-theme="oscuro"]{
+  --bg:#161719; --surface:#1f2124; --fg:#e9eaec; --muted:#9aa0a8; --line:#30343a;
+  --accent:#8fb0ea; --accent-fg:#161719; --soft:#22262c; --code:#1a1c1f; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 var(--sans);padding:32px 16px}
+main{max-width:620px;margin:0 auto}
+h1{font-size:1.5rem;margin:0 0 4px}
+.instruccion{color:var(--muted);margin:0 0 20px;font-size:.98rem}
+.caja{background:var(--surface);border:1px solid var(--line);border-radius:var(--radio);padding:20px}
+label{display:block;font-weight:600;font-size:.9rem;margin:0 0 4px}
+input,select{width:100%;font:inherit;padding:.5rem .7rem;border:1px solid var(--line);
+  border-radius:8px;background:var(--bg);color:var(--fg);margin-bottom:14px}
+button{font:inherit;font-weight:600;cursor:pointer;background:var(--accent);color:var(--accent-fg);
+  border:0;border-radius:999px;padding:.5rem 1.1rem}
+button:hover{filter:brightness(1.05)}
+.toggle{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+.toggle[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg)}
+ul{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+li{background:var(--soft);border-radius:8px;padding:.5rem .8rem}
+.fila{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.fila button{padding:.3rem .7rem}
+.salida{margin-top:14px;min-height:1.4em;font-weight:600}
+code{font-family:var(--mono);background:var(--code);padding:1px 5px;border-radius:5px;font-size:.9em}

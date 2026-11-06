@@ -1,0 +1,382 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Pokédex con JavaScript</title>
+<meta name="description" content="Apuntes del estudiante: conceptos de la clase donde la Pokédex cobra vida con JavaScript.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Apuntes del estudiante. Layout: índice lateral + columna de lectura; sin bloques de código. */
+:root{
+  --bg:#f7f5f1; --surface:#fffdfa; --fg:#23201c; --muted:#6c655c; --line:#e4ded4;
+  --accent:#b23a2e; --accent-soft:#f4e4e0; --chip:#eceae3; --ok:#2f6b4f;
+  --serif:'Fraunces',Georgia,serif; --sans:'Figtree',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1a1814; --surface:#221f1a; --fg:#ece7df; --muted:#a69d90; --line:#352f27;
+  --accent:#ef6a5a; --accent-soft:#38231f; --chip:#2b2721; --ok:#73c79b; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#1a1814; --surface:#221f1a; --fg:#ece7df; --muted:#a69d90; --line:#352f27;
+  --accent:#ef6a5a; --accent-soft:#38231f; --chip:#2b2721; --ok:#73c79b; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:17px/1.65 var(--sans);padding-inline:16px;padding-block:32px}
+.wrap{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:230px minmax(0,1fr);gap:48px}
+nav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px);align-self:start;max-height:calc(100vh - 48px);overflow:auto;font-size:14px}
+nav>ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
+nav .blk{font:600 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+nav .blk ol{list-style:none;margin:7px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;counter-reset:n}
+nav .blk a{color:var(--muted);text-decoration:none;display:block;line-height:1.35}
+nav .blk a:hover{color:var(--fg)}
+header.intro{margin-bottom:8px}
+.eyebrow{font:600 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+h1{font:600 clamp(2.2rem,6vw,3.4rem)/1.03 var(--serif);margin:0 0 16px;letter-spacing:-.01em;text-wrap:balance}
+.lead{font-size:1.12rem;color:var(--muted);max-width:60ch;margin:0 0 6px}
+.lead strong{color:var(--fg);font-weight:600}
+.callout{margin:24px 0 8px;padding:16px 20px;background:var(--accent-soft);border-radius:12px;font-size:.98rem;color:var(--fg)}
+.callout b{font-weight:600}
+section.step{padding:30px 0;border-top:1px solid var(--line);scroll-margin-top:20px}
+.step__head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px;flex-wrap:wrap}
+.num{font:600 1rem var(--sans);color:var(--accent);font-variant-numeric:tabular-nums;min-width:2.4ch}
+h2{font:600 1.5rem/1.2 var(--serif);margin:0;letter-spacing:-.01em;text-wrap:balance}
+.tag{font:600 10px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:3px 9px;align-self:center}
+.step p{max-width:65ch;margin:12px 0}
+.step p .term{font-family:var(--sans);font-weight:600;color:var(--accent)}
+.keys{margin:16px 0 0;padding:14px 18px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.keys h3{font:600 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.keys ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.keys li{display:flex;gap:10px;align-items:baseline;font-size:.96rem}
+.keys .k{font-family:var(--sans);font-weight:600;color:var(--fg);background:var(--chip);border-radius:6px;padding:1px 8px;white-space:nowrap}
+.blockbanner{margin:40px 0 -8px;padding:0}
+.blockbanner .eyebrow{margin-bottom:4px}
+.blockbanner h2{font-size:1.9rem;border:0}
+.blockbanner p{color:var(--muted);max-width:60ch;margin:6px 0 0}
+.refs{border-top:1px solid var(--line);margin-top:40px;padding-top:28px}
+.refs h2{font:600 1.5rem/1.2 var(--serif);margin:0 0 16px}
+.refs ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.refs li{display:flex;flex-direction:column;gap:2px}
+.refs a{color:var(--accent);text-decoration:none;font-weight:600;word-break:break-word}
+.refs a:hover{text-decoration:underline}
+.refs .desc{color:var(--muted);font-size:.92rem}
+footer{border-top:1px solid var(--line);margin-top:40px;padding-top:20px;color:var(--muted);font-size:.85rem}
+@media (max-width:820px){.wrap{display:block}nav{position:static;max-height:none;margin-bottom:28px;border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--surface)}}
+</style>
+
+<div class="wrap">
+<nav aria-label="Contenido">
+  <ol>
+    <li class="blk">JavaScript
+      <ol>
+        <li><a href="#s1">1. Funciones y funciones flecha</a></li>
+        <li><a href="#s2">2. filter, map y reduce</a></li>
+        <li><a href="#s3">3. Closures y ámbito</a></li>
+        <li><a href="#s4">4. Clases y prototipos</a></li>
+        <li><a href="#s5">5. Getters y setters</a></li>
+        <li><a href="#s6">6. Máquinas de estados</a></li>
+      </ol>
+    </li>
+    <li class="blk">Módulos
+      <ol>
+        <li><a href="#s7">7. Modularizar el código</a></li>
+        <li><a href="#s8">8. Exportar e importar</a></li>
+        <li><a href="#s9">9. Otras formas</a></li>
+        <li><a href="#s10">10. Módulos en el navegador</a></li>
+        <li><a href="#s11">11. Política del mismo origen</a></li>
+        <li><a href="#s12">12. XHTML en WebKit</a></li>
+        <li><a href="#s13">13. La Pokédex en módulos</a></li>
+      </ol>
+    </li>
+    <li class="blk">El DOM
+      <ol>
+        <li><a href="#s14">14. El DOM y los nodos</a></li>
+        <li><a href="#s15">15. Crear elementos</a></li>
+        <li><a href="#s16">16. Generar la lista</a></li>
+        <li><a href="#s17">17. Filtrar y buscar</a></li>
+        <li><a href="#s18">18. innerHTML y outerHTML</a></li>
+        <li><a href="#s19">19. Una sola ficha</a></li>
+        <li><a href="#s20">20. Nodos y elementos</a></li>
+      </ol>
+    </li>
+    <li class="blk"><a href="#refs">Referencias</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="intro">
+  <p class="eyebrow">Desarrollo de Aplicaciones Web · CI-0137</p>
+  <h1>La Pokédex cobra vida con JavaScript</h1>
+  <p class="lead">Apuntes de la clase en la que el proyecto deja de tener los datos escritos a mano en el HTML y empieza a funcionar: la lista de Pokémon se genera sola, el buscador filtra de verdad y una sola página de detalle sirve para todos.</p>
+  <div class="callout">Este documento reúne los <b>conceptos</b> y lo que conviene recordar de cada tema. Comienza con un repaso de lo visto en las clases de JavaScript y continúa con los módulos y el DOM, que son los temas nuevos. El código se escribe en conjunto durante la sesión; aquí no se incluye, para que sirva como material de repaso y consulta.</div>
+</header>
+
+<div class="blockbanner">
+  <p class="eyebrow">Bloque 1</p>
+  <h2>Fundamentos de JavaScript</h2>
+  <p>Repaso de lo visto en las clases anteriores, más las piezas que se suman en esta sesión.</p>
+</div>
+
+<section class="step" id="s1">
+  <div class="step__head"><span class="num">1</span><h2>Funciones y funciones flecha</h2><span class="tag">Repaso</span></div>
+  <p>Una <span class="term">función</span> es un bloque de código con nombre que recibe datos de entrada, hace algo y devuelve un resultado. En JavaScript las funciones son valores: pueden guardarse en una variable, pasarse como argumento a otra función o devolverse desde una función.</p>
+  <p>La <span class="term">función flecha</span> es una forma breve de escribirlas, muy usada cuando se entrega una función a otra, como ocurre con los métodos de los arreglos. Una función que se pasa a otra para que esta la ejecute se llama <span class="term">callback</span>.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">función</span> recibe datos, hace algo y devuelve un resultado.</li>
+    <li><span class="k">función como valor</span> se guarda, se pasa y se devuelve.</li>
+    <li><span class="k">callback</span> una función que se entrega a otra para que la ejecute.</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s2">
+  <div class="step__head"><span class="num">2</span><h2>filter, map y reduce</h2><span class="tag">Repaso</span></div>
+  <p>Son tres métodos de los arreglos que evitan escribir ciclos a mano. <span class="term">filter</span> recorre el arreglo y conserva solo los elementos que cumplen una condición; cambia <em>cuántos</em> hay. <span class="term">map</span> transforma cada elemento y devuelve uno nuevo por cada uno; cambia <em>qué</em> hay. <span class="term">reduce</span> recorre el arreglo acumulando un único resultado final, como una suma o un máximo.</p>
+  <p>Los tres devuelven información sin modificar el arreglo original, y pueden encadenarse: filtrar primero y transformar después. Son la base para construir la lista y los filtros de la Pokédex.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">filter</span> conserva los que cumplen una condición.</li>
+    <li><span class="k">map</span> transforma cada elemento.</li>
+    <li><span class="k">reduce</span> combina todo en un solo valor.</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s3">
+  <div class="step__head"><span class="num">3</span><h2>Closures y ámbito</h2><span class="tag">Repaso</span></div>
+  <p>Cada función tiene su propio <span class="term">ámbito</span>: el conjunto de variables que puede ver. Un <span class="term">closure</span> ocurre cuando una función interna sigue teniendo acceso a las variables de la función que la creó, incluso después de que esta terminó. Esas variables quedan conservadas y no son accesibles desde afuera.</p>
+  <p>Es la forma de guardar información privada, por ejemplo un contador que solo cambia a través de la función que lo expone. Es también la idea que, dentro de las clases, se formaliza con los campos privados.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">ámbito</span> las variables que una función alcanza a ver.</li>
+    <li><span class="k">closure</span> una función que recuerda las variables donde nació.</li>
+    <li><span class="k">encapsular</span> guardar datos que no se tocan desde afuera.</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s4">
+  <div class="step__head"><span class="num">4</span><h2>Clases y prototipos</h2><span class="tag">Repaso</span></div>
+  <p>Una <span class="term">clase</span> es una plantilla para crear objetos con la misma forma y el mismo comportamiento. Evita repetir las propiedades y los métodos en cada objeto. Por debajo, JavaScript comparte los métodos a través de un mecanismo llamado <span class="term">prototipo</span>: cuando una propiedad no está en el objeto, se busca en su prototipo, y así sucesivamente a lo largo de una cadena.</p>
+  <p>Con una clase se definen los datos en el constructor y los métodos una sola vez para todos los objetos. Una subclase puede heredar de otra y agregar lo propio.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">clase</span> plantilla para crear objetos iguales en forma.</li>
+    <li><span class="k">prototipo</span> dónde se comparten los métodos entre objetos.</li>
+    <li><span class="k">herencia</span> una clase que reutiliza y amplía otra.</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s5">
+  <div class="step__head"><span class="num">5</span><h2>Getters y setters</h2></div>
+  <p>Un <span class="term">getter</span> es un método que se usa como si fuera una propiedad: se lee sin paréntesis, pero por dentro ejecuta código. Un <span class="term">setter</span> es su contraparte al asignar un valor: en lugar de guardarlo tal cual, el valor pasa por un método que puede revisarlo o ajustarlo primero.</p>
+  <p>Su utilidad es el control. Por ejemplo, la vida de un Pokémon puede quedar siempre dentro de un rango válido (ni negativa, ni mayor al máximo), sin importar qué valor intente asignarle quien usa el objeto. La forma de usarlo desde afuera no cambia; la validación ocurre de manera interna.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">getter</span> leer un dato que en realidad se calcula o se protege.</li>
+    <li><span class="k">setter</span> validar o ajustar un valor en el momento de asignarlo.</li>
+    <li><span class="k">campo privado (#)</span> dato interno que solo se toca desde dentro de la clase; obliga a pasar por el setter.</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s6">
+  <div class="step__head"><span class="num">6</span><h2>Máquinas de estados</h2></div>
+  <p>Una <span class="term">máquina de estados</span> describe algo que siempre se encuentra en una de varias situaciones posibles —sus estados— y define qué acciones se permiten en cada una. Cualquier acción que no esté permitida en el estado actual se rechaza.</p>
+  <p>La comparación habitual es un semáforo: está en verde, amarillo o rojo, y no puede pasar de rojo a amarillo. Toda la lógica vive en una tabla de transiciones que indica, para cada estado, a qué estado lleva cada acción válida. Su ventaja es evitar situaciones imposibles y reportar el error de inmediato, en vez de arrastrar un fallo silencioso. Es la base del flujo de una partida en el proyecto Arcade.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">estado</span> la situación actual del sistema.</li>
+    <li><span class="k">transición</span> el paso de un estado a otro ante una acción válida.</li>
+    <li><span class="k">tabla de transiciones</span> el registro de qué acción lleva a qué estado.</li>
+  </ul></div>
+</section>
+
+<div class="blockbanner">
+  <p class="eyebrow">Bloque 2</p>
+  <h2>Módulos de ES6</h2>
+  <p>Cómo repartir el código en varios archivos que se comunican entre sí.</p>
+</div>
+
+<section class="step" id="s7">
+  <div class="step__head"><span class="num">7</span><h2>Modularizar el código</h2></div>
+  <p>Modularizar es dividir el programa en varios archivos, cada uno responsable de una tarea. Cada módulo decide qué comparte con los demás; lo que no comparte queda privado de ese archivo.</p>
+  <p>Existen dos estilos por razones históricas. <span class="term">CommonJS</span> es el sistema clásico de Node. Los <span class="term">módulos de ES6</span>, incorporados al lenguaje en 2015, son la forma actual y funcionan igual en el navegador y en Node. En el curso se usa el estilo de ES6; el otro se menciona solo para reconocerlo en código existente.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">módulo</span> un archivo con una responsabilidad clara.</li>
+    <li><span class="k">CommonJS</span> el estilo antiguo de Node (require).</li>
+    <li><span class="k">ES6</span> el estilo moderno y universal (import / export).</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s8">
+  <div class="step__head"><span class="num">8</span><h2>Exportar e importar</h2></div>
+  <p>Un módulo comparte lo que quiera marcándolo para <span class="term">exportar</span>: una constante, una función, una clase. Desde otro archivo, se trae lo necesario con <span class="term">importar</span>, nombrando exactamente lo que se quiere. Lo que no se importa, no entra.</p>
+  <p>La referencia al otro archivo es una ruta: un punto y una barra indican "en la misma carpeta", y en el navegador la extensión del archivo es obligatoria.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">export</span> ofrecer algo al resto del proyecto.</li>
+    <li><span class="k">import { … }</span> traer símbolos por su nombre.</li>
+    <li><span class="k">ruta relativa</span> dónde está el archivo, con extensión incluida.</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s9">
+  <div class="step__head"><span class="num">9</span><h2>Otras formas de exportar e importar</h2></div>
+  <p>Además de la forma con nombre, hay variantes que se ven con frecuencia. La exportación <span class="term">por defecto</span> marca el elemento principal de un archivo y se importa con el nombre que se prefiera. El alias permite renombrar algo al importarlo para evitar choques de nombres. Y es posible traer todo un módulo agrupado bajo un solo nombre.</p>
+  <p>Reconocer estas variantes evita confusiones al leer código ajeno, aunque en el día a día suele preferirse la exportación con nombre por ser más explícita.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">export default</span> el elemento principal del archivo.</li>
+    <li><span class="k">as</span> renombrar al importar.</li>
+    <li><span class="k">* as nombre</span> traer todo el módulo agrupado.</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s10">
+  <div class="step__head"><span class="num">10</span><h2>Módulos en el navegador</h2></div>
+  <p>Para que el navegador entienda las importaciones, el script se declara como módulo. Al hacerlo, el archivo puede usar import y export, espera a que la página esté lista antes de ejecutarse, corre con reglas más estrictas y mantiene sus variables sin contaminar el ámbito global.</p>
+  <p>Existe una limitación histórica: cuando la página se sirve en el formato estricto XHTML, el motor de Safari no ejecutaba los módulos escritos directamente en el documento. En el HTML normal, que es lo habitual, los módulos funcionan en todos los navegadores.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">script de módulo</span> habilita import / export en el navegador.</li>
+    <li><span class="k">modo estricto</span> reglas más seguras de forma automática.</li>
+    <li><span class="k">ámbito propio</span> las variables no se vuelven globales.</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s11">
+  <div class="step__head"><span class="num">11</span><h2>Política del mismo origen</h2></div>
+  <p>Al abrir un archivo con doble clic, su dirección no corresponde a un servidor y los módulos no cargan: el navegador aplica la <span class="term">política del mismo origen</span>, una regla de seguridad que solo permite pedir recursos que provengan del mismo lugar.</p>
+  <p>La solución es servir la carpeta mediante un servidor local, aunque sea en la propia computadora. Herramientas como Live Server cumplen esta función: con ellas, todos los archivos comparten el mismo origen y los módulos cargan sin problema.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">política del mismo origen</span> regla de seguridad del navegador.</li>
+    <li><span class="k">servidor local</span> necesario para que los módulos carguen.</li>
+    <li><span class="k">Live Server</span> la forma práctica de servir el proyecto en clase.</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s12">
+  <div class="step__head"><span class="num">12</span><h2>XHTML en WebKit</h2><span class="tag">Opcional</span></div>
+  <p>Este punto aplica únicamente cuando el proyecto se sirve en formato XHTML y se desea probar en Safari, donde los módulos no se ejecutaban. La solución que plantea el curso es ofrecer el mismo contenido también como HTML normal mediante un <span class="term">enlace simbólico</span>: una referencia del sistema de archivos que funciona como un acceso directo, de modo que un solo archivo queda disponible bajo dos nombres.</p>
+  <p>Es un recurso para un caso muy particular. Con HTML normal no hace falta.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">enlace simbólico</span> un archivo accesible bajo dos nombres, sin duplicarlo.</li>
+    <li><span class="k">caso de borde</span> solo relevante con XHTML y Safari.</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s13">
+  <div class="step__head"><span class="num">13</span><h2>La Pokédex en módulos</h2></div>
+  <p>Con todo lo anterior, el proyecto se reorganiza. Los datos dejan de estar repartidos en el HTML y pasan a un módulo único que actúa como la fuente de verdad. Las páginas de lista y de detalle leen de ese mismo módulo.</p>
+  <p>El beneficio es concreto: agregar o cambiar un Pokémon se hace en un solo archivo, y ambas páginas se actualizan en consecuencia. Las dependencias fluyen en una sola dirección, de lo general a lo específico, lo que mantiene el código ordenado.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">fuente de verdad</span> un único lugar con los datos.</li>
+    <li><span class="k">separar datos y lógica</span> cambiar datos sin tocar el código.</li>
+    <li><span class="k">dependencias</span> qué archivo necesita a cuál, en una sola dirección.</li>
+  </ul></div>
+</section>
+
+<div class="blockbanner">
+  <p class="eyebrow">Bloque 3</p>
+  <h2>El DOM</h2>
+  <p>Cómo JavaScript lee y modifica la página para que la Pokédex funcione.</p>
+</div>
+
+<section class="step" id="s14">
+  <div class="step__head"><span class="num">14</span><h2>El DOM y los nodos</h2></div>
+  <p>El <span class="term">DOM</span> (Document Object Model) es la página vista como un conjunto de objetos que JavaScript puede leer y modificar. Cuando el navegador interpreta el HTML, construye un árbol en el que cada etiqueta, cada texto y cada comentario es un <span class="term">nodo</span>.</p>
+  <p>El punto de partida para trabajar es obtener un nodo existente —por ejemplo, el contenedor de la lista, que al inicio está vacío— y a partir de él agregar o cambiar contenido.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">DOM</span> la página como objetos manipulables.</li>
+    <li><span class="k">nodo</span> cada pieza del árbol de la página.</li>
+    <li><span class="k">seleccionar</span> obtener un elemento por su clase o su id.</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s15">
+  <div class="step__head"><span class="num">15</span><h2>Crear elementos</h2></div>
+  <p>Construir contenido desde JavaScript sigue tres pasos: <span class="term">crear</span> un elemento nuevo, <span class="term">configurarlo</span> (su clase, su texto, sus atributos como la dirección o la imagen) e <span class="term">insertarlo</span> en la página, momento en el que aparece en pantalla.</p>
+  <p>La tarjeta de cada Pokémon se arma así, con la misma estructura y las mismas clases que antes estaban escritas a mano, de modo que los estilos siguen aplicando sin cambios. Un detalle clave: el enlace de cada tarjeta lleva el identificador del Pokémon en su dirección, lo que permite usar una sola página de detalle.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">crear</span> generar un elemento nuevo en memoria.</li>
+    <li><span class="k">configurar</span> asignarle clase, texto y atributos.</li>
+    <li><span class="k">insertar</span> colgarlo en la página para que se vea.</li>
+    <li><span class="k">texto seguro</span> el texto plano no interpreta etiquetas.</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s16">
+  <div class="step__head"><span class="num">16</span><h2>Generar la lista completa</h2></div>
+  <p>Con la tarjeta resuelta, generar todas es recorrer la lista de datos y crear una tarjeta por cada Pokémon. Antes de dibujar, el contenedor se vacía, para que las tarjetas nuevas no se sumen a las anteriores.</p>
+  <p>Este es el objetivo central de la clase: los datos ya no están escritos en el HTML, sino que la lista se construye a partir del módulo de datos. La función que dibuja recibe cuáles Pokémon mostrar, lo que deja todo listo para el buscador.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">recorrer</span> pasar por cada elemento de la lista.</li>
+    <li><span class="k">vaciar antes de dibujar</span> evita contenido duplicado.</li>
+    <li><span class="k">dibujar con un parámetro</span> mostrar la lista que se le indique.</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s17">
+  <div class="step__head"><span class="num">17</span><h2>Filtrar y buscar</h2></div>
+  <p>El buscador conecta el formulario con el código a través de <span class="term">eventos</span>: uno responde al enviar el formulario y otro filtra en vivo mientras se escribe o se cambia una opción. Al enviar, se evita que la página se recargue, de modo que el filtrado ocurre sin salir de ella.</p>
+  <p>El proceso lee los criterios del formulario, conserva solo los Pokémon que cumplen con todos y vuelve a dibujar la lista resultante. Un detalle práctico: al comparar texto conviene ignorar las tildes, para que "eléctrico" y "electrico" se consideren iguales.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">evento</span> código que responde a una acción de la persona.</li>
+    <li><span class="k">evitar la recarga</span> filtrar sin abandonar la página.</li>
+    <li><span class="k">filtrar</span> conservar solo lo que cumple los criterios.</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s18">
+  <div class="step__head"><span class="num">18</span><h2>innerHTML y outerHTML</h2></div>
+  <p>Para bloques grandes de contenido, en lugar de crear elemento por elemento, resulta cómodo escribir el HTML como texto y dejar que el navegador lo construya. <span class="term">innerHTML</span> representa el contenido interior de un elemento; <span class="term">outerHTML</span> incluye además la propia etiqueta.</p>
+  <p>Hay una advertencia de seguridad importante: usar esta técnica con texto proporcionado por una persona usuaria es riesgoso, porque podría inyectar código. Es seguro únicamente cuando el contenido proviene de datos propios y confiables.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">innerHTML</span> el contenido interior de un elemento.</li>
+    <li><span class="k">outerHTML</span> el elemento completo, con su etiqueta.</li>
+    <li><span class="k">seguridad</span> no usarlo con texto que teclee un usuario.</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s19">
+  <div class="step__head"><span class="num">19</span><h2>Una sola ficha para todos</h2></div>
+  <p>La página de detalle deja de existir en diez copias casi idénticas. Queda una sola, y el Pokémon que debe mostrar viaja en la dirección, en la parte posterior al signo de interrogación, conocida como <span class="term">query string</span>.</p>
+  <p>El código lee ese identificador, busca el Pokémon correspondiente y arma la ficha. Si el identificador no existe, muestra un mensaje en lugar de una página rota. Es la misma idea de la dirección con parámetros que ya se usó para filtrar, ahora aplicada a elegir el contenido.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">query string</span> los datos que van en la dirección tras el "?".</li>
+    <li><span class="k">leer el parámetro</span> obtener el identificador de la dirección.</li>
+    <li><span class="k">caso no encontrado</span> mostrar un mensaje en vez de fallar.</li>
+  </ul></div>
+</section>
+
+<section class="step" id="s20">
+  <div class="step__head"><span class="num">20</span><h2>Nodos y elementos</h2><span class="tag">Opcional</span></div>
+  <p>Para cerrar, una distinción que explica algunos comportamientos al depurar. Un <span class="term">nodo</span> es cualquier pieza del árbol, incluidos los fragmentos de texto. Un <span class="term">elemento</span> es un nodo que además es una etiqueta. Todo elemento es un nodo, pero no todo nodo es un elemento.</p>
+  <p>Por eso existen dos formas de recorrer los hijos de un contenedor: una incluye también los fragmentos de texto, y otra se limita a las etiquetas. En la práctica, casi siempre interesa la segunda.</p>
+  <div class="keys"><h3>Conviene recordar</h3><ul>
+    <li><span class="k">nodo</span> cualquier pieza del árbol (texto, comentario, etiqueta).</li>
+    <li><span class="k">elemento</span> un nodo que es una etiqueta.</li>
+    <li><span class="k">recorrer hijos</span> normalmente interesan solo los elementos.</li>
+  </ul></div>
+</section>
+
+<section class="refs" id="refs">
+  <h2>Referencias</h2>
+  <ul>
+    <li>
+      <a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Guide" target="_blank" rel="noopener">MDN Web Docs — Guía de JavaScript</a>
+      <span class="desc">Referencia oficial del lenguaje: funciones, clases, módulos y métodos de arreglos.</span>
+    </li>
+    <li>
+      <a href="https://developer.mozilla.org/es/docs/Web/API/Document_Object_Model/Introduction" target="_blank" rel="noopener">MDN Web Docs — Introducción al DOM</a>
+      <span class="desc">Qué es el árbol de la página y cómo se lee y modifica desde JavaScript.</span>
+    </li>
+    <li>
+      <a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Modules" target="_blank" rel="noopener">MDN Web Docs — Módulos de JavaScript</a>
+      <span class="desc">import, export y el uso de módulos en el navegador.</span>
+    </li>
+    <li>
+      <a href="https://developer.mozilla.org/es/docs/Web/Security/Same-origin_policy" target="_blank" rel="noopener">MDN Web Docs — Política del mismo origen</a>
+      <span class="desc">La regla de seguridad por la que los módulos necesitan un servidor.</span>
+    </li>
+    <li>
+      <a href="https://pokeapi.co/" target="_blank" rel="noopener">PokeAPI</a>
+      <span class="desc">Fuente pública de los datos y sprites de Pokémon usados en el proyecto.</span>
+    </li>
+  </ul>
+</section>
+
+<footer>
+  Material de apoyo del curso Desarrollo de Aplicaciones Web (CI-0137), Escuela de Ciencias de la Computación e Informática, Universidad de Costa Rica. Pokémon es marca registrada de Nintendo, Game Freak y The Pokémon Company; se usa con fines educativos.
+</footer>
+</main>
+</div>
+
+</body></html>

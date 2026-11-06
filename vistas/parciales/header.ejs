@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= titulo %></title>
+  <style>
+    :root{ --rojo:#e3350d; --tinta:#1b1b1b; --bg:#f6f6f4; --linea:#e2e0d8; }
+    *{ box-sizing:border-box }
+    body{ margin:0; font:17px/1.5 system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--tinta); padding:24px }
+    main{ max-width:720px; margin:0 auto }
+    a{ color:var(--rojo); text-decoration:none }
+    a:hover{ text-decoration:underline }
+    h1{ margin:.2em 0 }
+    ul{ list-style:none; padding:0 }
+    .tarjeta{ border:1px solid var(--linea); background:#fff; border-radius:12px; padding:14px 16px; margin:10px 0 }
+    .tipo{ display:inline-block; font-size:.8rem; background:#eee; border-radius:99px; padding:2px 10px; margin:4px 4px 0 0 }
+    form{ border:1px solid var(--linea); background:#fff; border-radius:12px; padding:16px; margin-top:24px }
+    label{ display:block; font-weight:600; font-size:.9rem; margin:10px 0 2px }
+    input{ width:100%; padding:.5rem .7rem; border:1px solid var(--linea); border-radius:8px; font:inherit }
+    button{ margin-top:14px; background:var(--rojo); color:#fff; border:0; border-radius:99px; padding:.5rem 1.2rem; font:inherit; font-weight:600; cursor:pointer }
+  </style>
+</head>
+<body>
+<main>
+  <p><a href="/pokemon">← Pokédex</a></p>

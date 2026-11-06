@@ -1,0 +1,45 @@
+<%# ===========================================================================
+     404.ejs — la página de "no encontrado". En vez de un texto pelado, es una
+     página de verdad que ofrece las cosas que sí se pueden hacer en la Pokédex.
+     La renderiza el servidor cuando ninguna ruta coincide (ver servidor.js) y
+     también cuando se pide un Pokémon que no existe (ver el controlador).
+     Usa los mismos parciales y una hoja propia, css/404.css.
+=========================================================================== %>
+<%- include('parciales/header', {
+      titulo: 'Pokédex - Página no encontrada',
+      paginaActual: null,
+      estilos: ['/css/404.css'],
+    }) %>
+
+    <main>
+      <section class="error404">
+        <p class="error404__codigo">404</p>
+        <h1 class="error404__titulo">Esta página se escapó</h1>
+        <p class="error404__texto">No encontramos lo que buscabas; capaz se fue como un Pokémon salvaje. Mientras tanto, esto es lo que sí podés hacer:</p>
+
+        <ul class="error404__opciones">
+          <li>
+            <a class="opcion" href="/">
+              <span class="opcion__titulo">Ver la Pokédex</span>
+              <span class="opcion__detalle">La lista completa, con buscador por nombre, tipo y etapa.</span>
+            </a>
+          </li>
+          <li>
+            <a class="opcion" href="/perfil-entrenador">
+              <span class="opcion__titulo">Perfil de entrenador</span>
+              <span class="opcion__detalle">Tu equipo, tus favoritos, tus estadísticas y lo capturado.</span>
+            </a>
+          </li>
+          <li>
+            <a class="opcion" href="/agregar">
+              <span class="opcion__titulo">Agregar un Pokémon</span>
+              <span class="opcion__detalle">Registrá uno nuevo con el formulario.</span>
+            </a>
+          </li>
+        </ul>
+
+        <p><a class="boton boton--rojo" href="/">Volver a la Pokédex</a></p>
+      </section>
+    </main>
+
+<%- include('parciales/footer') %>
