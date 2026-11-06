@@ -1,0 +1,352 @@
+/* Diseño del modal de capturados de la profesora, limitado al diálogo del equipo. */
+#add-pokemon-capture-dialog .icono {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#add-pokemon-capture-dialog .icono--chico  { width: 1.1rem; height: 1.1rem; }
+#add-pokemon-capture-dialog .icono--grande { width: 2.4rem; height: 2.4rem; }
+#add-pokemon-capture-dialog .icono--lleno  { fill: currentColor; }
+#add-pokemon-capture-dialog .icono--fav {
+  width: 1.6rem;
+  height: 1.6rem;
+  fill: var(--amarillo-borde);
+  stroke: var(--navy);
+  stroke-width: 1.8;
+}
+#add-pokemon-capture-dialog {
+  width: min(56rem, calc(100% - 2rem));
+  max-height: min(50rem, calc(100dvh - 2rem));
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  color: var(--navy);
+  background: #fff;
+  border: 0;
+  border-radius: var(--radio-xl);
+  box-shadow: var(--sombra-3), 0 0 0 1px rgba(255, 255, 255, .35);
+
+  opacity: 0;
+  transform: translateY(24px) scale(.96);
+  transition:
+    opacity .3s var(--ease),
+    transform .3s var(--ease),
+    overlay .3s allow-discrete,
+    display .3s allow-discrete;
+}
+
+#add-pokemon-capture-dialog {
+  width: min(66rem, calc(100% - 2rem));
+}
+#add-pokemon-capture-dialog[open] {
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  transform: none;
+}
+
+@starting-style {
+  #add-pokemon-capture-dialog[open] {
+    opacity: 0;
+    transform: translateY(24px) scale(.96);
+  }
+}
+#add-pokemon-capture-dialog::before {
+  content: "";
+  flex: none;
+  height: .5rem;
+  background: linear-gradient(90deg, var(--amarillo), var(--amarillo-borde));
+}
+#add-pokemon-capture-dialog::backdrop {
+  background: rgba(10, 24, 48, .66);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition:
+    opacity .3s var(--ease),
+    overlay .3s allow-discrete,
+    display .3s allow-discrete;
+}
+
+#add-pokemon-capture-dialog[open]::backdrop { opacity: 1; }
+
+@starting-style {
+  #add-pokemon-capture-dialog[open]::backdrop { opacity: 0; }
+}
+#add-pokemon-capture-dialog   { --color-modal: var(--rojo); }
+
+#add-pokemon-capture-dialog .modal__header {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem 1rem 1.5rem;
+  border-bottom: 1px solid var(--linea);
+}
+
+@media (width >= 40rem) {
+  #add-pokemon-capture-dialog .modal__header { padding-inline: 2rem; }
+}
+
+#add-pokemon-capture-dialog .modal__titulo {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+}
+
+#add-pokemon-capture-dialog .modal__titulo h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+#add-pokemon-capture-dialog .modal__icono {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1rem;
+  color: #fff;
+  background: var(--color-modal);
+  box-shadow: 0 8px 14px -6px var(--color-modal);
+}
+#add-pokemon-capture-dialog .modal__cerrar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.9rem;
+  height: 2.9rem;
+  padding: 0;
+  color: var(--navy);
+  background: var(--blanco);
+  border: 2px solid #DCE5F0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform var(--dur) var(--ease), background var(--dur);
+}
+
+#add-pokemon-capture-dialog .modal__cerrar:hover {
+  background: var(--crema);
+  transform: rotate(90deg);
+}
+#add-pokemon-capture-dialog .modal__cuerpo {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+@media (width >= 40rem) {
+  #add-pokemon-capture-dialog .modal__cuerpo { padding: 1.5rem 2rem 1.75rem; }
+}
+
+#add-pokemon-capture-dialog .modal__subtitulo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  margin: 0 0 1.25rem;
+  color: var(--tinta-suave);
+  font-weight: 500;
+}
+
+#add-pokemon-capture-dialog .modal__nota {
+  margin: 1rem 0 0;
+  font-size: .9rem;
+  color: var(--tinta-suave);
+}
+
+#add-pokemon-capture-dialog .modal__pie {
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: var(--blanco);
+  border-top: 1px solid var(--linea);
+}
+
+@media (width >= 40rem) {
+  #add-pokemon-capture-dialog .modal__pie { padding-inline: 2rem; }
+}
+
+#add-pokemon-capture-dialog .modal__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+}
+#add-pokemon-capture-dialog :focus-visible {
+  outline-color: var(--azul-borde);
+}
+#add-pokemon-capture-dialog .sprite-zona {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: .5rem;
+  border-radius: 1rem;
+  background: var(--sprite-zona);
+}
+
+#add-pokemon-capture-dialog .sprite-zona img {
+  width: 5.25rem;
+  height: 5.25rem;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 6px rgba(20, 44, 82, .28));
+  transition: transform .35s var(--ease);
+}
+#add-pokemon-capture-dialog .numero {
+  display: inline-block;
+  padding: .15rem .6rem;
+  border-radius: var(--radio-pastilla);
+  background: var(--amarillo);
+  color: var(--navy);
+  font-family: var(--fuente-titulo);
+  font-size: .85rem;
+  font-weight: 600;
+  line-height: 1.4;
+  box-shadow: inset 0 -2px 0 var(--amarillo-borde);
+}
+
+#add-pokemon-capture-dialog .sprite-zona > .numero {
+  position: absolute;
+  top: .5rem;
+  left: .5rem;
+}
+#add-pokemon-capture-dialog .modal__buscador {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-bottom: 1rem;
+}
+
+#add-pokemon-capture-dialog .campo {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  min-height: 2.9rem;
+  padding: 0 1rem;
+  color: var(--tinta-suave);
+  background: #fff;
+  border: 2px solid #C7D5E8;
+  border-radius: var(--radio-pastilla);
+  transition: border-color var(--dur), box-shadow var(--dur);
+}
+
+#add-pokemon-capture-dialog .campo--texto  { flex: 1 1 14rem; }
+#add-pokemon-capture-dialog .campo--select { flex: 0 1 13rem; }
+
+#add-pokemon-capture-dialog .campo input,
+#add-pokemon-capture-dialog .campo select {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  color: var(--navy);
+  background: transparent;
+  border: 0;
+  outline: 0;
+  appearance: none;
+}
+#add-pokemon-capture-dialog .campo:focus-within {
+  border-color: var(--azul);
+  box-shadow: 0 0 0 4px rgba(41, 103, 197, .2);
+}
+
+#add-pokemon-capture-dialog .capturados-caja {
+  max-height: 27rem;
+  overflow-y: auto;
+  padding: 1rem;
+  background: var(--blanco);
+  border: 2px solid #DCE5F0;
+  border-radius: var(--radio-lg);
+}
+
+#add-pokemon-capture-dialog .capturados {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11.5rem, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#add-pokemon-capture-dialog .captura {
+  position: relative;
+}
+#add-pokemon-capture-dialog .captura__cuerpo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .4rem;
+  padding: .6rem;
+  padding-top: 2.6rem;
+  background: #fff;
+  border: 2px solid var(--linea);
+  border-radius: 1.25rem;
+  box-shadow: var(--sombra-1);
+  cursor: pointer;
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur), background var(--dur);
+}
+
+#add-pokemon-capture-dialog .captura__cuerpo:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sombra-2);
+}
+
+#add-pokemon-capture-dialog .captura__cuerpo .sprite-zona {
+  width: 100%;
+  margin-top: -2rem;
+}
+
+#add-pokemon-capture-dialog .captura__nombre {
+  font-family: var(--fuente-titulo);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+#add-pokemon-capture-dialog .captura:has(.captura__check:checked) .captura__cuerpo {
+  border-color: var(--azul);
+  background: #EEF4FD;
+  box-shadow: 0 0 0 4px rgba(41, 103, 197, .18), 0 14px 24px -12px rgba(41, 103, 197, .7);
+}
+
+#add-pokemon-capture-dialog .captura:has(.captura__check:disabled) .captura__cuerpo {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+#add-pokemon-capture-dialog .captura__check {
+  position: absolute;
+  top: .7rem;
+  left: .7rem;
+  z-index: 2;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0;
+  accent-color: var(--azul);
+  cursor: pointer;
+}
+#add-pokemon-capture-dialog {
+  counter-reset: sel;
+}
+
+#add-pokemon-capture-dialog .captura:has(.captura__check:checked) {
+  counter-increment: sel;
+}
+
+#add-pokemon-capture-dialog .capturados__vacio {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 1rem;
+  color: var(--tinta-suave);
+}
+
+#add-pokemon-capture-dialog [hidden] {
+  display: none;
+}

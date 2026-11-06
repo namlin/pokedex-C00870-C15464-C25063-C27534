@@ -1,9 +1,10 @@
 <%# Perfil del equipo: conserva la maqueta original y los diálogos nativos.
-    Los datos permanecen estáticos hasta incorporar el JavaScript del perfil. %>
+    El modal de capturados lee la misma colección del navegador que la Pokédex. %>
 <%- include('parciales/header', {
   titulo: 'Pokédex - Perfil del equipo',
   paginaActual: 'perfil-equipo',
-  estilos: ['/css/perfil-equipo.css'],
+  estilos: ['/css/perfil-equipo.css', '/css/perfil-equipo-capturados.css'],
+  script: '/js/perfil-equipo.js',
 }) %>
 
 <main class="perfil-equipo">
@@ -504,67 +505,56 @@
       Pokémon capturados
     </button>
 
-    <dialog id="add-pokemon-capture-dialog" aria-labelledby="capturados-equipo-titulo">
-      <h2 id="capturados-equipo-titulo">Pokémon capturados</h2>
-      <button type="button" command="close" commandfor="add-pokemon-capture-dialog">Cerrar</button>
+    <dialog closedby="any" class="modal modal--capturados modal--ancho" id="add-pokemon-capture-dialog"
+        aria-labelledby="capturados-equipo-titulo">
+        <div class="modal__header">
+          <div class="modal__titulo">
+            <span class="modal__icono"><svg class="icono " aria-hidden="true" width="24" height="24" viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="#f5f5f5" stroke="#1a1a1a" stroke-width="4" /><path d="M 3 32 A 29 29 0 0 1 61 32 Z" fill="#e63946" stroke="none" /><line x1="3" y1="32" x2="61" y2="32" stroke="#1a1a1a" stroke-width="4" /><circle cx="32" cy="32" r="10" fill="#f5f5f5" stroke="#1a1a1a" stroke-width="4" /><circle cx="32" cy="32" r="4" fill="#f5f5f5" stroke="#1a1a1a" stroke-width="2" /></svg></span>
+            <h2 id="capturados-equipo-titulo">Pokémon capturados</h2>
+          </div>
+          <button type="button" class="modal__cerrar" command="close" commandfor="add-pokemon-capture-dialog"
+            aria-label="Cerrar diálogo"><svg class="icono " aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+        </div>
 
-      <p>Seleccioná los que querés en tu equipo o marcalos como favoritos</p>
+        <div class="modal__cuerpo">
+          <p class="modal__subtitulo">Seleccioná los que querés en tu equipo o marcalos como favoritos.</p>
 
+          <search>
+            <form class="modal__buscador" action="/perfil-equipo" method="get">
+              <label class="campo campo--texto">
+                <svg class="icono " aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>
+                <span class="solo-lectores">Buscar por nombre</span>
+                <input type="search" name="nombre" placeholder="Buscar por nombre">
+              </label>
+              <label class="campo campo--select">
+                <span class="solo-lectores">Tipo</span>
+                <select name="tipo">
+                  <option value="">Todos los tipos</option>
+                  <option value="planta">Planta</option>
+                  <option value="fuego">Fuego</option>
+                  <option value="agua">Agua</option>
+                </select>
+                <svg class="icono " aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg>
+              </label>
+              <button type="submit" class="boton boton--primario"><svg class="icono " aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg> Buscar</button>
+            </form>
+          </search>
 
-      <form role="search" action="/perfil-equipo" method="get">
-        <label for="search-pokemon">Buscar por nombre</label>
-        <input type="search" id="search-pokemon" placeholder="Buscar por nombre">
+          <!-- Las tarjetas se generan con los IDs capturados en localStorage. -->
+          <div class="capturados-caja">
+            <ul class="capturados" aria-busy="true"></ul>
+            <p class="modal__nota" role="status" aria-live="polite">Cargando capturados…</p>
+            <button type="button" class="boton boton--borde-azul" data-reintentar hidden>Reintentar</button>
+          </div>
+        </div>
 
-        <label for="filter-type">Tipo</label>
-        <select id="filter-type">
-          <option value="">Todos los tipos</option>
-          <option value="fuego">Fuego</option>
-          <option value="agua">Agua</option>
-          <option value="planta">Planta</option>
-        </select>
-
-        <button type="submit">Buscar</button>
-      </form>
-
-
-      <section id="captured-pokemon">
-        <ul class="pokemon-captured__list">
-          <li class="pokemon-captured__slot">
-            <label>
-              <input type="checkbox" name="selected-pokemon" value="001">
-              <img class="pokemon-captured__image" src="/assets/bulbasaur.png" alt="Bulbasaur" width="96" height="96">
-              <span class="pokemon-captured__number">#001</span>
-              <span class="pokemon-captured__name">Bulbasaur</span>
-            </label>
-          </li>
-
-          <li class="pokemon-captured__slot">
-            <label>
-              <input type="checkbox" name="selected-pokemon" value="002">
-              <img class="pokemon-captured__image" src="/assets/ivysaur.png" alt="Ivysaur" width="96" height="96">
-              <span class="pokemon-captured__number">#002</span>
-              <span class="pokemon-captured__name">Ivysaur</span>
-            </label>
-          </li>
-
-          <li class="pokemon-captured__slot">
-            <label>
-              <input type="checkbox" name="selected-pokemon" value="003">
-              <img class="pokemon-captured__image" src="/assets/venusaur.png" alt="Venusaur" width="96" height="96">
-              <span class="pokemon-captured__number">#003</span>
-              <span class="pokemon-captured__name">Venusaur</span>
-            </label>
-          </li>
-        </ul>
-        <p>Mostrando 3 de 24 capturados</p>
-      </section>
-
-      <footer>
-        <p><strong>3 de 6 seleccionados</strong></p>
-        <button type="button">Marcar favorito</button>
-        <button type="button">Agregar al equipo</button>
-      </footer>
-    </dialog>
+        <div class="modal__pie">
+          <div class="modal__acciones">
+            <button type="button" class="boton boton--claro"><svg class="icono " aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"><path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.7l6.2-.9z" /></svg> Marcar favorito</button>
+            <button type="button" class="boton boton--primario"><svg class="icono " aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></svg> Agregar al equipo</button>
+          </div>
+        </div>
+      </dialog>
   </div>
 </main>
 
