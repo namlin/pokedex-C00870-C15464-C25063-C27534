@@ -1107,13 +1107,14 @@
 }
 
 .perfil-equipo .perfil-equipo__acciones>button {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
   align-items: center;
-  justify-content: center;
-  gap: .65rem;
+  gap: 1rem;
   width: 100%;
-  min-height: 118px;
+  min-height: 150px;
+  padding: 1rem;
+  text-align: left;
   border: 2px solid var(--amarillo);
   border-radius: var(--radio-lg);
   color: var(--navy);
@@ -1125,10 +1126,82 @@
   transition: transform var(--dur) var(--ease), background var(--dur);
 }
 
-.perfil-equipo .perfil-equipo__acciones>button[commandfor="team-pokemon-dialog"]::before,
-.perfil-equipo .perfil-equipo__acciones>button[commandfor="open-stats"]::before,
-.perfil-equipo .perfil-equipo__acciones>button[commandfor="open-favorite-pokemon"]::before,
-.perfil-equipo .perfil-equipo__acciones>button[commandfor="add-pokemon-capture-dialog"]::before {
+/* El cuadro pertenece al contenedor; el icono conserva su imagen o máscara. */
+.perfil-equipo .accion__icono {
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  background: #fff;
+  border-radius: 1.25rem;
+}
+
+.perfil-equipo .accion__contenido {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  min-width: 0;
+}
+
+.perfil-equipo .accion__titulo {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.perfil-equipo .accion__detalle {
+  font-size: .9rem;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+/* Reserva espacio para las miniaturas y barras que agregará JavaScript. */
+.perfil-equipo .accion__preview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .35rem;
+  min-height: 2.25rem;
+}
+
+.perfil-equipo .accion__preview img {
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+}
+
+.perfil-equipo [data-preview="capturados"] {
+  gap: 0;
+}
+
+.perfil-equipo .accion__miniatura {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-left: -.65rem;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--blanco);
+  box-shadow: var(--sombra-1);
+}
+
+.perfil-equipo .accion__miniatura:first-child {
+  margin-left: 0;
+}
+
+.perfil-equipo .accion__miniatura--mas {
+  color: #fff;
+  background: var(--navy);
+  font-size: .85rem;
+  font-weight: 700;
+}
+
+.perfil-equipo .perfil-equipo__acciones>button[commandfor="team-pokemon-dialog"] .accion__icono::before,
+.perfil-equipo .perfil-equipo__acciones>button[commandfor="open-stats"] .accion__icono::before,
+.perfil-equipo .perfil-equipo__acciones>button[commandfor="open-favorite-pokemon"] .accion__icono::before,
+.perfil-equipo .perfil-equipo__acciones>button[commandfor="add-pokemon-capture-dialog"] .accion__icono::before {
   content: "";
   display: block;
   width: 2.5rem;
@@ -1138,21 +1211,21 @@
   background-size: contain;
 }
 
-.perfil-equipo .perfil-equipo__acciones>button[commandfor="team-pokemon-dialog"]::before {
+.perfil-equipo .perfil-equipo__acciones>button[commandfor="team-pokemon-dialog"] .accion__icono::before {
   background-color: var(--azul);
   -webkit-mask: var(--icono-equipo) center / contain no-repeat;
   mask: var(--icono-equipo) center / contain no-repeat;
 }
 
-.perfil-equipo .perfil-equipo__acciones>button[commandfor="open-stats"]::before {
+.perfil-equipo .perfil-equipo__acciones>button[commandfor="open-stats"] .accion__icono::before {
   background-image: url("/assets/estadisticas.svg");
 }
 
-.perfil-equipo .perfil-equipo__acciones>button[commandfor="open-favorite-pokemon"]::before {
+.perfil-equipo .perfil-equipo__acciones>button[commandfor="open-favorite-pokemon"] .accion__icono::before {
   background-image: url("/assets/favorite-icon.svg");
 }
 
-.perfil-equipo .perfil-equipo__acciones>button[commandfor="add-pokemon-capture-dialog"]::before {
+.perfil-equipo .perfil-equipo__acciones>button[commandfor="add-pokemon-capture-dialog"] .accion__icono::before {
   background-image: url("/assets/pokeball.svg");
 }
 

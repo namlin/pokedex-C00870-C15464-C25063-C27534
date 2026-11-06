@@ -8,6 +8,8 @@ const reintentar = modal.querySelector('[data-reintentar]');
 const formulario = modal.querySelector('.modal__buscador');
 const nombre = formulario.elements.nombre;
 const tipo = formulario.elements.tipo;
+const resumen = document.querySelector('[data-resumen="capturados"]');
+const preview = document.querySelector('[data-preview="capturados"]');
 
 let catalogo;
 let carga;
@@ -35,6 +37,31 @@ async function obtenerCatalogo() {
     })().finally(() => { carga = null; });
   }
   return carga;
+}
+
+// El botón resume la colección completa, aunque el modal tenga filtros activos.
+function pintarResumen() {
+  resumen.textContent = `${capturados.length} Pokémon en tu colección`;
+  const miniaturas = capturados.slice(0, 3).map((pokemon) => {
+    const marco = document.createElement('span');
+    marco.className = 'accion__miniatura';
+    const imagen = document.createElement('img');
+    imagen.src = `/assets/${encodeURIComponent(pokemon.slug)}.png`;
+    imagen.alt = '';
+    imagen.width = 32;
+    imagen.height = 32;
+    marco.append(imagen);
+    return marco;
+  });
+
+  if (capturados.length > 3) {
+    const restantes = document.createElement('span');
+    restantes.className = 'accion__miniatura accion__miniatura--mas';
+    restantes.textContent = `+${capturados.length - 3}`;
+    miniaturas.push(restantes);
+  }
+
+  preview.replaceChildren(...miniaturas);
 }
 
 function crearTarjeta(pokemon, seleccionados) {
@@ -103,6 +130,7 @@ async function actualizarCapturados() {
     const seleccionados = new Set([...grilla.querySelectorAll('.captura__check:checked')]
       .map((casilla) => Number(casilla.closest('.captura').dataset.id)));
     capturados = todos.filter((pokemon) => ids.has(pokemon.id)).sort((a, b) => a.id - b.id);
+    pintarResumen();
     grilla.replaceChildren(...capturados.map((pokemon) => crearTarjeta(pokemon, seleccionados)));
     filtrar();
   } catch {

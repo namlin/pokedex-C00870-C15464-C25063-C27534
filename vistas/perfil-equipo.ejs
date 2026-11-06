@@ -44,8 +44,23 @@
 
 
   <div class="perfil-equipo__acciones">
-    <button type="button" command="show-modal" commandfor="team-pokemon-dialog">
-      Equipo Pokémon
+    <button type="button"
+        command="show-modal"
+        commandfor="team-pokemon-dialog">
+
+      <span class="accion__icono" aria-hidden="true"></span>
+
+      <span class="accion__contenido">
+        <span class="accion__titulo">Equipo Pokémon</span>
+
+        <span class="accion__detalle" data-resumen="equipo">
+          Pokémon de tu equipo
+        </span>
+
+        <span class="accion__preview"
+              data-preview="equipo"
+              aria-hidden="true"></span>
+      </span>
     </button>
 
     <dialog id="team-pokemon-dialog" class="team-pokemon-dialog" aria-labelledby="team-pokemon-title">
@@ -130,9 +145,24 @@
       </footer>
 
     </dialog>
+    
+    <button type="button"
+        command="show-modal"
+        commandfor="open-favorite-pokemon">
 
-    <button type="button" command="show-modal" commandfor="open-favorite-pokemon">
-      Favoritos
+      <span class="accion__icono" aria-hidden="true"></span>
+
+      <span class="accion__contenido">
+        <span class="accion__titulo">Favoritos</span>
+
+        <span class="accion__detalle" data-resumen="favoritos">
+          Marcados como favoritos
+        </span>
+
+        <span class="accion__preview"
+              data-preview="favoritos"
+              aria-hidden="true"></span>
+      </span>
     </button>
 
     <dialog id="open-favorite-pokemon" class="favorite-pokemon-dialog" aria-labelledby="fav-pokemon-title">
@@ -257,8 +287,23 @@
       </footer>
     </dialog>
 
-    <button type="button" command="show-modal" commandfor="open-stats">
-      Estadísticas
+    <button type="button"
+        command="show-modal"
+        commandfor="open-stats">
+
+      <span class="accion__icono" aria-hidden="true"></span>
+
+      <span class="accion__contenido">
+        <span class="accion__titulo">Estadísticas</span>
+
+        <span class="accion__detalle" data-resumen="estadisticas">
+          Comparativa de los Pokémon de tu equipo
+        </span>
+
+        <span class="accion__preview"
+              data-preview="estadisticas"
+              aria-hidden="true"></span>
+      </span>
     </button>
 
     <dialog id="open-stats"
@@ -501,8 +546,23 @@
 
     </dialog>
 
-    <button type="button" command="show-modal" commandfor="add-pokemon-capture-dialog">
-      Pokémon capturados
+    <button type="button"
+        command="show-modal"
+        commandfor="add-pokemon-capture-dialog">
+
+      <span class="accion__icono" aria-hidden="true"></span>
+
+      <span class="accion__contenido">
+        <span class="accion__titulo">Pokémon capturados</span>
+
+        <span class="accion__detalle" data-resumen="capturados">
+          Pokémon que capturaste
+        </span>
+
+        <span class="accion__preview"
+              data-preview="capturados"
+              aria-hidden="true"></span>
+      </span>
     </button>
 
     <dialog closedby="any" class="modal modal--capturados modal--ancho" id="add-pokemon-capture-dialog"
