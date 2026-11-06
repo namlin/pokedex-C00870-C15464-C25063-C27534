@@ -14,6 +14,8 @@ router.post('/pokemon', controlador.crear);          // crea y redirige a la lis
 
 router.get('/perfil-entrenador', (peticion, respuesta) => respuesta.render('perfil-entrenador'));
 
+router.get('/perfil-equipo', (peticion, respuesta) => respuesta.render('perfil-equipo'));
+
 router.get('/arena', (peticion, respuesta) => respuesta.render('arena'));
 
 router.get('/memoria', (peticion, respuesta) => respuesta.render('memoria'));
