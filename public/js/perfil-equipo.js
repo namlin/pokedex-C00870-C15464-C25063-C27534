@@ -13,6 +13,7 @@ const tipo = formulario.elements.tipo;
 const resumen = document.querySelector('[data-resumen="capturados"]');
 const preview = document.querySelector('[data-preview="capturados"]');
 const botonAgregar = modal.querySelector('[data-agregar-equipo]');
+const botonAgregarFavoritos = modal.querySelector('[data-agregar-favoritos]');
 const modalEquipo = document.querySelector('#team-pokemon-dialog');
 const lista = modalEquipo.querySelector('.pokemon-team__list');
 const ocupados = modalEquipo.querySelector('.team-pokemon__summary');
@@ -24,6 +25,23 @@ const previewEquipo = document.querySelector('[data-preview="equipo"]');
 let catalogo;
 let carga;
 let capturados = [];
+
+// Esta clave es el contrato compartido: el otro módulo puede leer estos IDs
+// para pintar el diálogo de favoritos sin depender de las fichas del modal.
+const CLAVE_FAVORITOS = 'pokedex:favoritos';
+
+function leerFavoritos() {
+  try {
+    const datos = JSON.parse(localStorage.getItem(CLAVE_FAVORITOS) ?? '[]');
+    return new Set(Array.isArray(datos) ? datos : []);
+  } catch {
+    return new Set();
+  }
+}
+
+function guardarFavoritos(favoritos) {
+  localStorage.setItem(CLAVE_FAVORITOS, JSON.stringify([...favoritos]));
+}
 
 function normalizar(texto) {
   return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
@@ -238,6 +256,27 @@ reintentar.addEventListener('click', actualizarCapturados);
 modal.addEventListener('toggle', () => { if (modal.open) actualizarCapturados(); });
 modalEquipo.addEventListener('toggle', () => { if (modalEquipo.open) actualizarEquipo(); });
 reintentarEquipo.addEventListener('click', actualizarEquipo);
+
+// Guarda únicamente los Pokémon capturados cuyas casillas fueron marcadas.
+// Los IDs existentes se conservan para no sobrescribir favoritos anteriores.
+botonAgregarFavoritos.addEventListener('click', () => {
+  const seleccionados = [...grilla.querySelectorAll('.captura__check:checked')];
+  if (seleccionados.length === 0) {
+    nota.textContent = 'Seleccione al menos un Pokémon para marcar como favorito.';
+    return;
+  }
+
+  try {
+    const favoritos = leerFavoritos();
+    seleccionados.forEach((casilla) => {
+      favoritos.add(Number(casilla.closest('.captura').dataset.id));
+    });
+    guardarFavoritos(favoritos);
+    nota.textContent = 'Los Pokémon seleccionados se agregaron a favoritos.';
+  } catch {
+    nota.textContent = 'No se pudieron guardar los favoritos.';
+  }
+});
 
 // Delegación: los botones siguen funcionando al regenerar las fichas.
 lista.addEventListener('click', async (evento) => {
