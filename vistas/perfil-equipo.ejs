@@ -72,67 +72,11 @@
       </header>
 
       <section id="team-pokemon" class="team-pokemon__content">
-        <p class="team-pokemon__summary">5 de 6 espacios ocupados</p>
-        <ul class="pokemon-team__list">
-          <li class="pokemon-card pokemon-team__slot">
-            <img class="pokemon-team__image" src="/assets/venusaur.png" alt="Venusaur" width="96" height="96">
-            <span class="pokemon-card__number pokemon-team__number"># 001</span>
-            <span class="pokemon-card__name pokemon-team__name">Venusaur</span>
-            <div class="pokemon-team__types">
-              <span class="tipo tipo--planta">Planta</span>
-              <span class="tipo tipo--veneno">Veneno</span>
-            </div>
-            <button type="button" class="boton boton--borde-rojo boton--chico pokemon-team__remove">
-              Quitar
-            </button>
-          </li>
-          <li class="pokemon-card pokemon-team__slot">
-            <img class="pokemon-team__image" src="/assets/charizard.png" alt="Charizard" width="96" height="96">
-            <span class="pokemon-card__number pokemon-team__number"># 002</span>
-            <span class="pokemon-card__name pokemon-team__name">Charizard</span>
-            <div class="pokemon-team__types">
-              <span class="tipo tipo--fuego">Fuego</span>
-              <span class="tipo tipo--volador">Volador</span>
-            </div>
-            <button type="button" class="boton boton--borde-rojo boton--chico pokemon-team__remove">
-              Quitar
-            </button>
-          </li>
-          <li class="pokemon-card pokemon-team__slot">
-            <img class="pokemon-team__image" src="/assets/blastoise.png" alt="Blastoise" width="96" height="96">
-            <span class="pokemon-card__number pokemon-team__number"># 003</span>
-            <span class="pokemon-card__name pokemon-team__name">Blastoise</span>
-            <div class="pokemon-team__types">
-              <span class="tipo tipo--agua">Agua</span>
-            </div>
-            <button type="button" class="boton boton--borde-rojo boton--chico pokemon-team__remove">
-              Quitar
-            </button>
-          </li>
-          <li class="pokemon-card pokemon-team__slot">
-            <img class="pokemon-team__image" src="/assets/pikachu.png" alt="Pikachu" width="96" height="96">
-            <span class="pokemon-card__number pokemon-team__number"># 004</span>
-            <span class="pokemon-card__name pokemon-team__name">Pikachu</span>
-            <div class="pokemon-team__types">
-              <span class="tipo tipo--electrico">Eléctrico</span>
-            </div>
-            <button type="button" class="boton boton--borde-rojo boton--chico pokemon-team__remove">
-              Quitar
-            </button>
-          </li>
-          <li class="pokemon-card pokemon-team__slot">
-            <img class="pokemon-team__image" src="/assets/charmander.png" alt="Charmander" width="96" height="96">
-            <span class="pokemon-card__number pokemon-team__number"># 005</span>
-            <span class="pokemon-card__name pokemon-team__name">Charmander</span>
-            <div class="pokemon-team__types">
-              <span class="tipo tipo--fuego">Fuego</span>
-            </div>
-            <button type="button" class="boton boton--borde-rojo boton--chico pokemon-team__remove">Quitar</button>
-          </li>
-          <li class="pokemon-team__slot pokemon-team__slot--empty">
-            <span class="pokemon-team__empty-text">Espacio libre</span>
-          </li>
-        </ul>
+        <p class="team-pokemon__summary" role="status">Cargando equipo…</p>
+        <p data-nota-equipo role="status" aria-live="polite"></p>
+        <button type="button" class="boton boton--borde-azul" data-reintentar-equipo hidden>Reintentar</button>
+        <!-- Las fichas y los espacios libres se generan desde el equipo guardado. -->
+        <ul class="pokemon-team__list" aria-busy="true"></ul>
       </section>
 
       <footer class="team-dialog__footer">

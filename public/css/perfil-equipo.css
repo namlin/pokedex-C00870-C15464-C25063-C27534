@@ -108,6 +108,14 @@
   font-size: .85rem;
 }
 
+.perfil-equipo .team-pokemon-dialog [hidden] {
+  display: none !important;
+}
+
+.perfil-equipo [data-nota-equipo]:empty {
+  display: none;
+}
+
 /* Lista de slots del equipo: 3 columnas, con gap entre ellos. */
 .perfil-equipo .team-pokemon-dialog .pokemon-team__list {
   display: grid;
@@ -116,6 +124,12 @@
   gap: .875rem;
   margin: 0;
   padding: 0;
+}
+
+@media (max-width: 30rem) {
+  .perfil-equipo .team-pokemon-dialog .pokemon-team__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 /* Cada slot del equipo es un flex vertical, centrado y con gap entre imagen,
@@ -1170,7 +1184,8 @@
   object-fit: contain;
 }
 
-.perfil-equipo [data-preview="capturados"] {
+.perfil-equipo [data-preview="capturados"],
+.perfil-equipo [data-preview="equipo"] {
   gap: 0;
 }
 
