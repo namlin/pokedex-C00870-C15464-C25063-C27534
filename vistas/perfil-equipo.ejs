@@ -2,7 +2,7 @@
     El modal de capturados lee la misma colección del navegador que la Pokédex. %>
 <%- include('parciales/header', {
   titulo: 'Pokédex - Perfil del equipo',
-  paginaActual: 'perfil-equipo',
+  paginaActual: 'perfil',
   estilos: ['/css/perfil-equipo.css', '/css/perfil-equipo-capturados.css'],
   script: '/js/perfil-equipo.js',
 }) %>
@@ -524,7 +524,7 @@
           <p class="modal__subtitulo">Seleccioná los que querés en tu equipo o marcalos como favoritos.</p>
 
           <search>
-            <form class="modal__buscador" action="/perfil-equipo" method="get">
+            <form class="modal__buscador" action="/perfil-entrenador" method="get">
               <label class="campo campo--texto">
                 <svg class="icono " aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>
                 <span class="solo-lectores">Buscar por nombre</span>
