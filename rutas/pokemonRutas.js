@@ -12,9 +12,9 @@ router.get('/api/pokemon', controlador.listarJson);  // los datos en JSON (los u
 router.get('/agregar', controlador.formularioNuevo); // el formulario, en página aparte
 router.post('/pokemon', controlador.crear);          // crea y redirige a la lista
 
-router.get('/perfil-entrenador', (peticion, respuesta) => respuesta.render('perfil-entrenador'));
+router.get('/perfil-entrenador', (peticion, respuesta) => respuesta.render('perfil-equipo'));
 
-router.get('/perfil-equipo', (peticion, respuesta) => respuesta.render('perfil-equipo'));
+router.get('/perfil-entrenador-profe', (peticion, respuesta) => respuesta.render('perfil-entrenador'));
 
 router.get('/arena', (peticion, respuesta) => respuesta.render('arena'));
 

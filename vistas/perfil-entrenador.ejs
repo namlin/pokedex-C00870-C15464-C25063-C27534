@@ -2,7 +2,7 @@
   perfil-entrenador.html. Reutiliza la header y el pie (los parciales) y, en el medio, el mismo contenido del perfil con
   sus clases e ids. La parte de "Capturados" la sigue llenando perfil-entrenador.js en el navegador (lee
   localStorage).===========================================================================%>
-  <%- include('parciales/header', { titulo: 'Pokédex - Perfil de entrenador' , paginaActual: 'perfil' , estilos:
+  <%- include('parciales/header', { titulo: 'Pokédex - Perfil de entrenador' , paginaActual: 'perfil-profe' , estilos:
     ['/css/perfil-entrenador.css', '/css/capturado.css' ], script: '/js/perfil-entrenador.js' , }) %>
 
     <%# Biblioteca de íconos: se dibuja una vez y se reutiliza con <use>. %>
@@ -546,7 +546,7 @@
           <p class="modal__subtitulo">Seleccioná los que querés en tu equipo o marcalos como favoritos.</p>
 
           <search>
-            <form class="modal__buscador" action="/perfil-entrenador" method="get">
+            <form class="modal__buscador" action="/perfil-entrenador-profe" method="get">
               <label class="campo campo--texto">
                 <svg class="icono " aria-hidden="true" width="24" height="24">
                   <use href="#i-search" />
