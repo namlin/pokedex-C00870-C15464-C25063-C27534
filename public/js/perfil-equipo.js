@@ -13,6 +13,7 @@ const tipo = formulario.elements.tipo;
 const resumen = document.querySelector('[data-resumen="capturados"]');
 const preview = document.querySelector('[data-preview="capturados"]');
 const botonAgregar = modal.querySelector('[data-agregar-equipo]');
+const botonAgregarFavoritos = modal.querySelector('[data-agregar-favoritos]');
 const modalEquipo = document.querySelector('#team-pokemon-dialog');
 const lista = modalEquipo.querySelector('.pokemon-team__list');
 const ocupados = modalEquipo.querySelector('.team-pokemon__summary');
@@ -20,10 +21,43 @@ const notaEquipo = modalEquipo.querySelector('[data-nota-equipo]');
 const reintentarEquipo = modalEquipo.querySelector('[data-reintentar-equipo]');
 const resumenEquipo = document.querySelector('[data-resumen="equipo"]');
 const previewEquipo = document.querySelector('[data-preview="equipo"]');
+const modalFavoritos = document.querySelector('#open-favorite-pokemon');
+const listaFavoritos = modalFavoritos?.querySelector('.fav-pokemon__list');
+const resumenModalFavoritos = modalFavoritos?.querySelector('.fav-pokemon__summary');
+const resumenFavoritos = document.querySelector('[data-resumen="favoritos"]');
+const previewFavoritos = document.querySelector('[data-preview="favoritos"]');
 
 let catalogo;
 let carga;
 let capturados = [];
+
+// Esta clave es el contrato compartido: el otro módulo puede leer estos IDs
+// para pintar el diálogo de favoritos sin depender de las fichas del modal.
+const CLAVE_FAVORITOS = 'pokedex:favoritos';
+
+function leerFavoritos() {
+  try {
+    const datos = JSON.parse(localStorage.getItem(CLAVE_FAVORITOS) ?? '[]');
+    return new Set(Array.isArray(datos) ? datos : []);
+  } catch {
+    return new Set();
+  }
+}
+
+function guardarFavoritos(favoritos) {
+  localStorage.setItem(CLAVE_FAVORITOS, JSON.stringify([...favoritos]));
+}
+
+function quitarDeFavoritos(id) {
+  const favoritos = leerFavoritos();
+  const eliminado = favoritos.delete(Number(id));
+
+  if (eliminado) {
+    guardarFavoritos(favoritos);
+  }
+
+  return eliminado;
+}
 
 function normalizar(texto) {
   return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
@@ -151,6 +185,106 @@ async function actualizarEquipo() {
   }
 }
 
+function crearFichaFavorito(pokemon) {
+  const tarjeta = document.createElement('li');
+  tarjeta.className = 'fav-card';
+
+  const estrella = document.createElement('span');
+  estrella.className = 'fav-card__star';
+  estrella.setAttribute('aria-hidden', 'true');
+
+  const contenedorImagen = document.createElement('div');
+  contenedorImagen.className = 'fav-card__image-container';
+  const imagen = document.createElement('img');
+  imagen.className = 'fav-card__image';
+  imagen.src = `/assets/${encodeURIComponent(pokemon.slug)}.png`;
+  imagen.alt = pokemon.nombre;
+  imagen.width = 48;
+  imagen.height = 48;
+  contenedorImagen.append(imagen);
+
+  const info = document.createElement('div');
+  info.className = 'fav-card__info';
+
+  const cabecera = document.createElement('div');
+  cabecera.className = 'fav-card__header';
+  const etiquetaNombre = document.createElement('span');
+  etiquetaNombre.className = 'fav-card__name';
+  etiquetaNombre.textContent = pokemon.nombre;
+  const numero = document.createElement('span');
+  numero.className = 'fav-card__number';
+  numero.textContent = numeroPokedex(pokemon.id);
+  cabecera.append(etiquetaNombre, numero);
+
+  const tipos = document.createElement('div');
+  tipos.className = 'fav-card__types';
+  pokemon.tipos.forEach((valor) => {
+    const spanTipo = document.createElement('span');
+    spanTipo.className = `tipo tipo--${normalizar(valor)}`;
+    spanTipo.textContent = valor[0].toUpperCase() + valor.slice(1);
+    tipos.append(spanTipo);
+  });
+
+  info.append(cabecera, tipos);
+
+  const acciones = document.createElement('div');
+  acciones.className = 'fav-card__actions';
+
+  const enlaceDetalle = document.createElement('a');
+  enlaceDetalle.className = 'boton boton--borde-azul boton--chico fav-card__btn-detail';
+  enlaceDetalle.href = `/pokemon/${pokemon.id}`;
+  enlaceDetalle.textContent = 'Ver detalle';
+
+  const botonQuitar = document.createElement('button');
+  botonQuitar.type = 'button';
+  botonQuitar.className = 'boton boton--borde-rojo boton--chico fav-card__btn-remove';
+  botonQuitar.dataset.quitarFavorito = pokemon.id;
+  botonQuitar.textContent = 'Quitar de favoritos';
+  botonQuitar.setAttribute('aria-label', `Quitar a ${pokemon.nombre} de favoritos`);
+
+  acciones.append(enlaceDetalle, botonQuitar);
+  tarjeta.append(estrella, contenedorImagen, info, acciones);
+  return tarjeta;
+}
+
+async function actualizarFavoritos() {
+  if (!modalFavoritos || !listaFavoritos) return;
+  listaFavoritos.setAttribute('aria-busy', 'true');
+
+  try {
+    const todos = await obtenerCatalogo();
+    const ids = leerFavoritos();
+    const favoritos = todos.filter((pokemon) => ids.has(pokemon.id));
+
+    if (resumenModalFavoritos) {
+      resumenModalFavoritos.textContent = favoritos.length === 0
+        ? 'Todavía no marcaste ningún Pokémon como favorito.'
+        : `${favoritos.length} ${favoritos.length === 1 ? 'Pokémon marcado como favorito' : 'Pokémon marcados como favoritos'}`;
+    }
+
+    if (resumenFavoritos) {
+      resumenFavoritos.textContent = favoritos.length === 0
+        ? 'Marcados como favoritos'
+        : `${favoritos.length} ${favoritos.length === 1 ? 'Pokémon favorito' : 'Pokémon favoritos'}`;
+    }
+
+    if (previewFavoritos) {
+      pintarPreview(previewFavoritos, favoritos);
+    }
+
+    listaFavoritos.replaceChildren(...favoritos.map(crearFichaFavorito));
+  } 
+
+  catch {
+    if (resumenModalFavoritos) {
+      resumenModalFavoritos.textContent = 'No se pudieron cargar los favoritos.';
+    }
+
+  } finally {
+    listaFavoritos.setAttribute('aria-busy', 'false');
+  }
+}
+
 function crearTarjeta(pokemon, seleccionados) {
   const tarjeta = document.createElement('li');
   tarjeta.className = 'captura';
@@ -238,6 +372,40 @@ reintentar.addEventListener('click', actualizarCapturados);
 modal.addEventListener('toggle', () => { if (modal.open) actualizarCapturados(); });
 modalEquipo.addEventListener('toggle', () => { if (modalEquipo.open) actualizarEquipo(); });
 reintentarEquipo.addEventListener('click', actualizarEquipo);
+modalFavoritos?.addEventListener('toggle', () => { if (modalFavoritos.open) actualizarFavoritos(); });
+
+// Guarda únicamente los Pokémon capturados cuyas casillas fueron marcadas.
+// Los IDs existentes se conservan para no sobrescribir favoritos anteriores.
+botonAgregarFavoritos.addEventListener('click', () => {
+  const seleccionados = [...grilla.querySelectorAll('.captura__check:checked')];
+  if (seleccionados.length === 0) {
+    nota.textContent = 'Seleccione al menos un Pokémon para marcar como favorito.';
+    return;
+  }
+
+  try {
+    const favoritos = leerFavoritos();
+    seleccionados.forEach((casilla) => {
+      favoritos.add(Number(casilla.closest('.captura').dataset.id));
+    });
+    guardarFavoritos(favoritos);
+    actualizarFavoritos();
+    nota.textContent = 'Los Pokémon seleccionados se agregaron a favoritos.';
+  } catch {
+    nota.textContent = 'No se pudieron guardar los favoritos.';
+  }
+});
+
+listaFavoritos?.addEventListener('click', async (evento) => {
+  const boton = evento.target.closest('[data-quitar-favorito]');
+  if (!boton) return;
+
+  const id = Number(boton.dataset.quitarFavorito);
+
+  if (quitarDeFavoritos(id)) {
+    await actualizarFavoritos();
+  }
+});
 
 // Delegación: los botones siguen funcionando al regenerar las fichas.
 lista.addEventListener('click', async (evento) => {
@@ -260,12 +428,14 @@ lista.addEventListener('click', async (evento) => {
 window.addEventListener('storage', (evento) => {
   if (evento.key === 'pokedex:capturados' || evento.key === null) actualizarCapturados();
   if (evento.key === 'pokedex:equipo' || evento.key === null) actualizarEquipo();
+  if (evento.key === CLAVE_FAVORITOS || evento.key === null) actualizarFavoritos();
 });
 // Al volver con Atrás, la página puede restaurarse sin ejecutar otra vez el módulo.
 window.addEventListener('pageshow', (evento) => {
   if (evento.persisted) {
     actualizarCapturados();
     actualizarEquipo();
+    actualizarFavoritos();
   }
 });
 
@@ -290,3 +460,4 @@ botonAgregar.addEventListener('click', async () => {
 
 actualizarCapturados();
 actualizarEquipo();
+actualizarFavoritos();
