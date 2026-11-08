@@ -22,6 +22,18 @@ Squirtle. Las tarjetas de los demás ya tienen su enlace escrito y sus imágenes
 en `assets/`, pero esos archivos todavía no existen: si hacés clic te va a dar
 error 404, y está bien. Construir esas fichas es parte de los ejercicios.
 
+## Laboratorio 03: equipo Pokémon
+
+Con las dependencias instaladas (`npm ci`), ejecutar `npm start` y abrir
+`http://localhost:3000/perfil-equipo`, la vista del equipo que conserva el diseño
+de los laboratorios anteriores. El catálogo se obtiene de PokéAPI a través del servidor.
+
+Primero se capturan Pokémon desde la Pokédex. En el perfil del equipo, el modal
+Capturados permite seleccionarlos y agregarlos al equipo hasta ocupar seis espacios.
+El modal Equipo permite quitarlos; las fichas, los espacios libres, el contador y las
+miniaturas se actualizan desde los datos guardados en `localStorage`.
+Si una selección excede el cupo, se agregan los que caben y se avisa del resto.
+
 ## Sobre las imágenes y los datos
 
 Las ilustraciones y sprites vienen del repositorio público

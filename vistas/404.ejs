@@ -1,21 +1,17 @@
-<%# ===========================================================================
-     404.ejs — la página de "no encontrado". En vez de un texto pelado, es una
-     página de verdad que ofrece las cosas que sí se pueden hacer en la Pokédex.
-     La renderiza el servidor cuando ninguna ruta coincide (ver servidor.js) y
-     también cuando se pide un Pokémon que no existe (ver el controlador).
-     Usa los mismos parciales y una hoja propia, css/404.css.
-=========================================================================== %>
-<%- include('parciales/header', {
-      titulo: 'Pokédex - Página no encontrada',
-      paginaActual: null,
-      estilos: ['/css/404.css'],
-    }) %>
+<%#===========================================================================404.ejs — la página de "no encontrado" .
+  En vez de un texto pelado, es una página de verdad que ofrece las cosas que sí se pueden hacer en la Pokédex. La
+  renderiza el servidor cuando ninguna ruta coincide (ver servidor.js) y también cuando se pide un Pokémon que no existe
+  (ver el controlador). Usa los mismos parciales y una hoja propia,
+  css/404.css.===========================================================================%>
+  <%- include('parciales/header', { titulo: 'Pokédex - Página no encontrada' , paginaActual: null, estilos:
+    ['/css/404.css'], }) %>
 
     <main>
       <section class="error404">
         <p class="error404__codigo">404</p>
         <h1 class="error404__titulo">Esta página se escapó</h1>
-        <p class="error404__texto">No encontramos lo que buscabas; capaz se fue como un Pokémon salvaje. Mientras tanto, esto es lo que sí podés hacer:</p>
+        <p class="error404__texto">No encontramos lo que buscabas; capaz se fue como un Pokémon salvaje. Mientras tanto,
+          esto es lo que sí podés hacer:</p>
 
         <ul class="error404__opciones">
           <li>
@@ -42,4 +38,4 @@
       </section>
     </main>
 
-<%- include('parciales/footer') %>
+    <%- include('parciales/footer') %>

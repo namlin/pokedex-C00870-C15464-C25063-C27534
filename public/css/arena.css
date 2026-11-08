@@ -1,0 +1,174 @@
+/* ==========================================================================
+   Pokédex — CI-0137
+   Arena (combate en vivo). Se enlaza después de tokens.css y styles.css,
+   así que reutiliza los colores, las sombras y la zona de sprite (rayitas).
+   ========================================================================== */
+
+/* El atributo hidden oculta un elemento (display:none). Pero si más abajo le
+   damos display:grid/flex, ese display le ganaría y el elemento se vería. Esta
+   regla asegura que hidden siempre mande. */
+[hidden] { display: none !important; }
+
+.arena-pagina h1 { margin-bottom: 1rem; }
+
+/* --- Lobby: las cartas para elegir Pokémon --- */
+.arena-roster {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Cada carta es un <button> real (sirve con teclado), redibujado como tarjeta. */
+.arena-pick {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  padding: 1rem;
+  font: inherit;
+  color: var(--navy);
+  background: linear-gradient(180deg, #fff, var(--blanco));
+  border: 2px solid rgba(255, 255, 255, .8);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-2), var(--brillo);
+  cursor: pointer;
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.arena-pick:hover:not(:disabled) {
+  transform: translateY(-5px);
+  box-shadow: var(--sombra-3), var(--brillo);
+}
+
+.arena-pick:disabled { opacity: .55; cursor: not-allowed; }
+
+.arena-pick__sprite {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding: .5rem;
+  border-radius: var(--radio);
+  background: var(--sprite-zona);
+}
+
+.arena-pick__sprite img { width: 6rem; height: 6rem; object-fit: contain; }
+
+.arena-pick__nombre {
+  font-family: var(--fuente-titulo);
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+/* --- Aviso (estado del lobby / resultado) --- */
+.arena-aviso {
+  margin: 1.25rem auto;
+  max-width: 24rem;
+  text-align: center;
+  font-family: var(--fuente-titulo);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--navy);
+  background: var(--amarillo);
+  border-radius: var(--radio-pastilla);
+  padding: .6rem 1.2rem;
+  box-shadow: inset 0 -3px 0 var(--amarillo-borde);
+}
+
+/* --- Arena: los dos peleadores enfrentados --- */
+.arena {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.arena__lado {
+  display: grid;
+  justify-items: center;
+  gap: .75rem;
+  padding: 1.25rem;
+  background: linear-gradient(180deg, #fff, var(--blanco));
+  border-radius: var(--radio-xl);
+  box-shadow: var(--sombra-3), var(--brillo);
+}
+
+.arena__sprite {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding: 1rem;
+  border-radius: var(--radio-xl);
+  background: var(--sprite-zona);
+  box-shadow: inset 0 0 0 3px #fff;
+}
+
+.arena__sprite img {
+  width: 9.5rem;
+  height: 9.5rem;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 10px rgba(20, 44, 82, .3));
+}
+
+.arena__lado h2 { margin: 0; color: var(--navy); }
+
+/* El segundo peleador (el rival) mira hacia el otro lado. */
+.arena__lado:last-child .arena__sprite img { transform: scaleX(-1); }
+
+.arena__vs {
+  font-family: var(--fuente-titulo);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--amarillo);
+  text-shadow: 0 2px 0 var(--navy);
+}
+
+/* Barra de vida: carril oscuro + relleno verde que se encoge con animación. */
+.arena__hp {
+  width: 100%;
+  height: 1.5rem;
+  background: rgba(20, 44, 82, .25);
+  border-radius: var(--radio-pastilla);
+  overflow: hidden;
+}
+
+.arena__hp span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--stat-ps);
+  color: #06240f;
+  font-size: .8rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  text-align: right;
+  padding-right: .6rem;
+  white-space: nowrap;
+  transition: width .3s var(--ease);
+}
+
+.arena-atacar {
+  display: flex;
+  margin: 1.5rem auto 0;
+  font-size: 1.2rem;
+  padding: 0 2.6rem;
+  min-height: 3.1rem;
+}
+
+.arena-log {
+  margin-top: 1rem;
+  min-height: 1.5rem;
+  text-align: center;
+  color: var(--crema);
+  font-weight: 600;
+}
+
+/* En pantallas angostas, la arena se apila. */
+@media (width < 40rem) {
+  .arena { grid-template-columns: 1fr; }
+  .arena__vs { padding: .5rem 0; }
+}

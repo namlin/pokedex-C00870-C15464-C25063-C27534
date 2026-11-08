@@ -8,8 +8,7 @@
   },
   "scripts": {
     "start": "node servidor.js",
-    "dev": "node --watch servidor.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node --watch servidor.js"
   },
   "repository": {
     "type": "git",
@@ -29,8 +28,16 @@
   },
   "homepage": "https://github.com/mariannuar/ci0137-pokedex#readme",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.14.0",
+    "globals": "^17.13.0",
     "sass": "^1.105.0",
     "stylelint": "^17.15.0",
     "stylelint-config-standard": "^40.0.0"
+  },
+  "dependencies": {
+    "ejs": "^7.0.2",
+    "express": "^5.3.0",
+    "socket.io": "^4.8.4"
   }
 }

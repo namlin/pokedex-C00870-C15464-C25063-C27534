@@ -1,20 +1,28 @@
 // =============================================================
-//  perfil-entrenador.js  —  Muestra en el perfil los Pokémon
-//  que la persona capturó desde la lista (leídos de localStorage).
-//  Los diálogos (modales) se abren solos con command/commandfor;
-//  este archivo solo llena el contenido de "Capturados".
+//  perfil-entrenador.js  —  muestra en el perfil los Pokémon que la
+//  persona capturó (ids guardados en localStorage).
+//  Los datos de cada Pokémon ya no salen de datos.js: se piden al
+//  servidor con fetch a /api/pokemon (que a su vez los trae de la PokéAPI).
 // =============================================================
-import { buscarPorId, numeroPokedex } from './datos.js';
 import { listaCapturados } from './capturados.js';
 
-function pintarCapturados() {
-  // Convierte los ids guardados en fichas completas (y descarta ids raros)
+// Número con ceros: 7 -> "#007".
+function numeroPokedex(id) {
+  return '#' + String(id).padStart(3, '0');
+}
+
+async function pintarCapturados() {
+  // 1) Traemos todos los Pokémon del servidor (JSON) y los indexamos por id.
+  const todos = await (await fetch('/api/pokemon')).json();
+  const porId = new Map(todos.map((p) => [p.id, p]));
+
+  // 2) De los ids capturados, armamos las fichas completas (y descartamos ids raros).
   const capturados = listaCapturados()
-    .map(buscarPorId)
+    .map((id) => porId.get(id))
     .filter(Boolean)
     .sort((a, b) => a.id - b.id);
 
-  // 1) Resumen de la tarjeta de sección: el número y los mini-sprites
+  // 3) Resumen de la tarjeta de sección: el número y los mini-sprites.
   const detalle = document.querySelector('.seccion--capturados .seccion__detalle');
   if (detalle) {
     detalle.textContent = `${capturados.length} Pokémon en tu colección`;
@@ -30,7 +38,7 @@ function pintarCapturados() {
     mini.innerHTML = primeros + resto;
   }
 
-  // 2) Grilla dentro del diálogo "Pokémon capturados"
+  // 4) Grilla dentro del diálogo "Pokémon capturados".
   const grilla = document.querySelector('#modal-capturados .capturados');
   if (grilla) {
     if (capturados.length === 0) {
